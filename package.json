@@ -1,0 +1,39 @@
+{
+  "name": "mealpler",
+  "version": "1.0.0",
+  "description": "A SPA to plan meals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ditiashova/mealpler.git"
+  },
+  "keywords": [
+    "meal",
+    "planning"
+  ],
+  "author": "Inna Ditiashova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ditiashova/mealpler/issues"
+  },
+  "homepage": "https://github.com/ditiashova/mealpler#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-livereload": "^3.8.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.5",
+    "bootstrap": "^4.0.0-alpha.6",
+    "gulp-clean-css": "^3.5.0",
+    "gulp-dest": "^0.2.3",
+    "gulp-html-dependencies": "^1.1.0",
+    "gulp-inject": "^4.2.0",
+    "gulp-less": "^3.3.2",
+    "gulp-uglify": "^3.0.0",
+    "less": "^2.7.2"
+  }
+}
