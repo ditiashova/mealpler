@@ -5,6 +5,7 @@ let inject = require("gulp-inject");
 let cleanCSS = require('gulp-clean-css');
 let dest = require('gulp-dest');
 let livereload = require('gulp-livereload');
+let copy = require('gulp-copy');
 let path_dest = 'dist/';
 
 gulp.task('minify-css', function() {
@@ -37,10 +38,15 @@ gulp.task('index', function () {
         .pipe(gulp.dest('./'));
 });
 
+gulp.task('copy', function () {
+    return gulp.src(['./src/**/*.js', './src/*.js'])
+        .pipe(gulp.dest('dist/src'));
+});
+
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch('assets/css/*.less', ['css']);
 });
 
 
-gulp.task('default', ['css', 'minify-css', 'dependencies', 'index', 'watch']);
+gulp.task('dev', ['css', 'minify-css', 'dependencies', 'index', 'copy', 'watch']);

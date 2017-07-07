@@ -29,6 +29,7 @@
     "angular-route": "^1.6.5",
     "bootstrap": "^4.0.0-alpha.6",
     "gulp-clean-css": "^3.5.0",
+    "gulp-copy": "^1.0.0",
     "gulp-dest": "^0.2.3",
     "gulp-html-dependencies": "^1.1.0",
     "gulp-inject": "^4.2.0",
