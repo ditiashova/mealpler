@@ -28,6 +28,7 @@
     "angular": "^1.6.4",
     "angular-route": "^1.6.5",
     "bootstrap": "^4.0.0-alpha.6",
+    "del": "^3.0.0",
     "gulp-clean-css": "^3.5.0",
     "gulp-copy": "^1.0.0",
     "gulp-dest": "^0.2.3",

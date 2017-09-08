@@ -7,11 +7,12 @@ let dest = require('gulp-dest');
 let livereload = require('gulp-livereload');
 let copy = require('gulp-copy');
 let path_dest = 'dist/';
+let del = require('del');
 
 gulp.task('minify-css', function() {
     return gulp.src('assets/css/*.css')
         .pipe(cleanCSS({compatibility: 'ie8'}))
-        .pipe(gulp.dest('dist/css'));
+        /*.pipe(gulp.dest('dist/css'));*/
 });
 gulp.task('dependencies', function() {
     return gulp.src('index.html')
@@ -32,20 +33,24 @@ gulp.task('css', function(){
 gulp.task('index', function () {
     let target = gulp.src('./index.html');
     // It's not necessary to read the files (will speed up things), we're only after their paths:
-    let sources = gulp.src(['./src/**/*.js', './src/*.js'], {read: false});
+    let sources = gulp.src(['app.js','./src/**/*.js', './src/*.js', '.assets/css/*.css'], {read: false});
 
     return target.pipe(inject(sources))
         .pipe(gulp.dest('./'));
 });
 
 gulp.task('copy', function () {
-    return gulp.src(['./src/**/*.js', './src/*.js'])
+    return gulp.src(['./src/**/*.js', './src/*.js', './*.js'])
         .pipe(gulp.dest('dist/src'));
 });
 
 gulp.task('watch', function() {
     livereload.listen();
     gulp.watch('assets/css/*.less', ['css']);
+});
+
+gulp.task('clean', function () {
+    return del('./dist');
 });
 
 

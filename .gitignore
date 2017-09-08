@@ -46,4 +46,4 @@ fabric.properties
 
 .gitignore
 .idea/
-/assets/css/styles.less
+/dist
