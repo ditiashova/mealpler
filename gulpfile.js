@@ -36,7 +36,7 @@ gulp.task('index', function () {
     let sources = gulp.src(['app.js','./src/**/*.js', './src/*.js', '.assets/css/*.css'], {read: false});
 
     return target.pipe(inject(sources))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('.'));
 });
 
 gulp.task('copy', function () {

@@ -1,5 +1,5 @@
 let Mealpler = angular.module('Mealpler', [ngRoute]);
-app.config(function ($routeProvider) {
+Mealpler.config(function ($routeProvider) {
     $routeProvider
         .when('/',
             {
