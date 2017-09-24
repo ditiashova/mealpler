@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="description" content="Meal planning manager"/>
     <title>MEALpler</title>
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-route/angular-route.min.js"></script>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/lodash/dist/lodash.min.js"></script>
     <link rel="stylesheet" href="assets/css/styles.css">
-    <script src="src/app.js"></script>
 </head>
 <body ng-controller="MainCtrl">
     <header ng-include="'common/footer.html'"></header>
     <main data-ng-view="" class="container-fluid"></main>
 
     <!-- inject:js -->
-    <script src="/src/labels/labels.js"></script>
-    <script src="/app.js"></script>
-    <script src="/src/MainCtrl.js"></script>
-    <script src="/src/controllers/WeekPlannerCtrl.js"></script>
-    <script src="/src/services/requestExecutor.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <!--<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
+    <script src="node_modules/lodash/dist/lodash.min.js"></script>
+    <script src="src/labels/labels.js"></script>
+    <script src="app.js"></script>
+    <script src="src/services/requestExecutor.js"></script>
+    <script src="src/MainCtrl.js"></script>
+    <script src="src/controllers/WeekPlannerCtrl.js"></script>
     <!-- endinject -->
 
 </body>

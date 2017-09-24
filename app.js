@@ -1,11 +1,11 @@
-let Mealpler = angular.module('Mealpler', [ngRoute]);
+let Mealpler = angular.module('Mealpler', ['ngRoute', 'requestExecutor']);
 Mealpler.config(function ($routeProvider) {
-    $routeProvider
+    /*$routeProvider
         .when('/',
             {
                 templateUrl: 'src/dashboard/tmpl/dashboard.tmpl.html',
-                controller: 'DashboardController',
-                controllerAs: 'dashboard'
+                controller: 'WeekPlannerCtrl',
+                controllerAs: 'weekPlanner'
             })
-        .otherwise({redirectTo: '/'})
+        .otherwise({redirectTo: '/'});*/
 });

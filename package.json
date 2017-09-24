@@ -36,6 +36,7 @@
     "gulp-inject": "^4.2.0",
     "gulp-less": "^3.3.2",
     "gulp-uglify": "^3.0.0",
+    "jquery": "^3.2.1",
     "less": "^2.7.2"
   }
 }
