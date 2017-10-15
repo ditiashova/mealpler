@@ -1,3 +1,4 @@
-let label = {
+Mealpler.label = {
     "iHave": "I have...",
+    "weekPlanner": "A Week Planner"
 };
