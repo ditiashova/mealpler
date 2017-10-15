@@ -1,5 +1,5 @@
 .bg-primary {
-  background-color: #88C057 !important; }
+  background: linear-gradient(to right, rgba(136, 192, 87, 0), #88C057) !important; }
 
 html, body {
   height: 100vh; }
