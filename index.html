@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Meal planning manager"/>
-    <title>MEALpler</title>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no" />
+    <title>MealPler</title>
+    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body ng-controller="MainCtrl">
-    <header ng-include="'common/footer.html'"></header>
-    <main data-ng-view="" class="container-fluid"></main>
+<body ng-controller="MainCtrl as main">
+    <header ng-include="'src/partials/common/header.html'"></header>
+    <main data-ng-view></main>
+    <footer ng-include="'src/partials/common/footer.html'"></footer>
 
     <!-- inject:js -->
     <script src="node_modules/angular/angular.min.js"></script>
     <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
     <script src="node_modules/lodash/dist/lodash.min.js"></script>
-    <script src="src/labels/labels.js"></script>
     <script src="app.js"></script>
+    <script src="src/labels/labels.js"></script>
     <script src="src/services/requestExecutor.js"></script>
     <script src="src/MainCtrl.js"></script>
     <script src="src/controllers/WeekPlannerCtrl.js"></script>
