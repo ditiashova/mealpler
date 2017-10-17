@@ -1,4 +1,4 @@
-Mealpler.controller('MainCtrl', ['requestSrvc', function (request) {
+Mealpler.controller('MainCtrl', ['request', function (request) {
     let main = this;
-    main.label = Mealpler.label;
+    main.title = Mealpler.titles;
 }]);

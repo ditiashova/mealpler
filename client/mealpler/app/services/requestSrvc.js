@@ -1,4 +1,4 @@
-angular.module('requestExecutor', [], ['$provide', function ($provide) {
+angular.module('requestSrvc', [], ['$provide', function ($provide) {
     $provide.factory('request', ['$http', '$rootScope', '$location', function(http, rootScope, location) {
         let requestInstance;
         requestInstance = function(scope, security, url, data, onSuccess, onError, suppressNotification, requestId, authToken) {

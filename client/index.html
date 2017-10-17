@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="description" content="Meal planning manager"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no" />
-    <title>MealPler</title>
+    <title>Mealpler</title>
     <link rel="icon" href="assets/images/_favicon.ico">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body ng-controller="MainCtrl as main">
-    <header ng-include="'mealpler/dashboard/tmpl/header.html'"></header>
+    <header ng-include="'/mealpler/client/mealpler/tmpl/header.html'"></header>
     <main data-ng-view></main>
-    <footer ng-include="'mealpler/dashboard/tmpl/footer.html'"></footer>
+    <footer ng-include="'/mealpler/client/mealpler/tmpl/footer.html'"></footer>
 
     <!-- inject:js -->
     <script src="../node_modules/angular/angular.min.js"></script>
@@ -22,11 +22,15 @@
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../node_modules/lodash/dist/lodash.min.js"></script>
-    <script src="app.js"></script>
-    <script src="src/labels/labels.js"></script>
-    <script src="src/services/requestExecutor.js"></script>
-    <script src="src/MainCtrl.js"></script>
-    <script src="src/controllers/WeekPlannerCtrl.js"></script>
+    <script src="mealpler/Mealpler.js"></script>
+    <script src="mealpler/app/titles.js"></script>
+    <script src="mealpler/app/services/requestSrvc.js"></script>
+    <script src="mealpler/app/controllers/MainCtrl.js"></script>
+    <script src="mealpler/app/models/MealModel.js"></script>
+    <script src="mealpler/app/models/WeekModel.js"></script>
+    <script src="mealpler/dashboard/DashboardCtrl.js"></script>
+    <script src="mealpler/dashboard/week/WeekCtrl.js"></script>
+    <script src="mealpler/dashboard/week/day/DayCtrl.js"></script>
     <!-- endinject -->
 
 </body>

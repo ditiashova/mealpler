@@ -1,4 +1,4 @@
-Mealpler.service(WeekModel, function () {
+Mealpler.service('WeekModel', function () {
    let service = this;
    const week = [
        {id: 1, name: 'Sun', fullName: 'Sunday'},

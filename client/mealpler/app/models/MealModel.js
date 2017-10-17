@@ -1,4 +1,4 @@
-Mealpler.service(MealModel, function () {
+Mealpler.service('MealModel', function () {
     let service = this;
     const meals = [
         {id: 1, letter: 'B', fullName: 'Breakfast'},

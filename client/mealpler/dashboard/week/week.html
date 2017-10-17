@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="WeekCtrl as week">
     <div class="panel-heading">
         <h4 class="panel-title"></h4>
     </div>
@@ -6,12 +6,14 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th></th>
+                    <th ng-repeat="day in week.days">{{ day.name }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <td ng-repeat="day in week.days">
 
+                    </td>
                 </tr>
             </tbody>
         </table>
