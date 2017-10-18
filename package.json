@@ -29,6 +29,8 @@
     "angular-route": "^1.6.5",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "^4.0.0-beta",
+    "bootstrap-sass": "^3.3.7",
+    "components-font-awesome": "^4.6.3",
     "del": "^3.0.0",
     "gulp-clean-css": "^3.5.0",
     "gulp-copy": "^1.0.0",

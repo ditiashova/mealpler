@@ -11,8 +11,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td ng-repeat="day in week.days">
-
+                    <td ng-repeat="day in week.days" ng-controller="DayCtrl as day">
+                        <div ng-include="'mealpler/dashboard/week/day/day.html'"></div>
                     </td>
                 </tr>
             </tbody>

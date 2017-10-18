@@ -1,10 +1,30 @@
 .bg-primary {
   background: linear-gradient(to right, rgba(136, 192, 87, 0), #88C057) !important; }
 
+small {
+  font-size: 60%;
+  color: grey; }
+
 html, body {
   height: 100vh; }
 
-body {
-  height: 100vh; }
+/*styling for meals*/
+.meal {
+  padding: 10px 0 10px 5px; }
+
+.meal-breakfast {
+  background-color: greenyellow; }
+
+.meal-lunch {
+  background-color: yellow; }
+
+.meal-dinner {
+  background-color: lightblue; }
+
+.meal-snacks {
+  background-color: orange; }
+
+.meal-supper {
+  background-color: palevioletred; }
 
 /*# sourceMappingURL=main.css.map */
