@@ -5,10 +5,18 @@
     <meta name="description" content="Meal planning manager"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no" />
     <title>Mealpler</title>
+    <script src="https://unpkg.com/moment@2.17.1"></script>
+    <script src="https://unpkg.com/interactjs@1"></script>
+    <script src="https://unpkg.com/rrule@2"></script>
+    <!--<script src="https://unpkg.com/angular-bootstrap-colorpicker@3"></script>-->
+    <script src="https://unpkg.com/angular-bootstrap-calendar"></script>
+    <link href="https://unpkg.com/bootstrap@3/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="https://unpkg.com/angular-bootstrap-colorpicker@3/css/colorpicker.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/angular-bootstrap-calendar/dist/css/angular-bootstrap-calendar.min.css" rel="stylesheet">
     <link rel="icon" href="assets/images/_favicon.ico">
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />\
 </head>
 <body ng-controller="MainCtrl as main">
     <header ng-include="'/mealpler/client/mealpler/tmpl/header.html'"></header>
@@ -16,6 +24,7 @@
     <footer ng-include="'/mealpler/client/mealpler/tmpl/footer.html'"></footer>
 
     <!-- inject:js -->
+
     <script src="../node_modules/angular/angular.min.js"></script>
     <script src="../node_modules/angular-animate/angular-animate.js"></script>
     <script src="../node_modules/angular-route/angular-route.min.js"></script>
@@ -23,6 +32,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     <script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="https://unpkg.com/angular-bootstrap-calendar"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <!--<script src="../node_modules/jquery/dist/jquery.js"></script>-->
     <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
@@ -32,6 +42,7 @@
     <script src="mealpler/Mealpler.js"></script>
     <script src="mealpler/app/titles.js"></script>
     <script src="mealpler/app/services/requestSrvc.js"></script>
+    <script src="mealpler/app/services/alert.js"></script>
     <script src="mealpler/app/controllers/MainCtrl.js"></script>
     <script src="mealpler/app/models/MealModel.js"></script>
     <script src="mealpler/app/models/WeekModel.js"></script>
