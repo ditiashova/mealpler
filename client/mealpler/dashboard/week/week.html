@@ -14,10 +14,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <th ng-repeat="day in week.days">{{ day.name }}</th>
+                    <th ng-repeat="day in week.range track by day.id">{{ day.fullDay }}</th>
                 </tr>
                 <tr>
-                    <td ng-repeat="day in week.days" ng-controller="DayCtrl as day">
+                    <td ng-repeat="day in week.daysList" ng-controller="DayCtrl as day">
                         <div ng-include="'mealpler/dashboard/week/day/day.html'"></div>
                     </td>
                 </tr>
