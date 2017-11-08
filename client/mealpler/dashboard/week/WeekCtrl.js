@@ -1,4 +1,4 @@
-Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConfig) {
+Mealpler.controller('WeekCtrl', function (WeekModel, $scope, moment, alert, calendarConfig) {
     const datePicker = $('input[name="daterange"]');
     let week = this;
     week.days = WeekModel.weekDays();
@@ -12,7 +12,14 @@ Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConf
         console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
     });
     datePicker.on('apply.daterangepicker', function (e, picker) {
-        // change for event with choosing new range
+        const startDate = picker.startDate._d.getDay();
+            /*startDay = picker.startDate._d.getDay()*/
+        week.viewDate = new Date(startDate);
+        /*moment.updateLocale('en_gb', {
+         week : {
+         dow :  startDay// Monday is the first day of the week
+         }
+         });*/
     });
 
     //calendar
@@ -34,18 +41,18 @@ Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConf
         {
             title: 'An event',
             color: calendarConfig.colorTypes.warning,
-            startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-            endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+            startsAt: moment().startOf('day').add(8, 'hours').toDate(),
+            endsAt: moment().startOf('day').add(2, 'hours').toDate(),
             draggable: true,
-            resizable: true,
+            resizable: false,
             actions: actions
         }, {
             title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
             color: calendarConfig.colorTypes.info,
-            startsAt: moment().subtract(1, 'day').toDate(),
-            endsAt: moment().add(5, 'days').toDate(),
+            startsAt: moment().startOf('day').add(8, 'hours').toDate(),
+            endsAt: moment().startOf('day').add(5, 'hours').toDate(),
             draggable: true,
-            resizable: true,
+            resizable: false,
             actions: actions
         }, {
             title: 'This is a really long event title that occurs on every year',
@@ -61,7 +68,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConf
             color: calendarConfig.colorTypes.warning,
             startsAt: moment().startOf('month').toDate(),
             endsAt: moment().startOf('month').add(1, 'hour').toDate(), //ends at is required
-            resizable: true
+            resizable: false
         }
     ];
 
@@ -74,7 +81,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConf
             endsAt: moment().endOf('day').toDate(),
             color: calendarConfig.colorTypes.important,
             draggable: true,
-            resizable: true
+            resizable: false
         });
     };
 
@@ -117,6 +124,10 @@ Mealpler.controller('WeekCtrl', function (WeekModel, moment, alert, calendarConf
                 week.viewDate = date;
             }
         }
-
     };
+    moment.locale('en_gb', {
+        week : {
+            dow : 1 // Monday is the first day of the week
+        }
+    });
 });

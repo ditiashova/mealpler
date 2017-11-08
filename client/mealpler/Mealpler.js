@@ -9,4 +9,10 @@ Mealpler.config(function ($routeProvider) {
                 controllerAs: 'dashboard'
             })
         .otherwise({redirectTo: '/'});
-});
+})
+    .config(['calendarConfig', function(calendarConfig) {
+
+        calendarConfig.dateFormatter = 'moment'; // use moment to format dates
+        calendarConfig.templates.calendarWeekView = 'mealpler/dashboard/week/weekTemplate.html';
+
+    }]);
