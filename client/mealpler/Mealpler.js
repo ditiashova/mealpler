@@ -1,5 +1,4 @@
-let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'requestSrvc', 'ui.bootstrap', 'ui.bootstrap.tpls',
-    'mwl.calendar']);
+let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'requestSrvc', 'ui.bootstrap', 'ui.bootstrap.tpls']);
 Mealpler.config(function ($routeProvider) {
     $routeProvider
         .when('/',
@@ -9,10 +8,4 @@ Mealpler.config(function ($routeProvider) {
                 controllerAs: 'dashboard'
             })
         .otherwise({redirectTo: '/'});
-})
-    .config(['calendarConfig', function(calendarConfig) {
-
-        calendarConfig.dateFormatter = 'moment'; // use moment to format dates
-        calendarConfig.templates.calendarWeekView = 'mealpler/dashboard/week/weekTemplate.html';
-
-    }]);
+});
