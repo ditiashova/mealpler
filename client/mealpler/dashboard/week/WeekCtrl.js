@@ -1,4 +1,4 @@
-Mealpler.controller('WeekCtrl', function (WeekModel, $scope, moment) {
+Mealpler.controller('WeekCtrl', function (WeekModel, $scope) {
     const datePicker = $('input[name="daterange"]');
     let week = this;
     week.days = WeekModel.weekDays();
