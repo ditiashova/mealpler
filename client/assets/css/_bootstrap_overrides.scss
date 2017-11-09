@@ -2,5 +2,14 @@
   background: linear-gradient(to right, rgba(136, 192, 87, 0.0), $color) !important
 }
 small {
+  font-size: 70%;
   color: grey;
+}
+
+hr {
+  margin: 2px 0 10px 0;
+}
+
+i.fa-plus:hover {
+  cursor: pointer;
 }

@@ -30,7 +30,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, $scope) {
                 return a.id === moment(d).day();
             })
         });*/
-        week.range.map(function(d) {d.dayName = moment(d).format('dddd'); d.fullDay = moment(d).format('dddd, Do')});
+        week.range.map(function(d) {d.dayName = moment(d).format('dddd'); d.fullDay = moment(d).format('dddd, Do'); d.fullDate = moment(d).format('YYYY-M-D')});
         let a;
     })();
 });
