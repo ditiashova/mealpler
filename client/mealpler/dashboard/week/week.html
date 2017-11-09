@@ -1,29 +1,22 @@
-<div class="panel panel-default" ng-controller="WeekCtrl as week">
-    <div class="panel-heading">
-        <h4 class="panel-title"></h4>
-    </div>
-    <div class="panel-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th colspan="7">
-                        <input name="daterange" id="daterange" title="datePicker" style="float: right;"/>
-                    </th>
-                </tr>
+<div class="panel-body" ng-controller="WeekCtrl as week">
+    <table class="table">
+        <thead>
+            <tr>
+                <th colspan="7">
+                    <input name="daterange" id="daterange" title="datePicker" style="float: right;"/>
+                </th>
+            </tr>
 
-            </thead>
-            <tbody>
-                <tr>
-                    <th ng-repeat="day in week.range track by day.id">{{ day.fullDay }}</th>
-                </tr>
-                <tr>
-                    <td ng-repeat="day in week.daysList" ng-controller="DayCtrl as day">
-                        <div ng-include="'mealpler/dashboard/week/day/day.html'"></div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    </div>
+        </thead>
+        <tbody>
+            <tr>
+                <th ng-repeat="day in week.range track by day.id">{{ day.fullDay }}</th>
+            </tr>
+            <tr>
+                <td ng-repeat="day in week.daysList" ng-controller="DayCtrl as day">
+                    <div ng-include="'mealpler/dashboard/week/day/day.html'"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
