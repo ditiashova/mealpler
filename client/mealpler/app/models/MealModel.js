@@ -12,7 +12,7 @@ Mealpler.service('MealModel', function () {
         let availableItems = service.getMealsList();
 
         //check if we have such already
-        let oldItemContent = availableItems.filter(a => a.date === itemName);
+        let oldItemContent = availableItems.length > 0 ? availableItems.filter(a => a.date === itemName) : [];
 
         if (oldItemContent.length > 0) {
             let newItemContent = {};
@@ -31,7 +31,8 @@ Mealpler.service('MealModel', function () {
     };
 
     service.findMealList = function(forData) {
-        return service.getMealsList().filter(a => a.date === forData).mealsList;
+        let list = service.getMealsList();
+        return list != null ? list.filter(a => a.date === forData).mealsList : list;
     };
 
     service.getMealsList = function () {
@@ -41,7 +42,7 @@ Mealpler.service('MealModel', function () {
         } catch (error) {
             console.log(error);
         }
-        return all;
+        return all != null ? all : [];
     };
 
     service.mealsList = function () {
