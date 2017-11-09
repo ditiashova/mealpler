@@ -8,7 +8,6 @@ Mealpler.controller('DayCtrl', function (MealModel) {
         "hasIngredients": false
     };
 
-    day.mealsList = angular.copy(MealModel.mealsList());
     day.setCurrentMeal = function (meal, date) {
         day.currentMeal = angular.copy(meal);
         day.currentDate = moment(date);
@@ -33,9 +32,8 @@ Mealpler.controller('DayCtrl', function (MealModel) {
     };
 
     day.init = function () {
-        //check if we have smth. already
-        day.mealsList = MealModel.findMealList(day.date);
-        day.mealsList = 0;
+        let list = MealModel.findMealList(day.date);
+        day.mealsList = list != null ? list : angular.copy(MealModel.mealsList());
     };
 
     day.init();
