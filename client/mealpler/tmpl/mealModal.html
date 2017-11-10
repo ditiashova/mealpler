@@ -5,20 +5,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close pull-right" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Items for the Meal({{ day.currentMeal.mealName }})</h4>
+                <h4 class="modal-title">Add Items for the Meal({{ week.currentMeal.mealName }})</h4>
             </div>
             <div class="modal-body">
-                <div ng-repeat="item in day.currentMeal.mealList track by $index">
+                <div ng-repeat="item in week.currentMeal.mealList track by $index">
                     <label>
                         <small>{{ item.name }}<br/></small>
                         <input ng-model="item.name" placeholder="Add new item"/><br/>
                     </label>
                     <br/>
                 </div>
-                <i class="fa fa-plus" aria-hidden="true" ng-click="day.createNewMealItem()"></i>
+                <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewMealItem(week.currentMeal)"></i>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="day.saveCurrentMeal()">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="week.day.saveMeal(week.currentMeal, week.currentDate)">Add</button>
             </div>
         </div>
 
