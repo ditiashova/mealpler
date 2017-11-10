@@ -7,32 +7,58 @@ Mealpler.service('MealModel', function () {
         {id: 4, mealNo: 4, mealName: 'supper', mealList: []},
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
-    service.updateMealInfo = function (dayMeal) {
-        let itemName = moment(dayMeal.currentDate).format('YYYY-M-D');
-        let availableItems = service.getMealsList();
+    service.updateMealInfo = function (dayMeal, date) {
+        let itemName = moment(date).format('YYYY-M-D');
+        let availableItems = service.getMealsList(); //get all items
 
         //check if we have such already
-        let oldItemContent = availableItems.length > 0 ? availableItems.filter(a => a.date === itemName) : [];
+        let oldDayContent = availableItems.length > 0 ? availableItems.filter(a => a.fullDate === itemName) : []; //check if we already have smth. for this DAY
 
-        if (oldItemContent.length > 0) {
+
+        if (oldDayContent.length > 0) {
             let newItemContent = {};
-            newItemContent.mealsList = angular.copy(dayMeal.mealsList);
-            availableItems.map(a => a.date === itemName ? a.mealsList = angular.copy(dayMeal.mealsList) : '');
+            //wrong here. need to find mealList for specific meal, not for all day
+            newItemContent.mealList = angular.copy(dayMeal.mealList);
+            availableItems.map(a => a.date === itemName ? a.mealList.filter(b => b.mealName === dayMeal.mealName).mealList = angular.copy(dayMeal.mealList) : '');
             localStorage.setItem("MealData", JSON.stringify(availableItems));
-        } else {
+        } else { //if there is no data for this day
             let itemContent = {};
-            itemContent.date = itemName;
-            itemContent.day = moment(dayMeal.currentDate).format('dddd');
-            itemContent.dayNo = moment(dayMeal.currentDate).day();
-            itemContent.mealsList = angular.copy(dayMeal.mealsList);
+            itemContent.fullDate = itemName;
+            itemContent.dayName = moment(date).format('dddd');
+            itemContent.dayNo = moment(date).day();
+            itemContent.mealsList = [];
+            itemContent.mealsList.push(angular.copy(dayMeal));
             availableItems.push(itemContent);
             localStorage.setItem("MealData", JSON.stringify(availableItems))
         }
     };
 
     service.findMealList = function(forData) {
-        let list = service.getMealsList();
-        return list != null ? list.filter(a => a.date === forData).mealsList : list;
+        let data = service.getMealsList().filter(a => a.fullDate === forData);
+        if (data.length === 0) return meals;
+        if (data != undefined) {
+            if (data[0].mealsList === undefined) {
+                return meals; //empty meals
+            } else {
+                for (let i = 0; i < meals.length; i++) {
+                    let k = data[0].mealsList.filter(b => b.mealNo === meals[i].mealNo);
+                    if (k.length === 0) {
+                        data[0].mealsList.push(meals[i]);
+                    } else {
+                        //just leave as it is
+                        /*data[0].mealsList.push(k[0]);*/
+                    }
+                }
+                return data[0].mealsList;
+            }
+        }
+        /*meals.forEach(a => data.map(function(b) {
+            if (a.mealNo === b.mealNo) {
+                data.push(a);
+            }
+        }));*/
+        //return data.length > 0 ? data[0].mealsList : service.emptyMealsList()
+        /*return list != null ? list.filter(a => a.date === forData).mealsList : list;*/
     };
 
     service.getMealsList = function () {
@@ -45,7 +71,7 @@ Mealpler.service('MealModel', function () {
         return all != null ? all : [];
     };
 
-    service.mealsList = function () {
+    service.emptyMealsList = function () {
         return meals;
     };
 });
