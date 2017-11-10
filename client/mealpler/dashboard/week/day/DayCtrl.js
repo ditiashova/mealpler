@@ -33,7 +33,7 @@ Mealpler.controller('DayCtrl', function (MealModel) {
 
     day.init = function () {
         let list = MealModel.findMealList(day.date);
-        day.mealsList = list != null ? list : angular.copy(MealModel.mealsList());
+        day.mealsList = list != null ? list : angular.copy(MealModel.emptyMealsList());
     };
 
     day.init();
