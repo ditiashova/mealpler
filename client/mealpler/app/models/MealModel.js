@@ -22,17 +22,11 @@ Mealpler.service('MealModel', function () {
                 availableItems.map(a => a.fullDate === itemDate ? a.mealsList.push(dayMeal) : '');
                 localStorage.setItem("MealData", JSON.stringify(availableItems));
             } else if (oldItemContent.length > 0) {
-                let extraItemContent = {};
-                extraItemContent.mealList = angular.copy(dayMeal.mealList);
                 availableItems.map(a => a.fullDate === itemDate ? (a.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList) : '');
                 localStorage.setItem("MealData", JSON.stringify(availableItems));
             }
         } else { //if there is no data for this day
-            let itemContent = {};
-            itemContent.fullDate = itemDate;
-            itemContent.dayName = moment(date).format('dddd');
-            itemContent.dayNo = moment(date).day();
-            itemContent.mealsList = [];
+            let itemContent = service.createNewDay(date);
             itemContent.mealsList.push(angular.copy(dayMeal));
             availableItems.push(itemContent);
             localStorage.setItem("MealData", JSON.stringify(availableItems))
@@ -68,6 +62,15 @@ Mealpler.service('MealModel', function () {
             console.log(error);
         }
         return all != null ? all : [];
+    };
+
+    service.createNewDay = function (date) {
+        let day = {};
+        day.fullDate = moment(date).format('YYYY-M-D');
+        day.dayName = moment(date).format('dddd');
+        day.dayNo = moment(date).day();
+        day.mealsList = [];
+        return day;
     };
 
     service.emptyMealsList = function () {
