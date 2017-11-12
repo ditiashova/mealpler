@@ -8,7 +8,7 @@
                 <h4 class="modal-title">Add Items for the Meal({{ week.currentMeal.mealName }})</h4>
             </div>
             <div class="modal-body">
-                <div ng-repeat="item in week.currentMeal.mealList track by $index" class="row">
+                <div ng-repeat="item in week.newMealItems.mealList track by $index" class="row">
                     <div class="col-xs-10">
                         <input ng-model="item.name" placeholder="Add new item" class="form-control"/>
                     </div>
@@ -16,10 +16,10 @@
                         <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
                     </div>
                 </div>
-                <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewMealItem(week.currentMeal)"></i>
+                <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewMealItem(week.newMealItems.mealList)"></i>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="week.day.saveMeal(week.currentMeal, week.currentDate)">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="week.day.saveMeal(week.currentMeal, week.currentDate, week.newMealItems)">Add</button>
             </div>
         </div>
 

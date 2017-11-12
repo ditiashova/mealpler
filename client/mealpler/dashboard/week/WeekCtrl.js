@@ -34,11 +34,14 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     week.day.setCurrentMeal = function (meal, date) {
         week.currentMeal = angular.copy(meal);
         week.currentDate = moment(date);
-        week.day.createNewMealItem(week.currentMeal);
+        week.newMealItems = {};
+        week.newMealItems.mealList = [];
+        week.day.createNewMealItem(week.newMealItems);
     };
 
-    week.day.saveMeal = function (meal,date) {
+    week.day.saveMeal = function (meal,date, newMeal) {
         /*meal.mealList.push(meal.newItems);*/
+        meal.mealList = meal.mealList.concat(newMeal.mealList);
         MealModel.updateMealInfo(meal,date);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
