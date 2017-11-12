@@ -38,6 +38,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     };
 
     week.day.saveMeal = function (meal,date) {
+        /*meal.mealList.push(meal.newItems);*/
         MealModel.updateMealInfo(meal,date);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
@@ -55,6 +56,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
         calculateWeekRange();
         //get meal's list for each day of week range
         loadMealsDataForWeek();
+        week.day.refreshCurrentMeal();
     };
 
     week.init();

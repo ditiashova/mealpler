@@ -8,27 +8,28 @@ Mealpler.service('MealModel', function () {
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
     service.updateMealInfo = function (dayMeal, date) {
-        let itemName = moment(date).format('YYYY-M-D');
+        let itemDate = moment(date).format('YYYY-M-D');
         let availableItems = service.getMealsList(); //get all items
 
-        //check if we have such already
-        let oldDayContent = availableItems.length > 0 ? availableItems.filter(a => a.fullDate === itemName) : []; //check if we already have smth. for this DAY
-
+        //check if we already have smth. for this DAY
+        let oldDayContent = availableItems.length > 0 ? availableItems.filter(a => a.fullDate === itemDate) : []; 
 
         if (oldDayContent.length > 0) {
-            let oldItemContent = oldDayContent[0].mealsList.filter(old => old.mealNo === dayMeal.mealNo); //check if we already have smth. for this MEAL
+            //check if we already have smth. for this MEAL
+            let oldItemContent = oldDayContent[0].mealsList.filter(old => old.mealNo === dayMeal.mealNo); 
+            
             if (oldItemContent.length === 0) {
-                availableItems.map(a => a.fullDate === itemName ? a.mealsList.push(dayMeal) : '');
+                availableItems.map(a => a.fullDate === itemDate ? a.mealsList.push(dayMeal) : '');
                 localStorage.setItem("MealData", JSON.stringify(availableItems));
-            } else if (oldItemContent > 0) {
+            } else if (oldItemContent.length > 0) {
                 let extraItemContent = {};
                 extraItemContent.mealList = angular.copy(dayMeal.mealList);
-                availableItems.map(a => a.fullDate === itemName ? a.mealsList.filter(b => b.mealName === dayMeal.mealName).mealList.push(extraItemContent.mealList) : '');
+                availableItems.map(a => a.fullDate === itemDate ? (a.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList) : '');
                 localStorage.setItem("MealData", JSON.stringify(availableItems));
             }
         } else { //if there is no data for this day
             let itemContent = {};
-            itemContent.fullDate = itemName;
+            itemContent.fullDate = itemDate;
             itemContent.dayName = moment(date).format('dddd');
             itemContent.dayNo = moment(date).day();
             itemContent.mealsList = [];
