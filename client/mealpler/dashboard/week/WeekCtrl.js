@@ -12,7 +12,6 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
         "hasIngredients": false
     };
 
-    /*week.daysList = WeekModel.weekDays();*/
     //settings for Date Range Picker
     datePicker.daterangepicker({
         "dateLimit": {
@@ -22,13 +21,14 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     }, function(start, end, label) {
 
     });
+
     datePicker.on('apply.daterangepicker', function (e, picker) {
         const startDate = picker.startDate._d.getDay();
         week.viewDate = new Date(startDate);
     });
+
     //moment
     week.firstDayOfWeek = moment(); //today
-
 
     //day settings
     week.day.setCurrentMeal = function (meal, date) {
@@ -74,31 +74,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     function loadMealsDataForWeek() {
         week.range.map(function (d) {
             d.mealsList = angular.copy(MealModel.findMealList(d.fullDate));
-            /*let availableMeals = angular.copy(MealModel.findMealList(d.fullDate));
-            let empty = MealModel.emptyMealsList();
-            empty.forEach(function(a) {
-                if (availableMeals === undefined) {
-                    d.mealsList.push(a)
-                } else {
-                    if (availableMeals)
-                    availableMeals.forEach(function (b) {
-                        if (b.mealName === a.mealName) {
-                            d.mealsList.push(b);
-                        } else d.mealsList.push(a);
-                    })
-                }
-            });*/
-            /*availableMeals.forEach(function(a) {
-                MealModel.emptyMealsList().map(function(b) {
-                    if (a.mealName === b.mealName) {
-                        d.mealsList.push(a);
-                    } else {
-                        d.mealsList.push(b);
-                    }
-                })
-            });*/
         });
-        /*console.log(week.range);*/
     }
 });
 
