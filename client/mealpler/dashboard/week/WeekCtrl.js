@@ -98,7 +98,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
                 })
             });*/
         });
-        console.log(week.range);
+        /*console.log(week.range);*/
     }
 });
 

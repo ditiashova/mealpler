@@ -16,11 +16,19 @@ Mealpler.service('MealModel', function () {
 
 
         if (oldDayContent.length > 0) {
-            let newItemContent = {};
-            //wrong here. need to find mealList for specific meal, not for all day
-            newItemContent.mealList = angular.copy(dayMeal.mealList);
-            availableItems.map(a => a.date === itemName ? a.mealList.filter(b => b.mealName === dayMeal.mealName).mealList = angular.copy(dayMeal.mealList) : '');
-            localStorage.setItem("MealData", JSON.stringify(availableItems));
+            let oldItemContent = oldDayContent[0].mealsList.filter(old => old.mealNo === dayMeal.mealNo); //check if we already have smth. for this MEAL
+            if (oldItemContent.length === 0) {
+                //let newItemContent = {};
+                //wrong here. need to find mealList for specific meal, not for all day
+                //newItemContent.mealList = angular.copy(dayMeal.mealList);
+                availableItems.map(a => a.fullDate === itemName ? a.mealsList.push(dayMeal) : '');
+                localStorage.setItem("MealData", JSON.stringify(availableItems));
+            } else if (oldItemContent > 0) {
+                let extraItemContent = {};
+                extraItemContent.mealList = angular.copy(dayMeal.mealList);
+                availableItems.map(a => a.fullDate === itemName ? a.mealsList.filter(b => b.mealName === dayMeal.mealName).mealList.push(extraItemContent.mealList) : '');
+                localStorage.setItem("MealData", JSON.stringify(availableItems));
+            }
         } else { //if there is no data for this day
             let itemContent = {};
             itemContent.fullDate = itemName;
