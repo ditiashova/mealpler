@@ -16,7 +16,7 @@
                 <td ng-repeat="day in week.range track by day.id">
                     <div class="col-xs-12 meal" ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" ng-class="'meal-'+meal.mealName">
                         <small>{{ meal.mealName }}</small><hr/>
-                        <div ng-repeat="item in meal.mealList">{{ item.name }}</div>
+                        <div ng-repeat="item in meal.mealList">{{ item.name }} | {{ item.quantity }}</div>
                         <i class="fa fa-plus" aria-hidden="true" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>
                     </div>
                     <div ng-include="'mealpler/tmpl/mealModal.html'"></div>

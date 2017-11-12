@@ -8,12 +8,13 @@
                 <h4 class="modal-title">Add Items for the Meal({{ week.currentMeal.mealName }})</h4>
             </div>
             <div class="modal-body">
-                <div ng-repeat="item in week.currentMeal.mealList track by $index">
-                    <label>
-                        <small>{{ item.name }}<br/></small>
-                        <input ng-model="item.name" placeholder="Add new item"/><br/>
-                    </label>
-                    <br/>
+                <div ng-repeat="item in week.currentMeal.mealList track by $index" class="row">
+                    <div class="col-xs-10">
+                        <input ng-model="item.name" placeholder="Add new item" class="form-control"/>
+                    </div>
+                    <div class="col-xs-2">
+                        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
+                    </div>
                 </div>
                 <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewMealItem(week.currentMeal)"></i>
             </div>
