@@ -17,3 +17,11 @@
 .meal-supper {
   background-color: palevioletred;
 }
+
+.delete-item {
+  display: none;
+}
+
+.item:hover > .delete-item {
+  display: inline;
+}

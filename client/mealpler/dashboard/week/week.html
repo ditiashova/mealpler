@@ -14,12 +14,21 @@
             </tr>
             <tr>
                 <td ng-repeat="day in week.range track by day.id">
-                    <div class="col-xs-12 meal" ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" ng-class="'meal-'+meal.mealName">
+                    <div  ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="col-xs-12 meal" ng-class="'meal-'+meal.mealName">
                         <small>{{ meal.mealName }}</small><hr/>
-                        <div ng-repeat="item in meal.mealList">{{ item.name }} | {{ item.quantity }}</div>
-                        <i class="fa fa-plus" aria-hidden="true" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>
+                        <div ng-repeat="item in meal.mealList" class="item">
+                            {{ item.name }} |
+                            {{ item.quantity }} |
+                            <span class="delete-item"><i class="fa fa-times" ng-click="week.day.deleteItem(item, day)"></i></span>
+                        </div>
+                        <div class="text-center">
+                            <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>
+                        </div>
+                        <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmMealDelete"
+                           ng-click="week.day.setCurrentMeal(meal, day)" ng-show="meal.hasMeals"></i>
                     </div>
                     <div ng-include="'mealpler/tmpl/mealModal.html'"></div>
+                    <div ng-include="'mealpler/tmpl/confirmMealDelete.html'"></div>
                 </td>
             </tr>
         </tbody>

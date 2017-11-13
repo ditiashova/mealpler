@@ -34,15 +34,18 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     week.day.setCurrentMeal = function (meal, date) {
         week.currentMeal = angular.copy(meal);
         week.currentDate = moment(date);
-        week.newMealItems = {};
-        week.newMealItems.mealList = [];
         week.day.createNewMealItem(week.newMealItems);
     };
 
-    week.day.saveMeal = function (meal,date, newMeal) {
-        /*meal.mealList.push(meal.newItems);*/
-        meal.mealList = meal.mealList.concat(newMeal.mealList);
-        MealModel.updateMealInfo(meal,date);
+    week.day.saveMeal = function (meal,date,newMeal) {
+        let updatedMeal = meal.mealList.concat(newMeal.mealList);
+        MealModel.saveMealInfo(updatedMeal,date);
+        week.day.refreshCurrentMeal();
+        loadMealsDataForWeek();
+    };
+
+    week.day.deleteMeal = function (meal, date) {
+        MealModel.deleteAllMeal(meal, date);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
     };
@@ -53,6 +56,12 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
 
     week.day.refreshCurrentMeal = function () {
         week.currentMeal = {}; week.currentDate = '';
+        week.day.refreshNewMealItems();
+    };
+
+    week.day.refreshNewMealItems = function () {
+        week.newMealItems = {};
+        week.newMealItems.mealList = [];
     };
 
     week.init = function () {
@@ -79,6 +88,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     function loadMealsDataForWeek() {
         week.range.map(function (d) {
             d.mealsList = angular.copy(MealModel.findMealList(d.fullDate));
+            d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
     }
 });

@@ -7,7 +7,7 @@ Mealpler.service('MealModel', function () {
         {id: 4, mealNo: 4, mealName: 'supper', mealList: []},
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
-    service.updateMealInfo = function (dayMeal, date) {
+    service.saveMealInfo = function (dayMeal, date) {
         let itemDate = moment(date).format('YYYY-M-D');
         let availableItems = service.getMealsList(); //get all items
 
@@ -20,17 +20,30 @@ Mealpler.service('MealModel', function () {
             
             if (oldItemContent.length === 0) {
                 availableItems.map(a => a.fullDate === itemDate ? a.mealsList.push(dayMeal) : '');
-                localStorage.setItem("MealData", JSON.stringify(availableItems));
+                service.updateMealsList(availableItems);
             } else if (oldItemContent.length > 0) {
                 availableItems.map(a => a.fullDate === itemDate ? (a.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList) : '');
-                localStorage.setItem("MealData", JSON.stringify(availableItems));
+                service.updateMealsList(availableItems);
             }
         } else { //if there is no data for this day
             let itemContent = service.createNewDay(date);
             itemContent.mealsList.push(angular.copy(dayMeal));
             availableItems.push(itemContent);
-            localStorage.setItem("MealData", JSON.stringify(availableItems))
+            service.updateMealsList(availableItems);
         }
+    };
+
+    service.deleteAllMeal = function (mealName, date) {
+        let itemDate = moment(date).format('YYYY-M-D');
+        let availableItems = service.getMealsList(); //get all items
+        let i = availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.findIndex(b => b.mealName === mealName);
+        availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.splice(i, 1);
+        service.updateMealsList(availableItems);
+
+    };
+
+    service.deleteItemMeal = function (item, mealName, date) {
+
     };
 
     service.findMealList = function(forData) {
@@ -62,6 +75,10 @@ Mealpler.service('MealModel', function () {
             console.log(error);
         }
         return all != null ? all : [];
+    };
+
+    service.updateMealsList = function (newData) {
+        localStorage.setItem("MealData", JSON.stringify(newData));
     };
 
     service.createNewDay = function (date) {
