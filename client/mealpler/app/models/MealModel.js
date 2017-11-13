@@ -43,7 +43,11 @@ Mealpler.service('MealModel', function () {
     };
 
     service.deleteItemMeal = function (item, mealName, date) {
-
+        let itemDate = moment(date).format('YYYY-M-D');
+        let availableItems = service.getMealsList(); //get all items
+        let i = availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.filter(b => b.mealName === mealName)[0].mealList.findIndex(b => b.name === item.name && b.quantity === item.quantity);
+        availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.filter(b => b.mealName === mealName)[0].mealList.splice(i, 1);
+        service.updateMealsList(availableItems);
     };
 
     service.findMealList = function(forData) {

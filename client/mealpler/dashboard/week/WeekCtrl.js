@@ -50,6 +50,11 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
         loadMealsDataForWeek();
     };
 
+    week.day.deleteItem = function (item, mealName, date) {
+        MealModel.deleteItemMeal(item, mealName, date);
+        loadMealsDataForWeek();
+    };
+
     week.day.createNewMealItem = function (forMeal) {
         forMeal.mealList.push(angular.copy(defaultMeal));
     };
