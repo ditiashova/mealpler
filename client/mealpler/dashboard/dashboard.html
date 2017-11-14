@@ -1,11 +1,33 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-controller="DashboardCtrl as dashboard">
     <div class="row">
         <div class="col-lg-3">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">{{ main.title['fridge'] }}</h2>
+                <div class="panel-heading" style="padding-bottom: 0;border-bottom: 0">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#fridge" role="tab">
+                                <h2 class="panel-title">{{ main.title['fridge'] }}</h2>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#groceryList" role="tab">
+                                <h2 class="panel-title">{{ main.title['groceryList'] }}</h2>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-                <div ng-include="'mealpler/dashboard/fridge/fridge.html'"></div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div id="fridge" class="tab-pane fade in active" role="tabpanel">
+                            <div ng-include="'mealpler/dashboard/fridge/fridge.html'"></div>
+                        </div>
+                        <div id="groceryList" class="tab-pane fade" role="tabpanel">
+                            <h3>Menu 1</h3>
+                            <p>Some content in menu 1.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="col-lg-9">

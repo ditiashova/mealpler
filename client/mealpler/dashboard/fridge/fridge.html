@@ -1,3 +1,8 @@
-<div class="panel-body">
-
+<div ng-repeat="item in dashboard.pantry.fridgeList track by $index" class="row">
+    <div class="col-xs-10">
+        <input ng-model="item.name" placeholder="Add new item" name="mealName" class="form-control"/>
+    </div>
+    <div class="col-xs-2">
+        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
+    </div>
 </div>
