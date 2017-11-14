@@ -33,7 +33,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     //day settings
     week.day.setCurrentMeal = function (meal, date) {
         week.currentMeal = angular.copy(meal);
-        week.currentDate = moment(date);
+        week.currentDate = date;
         week.day.createNewMealItem(week.newMealItems);
     };
 
@@ -92,7 +92,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
 
     function loadMealsDataForWeek() {
         week.range.map(function (d) {
-            d.mealsList = angular.copy(MealModel.findMealList(d.fullDate));
+            d.mealsList = angular.copy(MealModel.findMealList(d));
             d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
     }

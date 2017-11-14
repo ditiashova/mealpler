@@ -8,81 +8,74 @@ Mealpler.service('MealModel', function () {
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
     service.saveMealInfo = function (dayMeal, date) {
-        let itemDate = moment(date).format('YYYY-M-D');
-        let availableItems = service.getMealsList(); //get all items
+        let storedDay = service.getMealsList(date.fullDate);
 
-        //check if we already have smth. for this DAY
-        let oldDayContent = availableItems.length > 0 ? availableItems.filter(a => a.fullDate === itemDate) : []; 
-
-        if (oldDayContent.length > 0) {
-            //check if we already have smth. for this MEAL
-            let oldItemContent = oldDayContent[0].mealsList.filter(old => old.mealNo === dayMeal.mealNo); 
-            
-            if (oldItemContent.length === 0) {
-                availableItems.map(a => a.fullDate === itemDate ? a.mealsList.push(dayMeal) : '');
-                service.updateMealsList(availableItems);
-            } else if (oldItemContent.length > 0) {
-                availableItems.map(a => a.fullDate === itemDate ? (a.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList) : '');
-                service.updateMealsList(availableItems);
-            }
-        } else { //if there is no data for this day
+        //check if there is nothing for this day
+        if (storedDay === null) {
             let itemContent = service.createNewDay(date);
             itemContent.mealsList.push(angular.copy(dayMeal));
-            availableItems.push(itemContent);
-            service.updateMealsList(availableItems);
+            service.updateMealsList(date.fullDate,itemContent);
+        } else {
+            //check if we already have smth. for this MEAL
+            let oldItemContent = storedDay.mealsList.filter(old => old.mealNo === dayMeal.mealNo);
+
+            if (oldItemContent.length === 0) {
+                storedDay.mealsList.push(dayMeal);
+                service.updateMealsList(date.fullDate,storedDay);
+            } else {
+                storedDay.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList;
+                service.updateMealsList(date.fullDate,storedDay);
+            }
         }
     };
 
     service.deleteAllMeal = function (mealName, date) {
-        let itemDate = moment(date).format('YYYY-M-D');
-        let availableItems = service.getMealsList(); //get all items
-        let i = availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.findIndex(b => b.mealName === mealName);
-        availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.splice(i, 1);
-        service.updateMealsList(availableItems);
-
+        let availableItem = service.getMealsList(date.fullDate);
+        let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
+        availableItem.mealsList.splice(i, 1);
+        service.updateMealsList(date.fullDate,availableItem);
     };
 
     service.deleteItemMeal = function (item, mealName, date) {
-        let itemDate = moment(date).format('YYYY-M-D');
-        let availableItems = service.getMealsList(); //get all items
-        let i = availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.filter(b => b.mealName === mealName)[0].mealList.findIndex(b => b.name === item.name && b.quantity === item.quantity);
-        availableItems.filter(a => a.fullDate === itemDate)[0].mealsList.filter(b => b.mealName === mealName)[0].mealList.splice(i, 1);
-        service.updateMealsList(availableItems);
+        let availableItem = service.getMealsList(date.fullDate);
+        let currentMeals = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList;
+        let i = currentMeals.findIndex(b => b.name === item.name && b.quantity === item.quantity);
+        currentMeals.splice(i, 1);
+        service.updateMealsList(date.fullDate, availableItem);
     };
 
-    service.findMealList = function(forData) {
-        let data = service.getMealsList().filter(a => a.fullDate === forData);
-        if (data.length === 0) return meals;
-        if (data != undefined) {
-            if (data[0].mealsList === undefined) {
+    service.findMealList = function(date) {
+        let data = service.getMealsList(date.fullDate);
+        if (data === null) return meals;
+        if (data != null) {
+            if (data.mealsList === undefined) {
                 return meals; //empty meals
             } else {
                 for (let i = 0; i < meals.length; i++) {
-                    let k = data[0].mealsList.filter(b => b.mealNo === meals[i].mealNo);
+                    let k = data.mealsList.filter(b => b.mealNo === meals[i].mealNo);
                     if (k.length === 0) {
-                        data[0].mealsList.push(meals[i]);
+                        data.mealsList.push(meals[i]);
                     } else {
                         //just leave as it is
-                        /*data[0].mealsList.push(k[0]);*/
                     }
                 }
-                return data[0].mealsList;
+                return data.mealsList;
             }
         }
     };
 
-    service.getMealsList = function () {
+    service.getMealsList = function (forDate) {
         let all = [];
         try {
-            all = JSON.parse(localStorage.getItem("MealData"));
+            all = JSON.parse(localStorage.getItem(forDate));
         } catch (error) {
             console.log(error);
         }
-        return all != null ? all : [];
+        return all;
     };
 
-    service.updateMealsList = function (newData) {
-        localStorage.setItem("MealData", JSON.stringify(newData));
+    service.updateMealsList = function (date, newData) {
+        localStorage.setItem(date, JSON.stringify(newData));
     };
 
     service.createNewDay = function (date) {
