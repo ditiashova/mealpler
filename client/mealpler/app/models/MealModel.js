@@ -7,6 +7,13 @@ Mealpler.service('MealModel', function () {
         {id: 4, mealNo: 4, mealName: 'supper', mealList: []},
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
+    const defaultMeal = {
+        "name": "",
+        "type": "product",
+        "quantity": 1,
+        "hasIngredients": false
+    };
+
     service.saveMealInfo = function (dayMeal, date) {
         let storedDay = service.getMealsList(date.fullDate);
 
@@ -85,6 +92,10 @@ Mealpler.service('MealModel', function () {
         day.dayNo = moment(date).day();
         day.mealsList = [];
         return day;
+    };
+
+    service.createDefaultMeal = function () {
+        return defaultMeal;
     };
 
     service.emptyMealsList = function () {
