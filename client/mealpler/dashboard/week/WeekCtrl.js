@@ -38,8 +38,8 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     };
 
     week.day.saveMeal = function (meal,date,newMeal) {
-        let updatedMeal = meal.mealList.concat(newMeal.mealList);
-        MealModel.saveMealInfo(updatedMeal,date);
+        meal.mealList = meal.mealList.concat(newMeal.mealList);
+        MealModel.saveMealInfo(meal,date);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
     };
