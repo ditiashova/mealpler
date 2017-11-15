@@ -1,8 +1,32 @@
 <div ng-repeat="item in dashboard.pantry.fridgeList track by $index" class="row">
-    <div class="col-xs-10">
-        <input ng-model="item.name" placeholder="Add new item" name="mealName" class="form-control"/>
+    <div class="col-xs-8">
+        <span>{{ item.name }}</span>
     </div>
     <div class="col-xs-2">
-        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
+        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5"/>
     </div>
+    <div class="col-xs-2">
+        <i class="fa fa-check-circle" ng-click="dashboard.pantry.changeFridgeItemQuantity(item)" style="color:limegreen"></i>
+        <i class="fa fa-minus-circle" ng-click="dashboard.pantry.deleteItemFromFridge(item)" style="color:orangered"></i>
+        <i class="fa fa-arrow-circle-right" ng-click="dashboard.pantry.addItemToShop(item)" style="color:deepskyblue"></i>
+    </div>
+</div>
+<div class="row form-group">
+    <form name="newFridgeItemAdder" role="form" ng-submit="dashboard.pantry.addItemToFridge(dashboard.pantry.newFridgeItem)">
+        <div class="col-xs-8">
+            <input ng-model="dashboard.pantry.newFridgeItem.name" placeholder="e.g. Lasagna" name="mealName" class="form-control" minlength="2" required/>
+        </div>
+        <div class="col-xs-2">
+            <input ng-model="dashboard.pantry.newFridgeItem.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" required/>
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-success"><i class="fa fa-check-circle"></i></button>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmFridgeDelete" ng-show="dashboard.pantry.fridgeList.length > 0"></i>
+    </div>
+    <div ng-include="'mealpler/tmpl/confirmFridgeDelete.html'"></div>
 </div>

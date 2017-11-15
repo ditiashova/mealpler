@@ -4,13 +4,6 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     week.day = {};
 
     const datePicker = $('input[name="daterange"]');
-    const defaultMeal = {
-        /*"id": Math.random(),*/
-        "name": "",
-        "type": "product",
-        "quantity": 1,
-        "hasIngredients": false
-    };
 
     //settings for Date Range Picker
     datePicker.daterangepicker({
@@ -56,7 +49,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     };
 
     week.day.createNewMealItem = function (forMeal) {
-        forMeal.mealList.push(angular.copy(defaultMeal));
+        forMeal.mealList.push(angular.copy(MealModel.createDefaultMeal()));
     };
 
     week.day.refreshCurrentMeal = function () {

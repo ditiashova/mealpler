@@ -1,13 +1,35 @@
 Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     let dashboard = this;
     dashboard.pantry = {};
-    dashboard.pantry.fridgeList = StorageModel.getFridgeList();
+
     dashboard.pantry.shoppingList = StorageModel.getShoppingList();
 
+    dashboard.pantry.addItemToFridge = function (newItem) {
+        let a;
+        StorageModel.addItemToFridgeList(newItem);
+        dashboard.init();
+    };
+
+    dashboard.pantry.deleteItemFromFridge = function (item) {
+        StorageModel.deleteFridgeItem(item);
+        dashboard.init();
+    };
+
+    dashboard.pantry.changeFridgeItemQuantity = function (oldItem) {
+        StorageModel.updateFridgeItem(oldItem);
+        dashboard.init();
+    };
+
+    dashboard.pantry.deleteAllFridge = function () {
+        StorageModel.deleteFridge();
+        dashboard.init();
+    };
+
     dashboard.init = function () {
-        if (dashboard.pantry.fridgeList.length === 0) {
-            dashboard.pantry.fridgeList.push(angular.copy(MealModel.createDefaultMeal()));
-        }
+        dashboard.pantry.fridgeList = StorageModel.getFridgeList();
+        dashboard.pantry.shoppingList = StorageModel.getShoppingList();
+        //dashboard.pantry.fridgeList.push(angular.copy(MealModel.createDefaultMeal()));
+        dashboard.pantry.newFridgeItem = angular.copy(MealModel.createDefaultMeal());
     };
 
     dashboard.init();
