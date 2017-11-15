@@ -11,7 +11,8 @@ Mealpler.service('MealModel', function () {
         "name": "",
         "type": "product",
         "quantity": 1,
-        "hasIngredients": false
+        "hasIngredients": false,
+        "deletable": false
     };
 
     service.saveMealInfo = function (dayMeal, date) {
