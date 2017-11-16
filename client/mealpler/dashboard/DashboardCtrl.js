@@ -19,15 +19,28 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
         dashboard.init();
     };
 
-
+    dashboard.grocery.deleteItem = function (item) {
+        StorageModel.deleteGroceryItem(item);
+        dashboard.init();
+    };
 
     dashboard.fridge.changeQuantity = function (oldItem) {
         StorageModel.updateFridgeItem(oldItem);
         dashboard.init();
     };
 
+    dashboard.grocery.changeQuantity = function (oldItem) {
+        StorageModel.updateGroceryItem(oldItem);
+        dashboard.init();
+    };
+
     dashboard.fridge.deleteAll = function () {
         StorageModel.deleteFridge();
+        dashboard.init();
+    };
+
+    dashboard.grocery.deleteAll = function () {
+        StorageModel.deleteGrocery();
         dashboard.init();
     };
 

@@ -1,26 +1,6 @@
 Mealpler.service('StorageModel', function () {
     let service = this;
 
-    service.getFridgeList = function () {
-        let fridgeList = [];
-        try {
-            fridgeList = JSON.parse(localStorage.getItem("fridge"));
-        } catch (error) {
-            console.log(error);
-        }
-        return fridgeList != null ? fridgeList : [];
-    };
-
-    service.getGroceryList = function () {
-        let groceryList = [];
-        try {
-            groceryList = JSON.parse(localStorage.getItem("fridge"));
-        } catch (error) {
-            console.log(error);
-        }
-        return groceryList != null ? groceryList : [];
-    };
-
     service.addItemToFridgeList = function (item) {
         let list = service.getFridgeList();
         list.push(item);
@@ -39,7 +19,7 @@ Mealpler.service('StorageModel', function () {
         service.updateFridgeList(list);
     };
 
-    service.updateGroceryList = function (oldItem) {
+    service.updateGroceryItem = function (oldItem) {
         let list = service.getGroceryList();
         list.filter(a => a.name === oldItem.name)[0].quantity = oldItem.quantity;
         service.updateGroceryList(list);
@@ -67,7 +47,31 @@ Mealpler.service('StorageModel', function () {
         localStorage.removeItem("grocery");
     };
 
+    service.updateFridgeList = function (newItem) {
+        localStorage.setItem("fridge", JSON.stringify(newItem));
+    };
+
     service.updateGroceryList = function (newItem) {
         localStorage.setItem("grocery", JSON.stringify(newItem));
+    };
+
+    service.getFridgeList = function () {
+        let fridgeList = [];
+        try {
+            fridgeList = JSON.parse(localStorage.getItem("fridge"));
+        } catch (error) {
+            console.log(error);
+        }
+        return fridgeList != null ? fridgeList : [];
+    };
+
+    service.getGroceryList = function () {
+        let groceryList = [];
+        try {
+            groceryList = JSON.parse(localStorage.getItem("fridge"));
+        } catch (error) {
+            console.log(error);
+        }
+        return groceryList != null ? groceryList : [];
     };
 });
