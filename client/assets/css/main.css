@@ -5816,8 +5816,21 @@ small {
 hr {
   margin: 2px 0 10px 0; }
 
-i.fa-plus, i.fa-trash-o:hover {
+i.fa:hover {
   cursor: pointer; }
+
+.tab-content .col-xs-10 input {
+  border: none;
+  box-shadow: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0; }
+.tab-content .col-xs-2 {
+  padding: 0 5px 0 0; }
+  .tab-content .col-xs-2 input {
+    padding: 6px;
+    border: none;
+    box-shadow: none;
+    border-radius: 0; }
 
 html, body {
   height: 100vh; }

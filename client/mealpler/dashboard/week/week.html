@@ -20,6 +20,7 @@
                             {{ item.name }} |
                             {{ item.quantity }} |
                             <span class="delete-item"><i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i></span>
+                            <span class="delete-item"><i class="fa fa-check" ng-click="dashboard.pantry.addItemToShopList(item)"></i></span>
                         </div>
                         <div class="text-center">
                             <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>

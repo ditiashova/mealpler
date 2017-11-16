@@ -2,10 +2,13 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     let dashboard = this;
     dashboard.pantry = {};
 
-    dashboard.pantry.shoppingList = StorageModel.getShoppingList();
-
     dashboard.pantry.addItemToFridge = function (newItem) {
         StorageModel.addItemToFridgeList(newItem);
+        dashboard.init();
+    };
+
+    dashboard.pantry.addItemToGroceryList = function (newItem) {
+        StorageModel.addItemToGroceryList(newItem);
         dashboard.init();
     };
 
@@ -26,8 +29,9 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
 
     dashboard.init = function () {
         dashboard.pantry.fridgeList = StorageModel.getFridgeList();
-        dashboard.pantry.shoppingList = StorageModel.getShoppingList();
+        dashboard.pantry.groceryList = StorageModel.getGroceryList();
         dashboard.pantry.newFridgeItem = angular.copy(MealModel.createDefaultMeal());
+        dashboard.pantry.newGroceryItem = angular.copy(MealModel.createDefaultMeal());
     };
 
     dashboard.init();
