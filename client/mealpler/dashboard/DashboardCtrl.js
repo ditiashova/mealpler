@@ -1,37 +1,41 @@
 Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     let dashboard = this;
-    dashboard.pantry = {};
+    //dashboard.pantry = {};
+    dashboard.fridge = {};
+    dashboard.grocery = {};
 
-    dashboard.pantry.addItemToFridge = function (newItem) {
+    dashboard.fridge.addItem = function (newItem) {
         StorageModel.addItemToFridgeList(newItem);
         dashboard.init();
     };
 
-    dashboard.pantry.addItemToGroceryList = function (newItem) {
+    dashboard.grocery.addItem = function (newItem) {
         StorageModel.addItemToGroceryList(newItem);
         dashboard.init();
     };
 
-    dashboard.pantry.deleteItemFromFridge = function (item) {
+    dashboard.fridge.deleteItem = function (item) {
         StorageModel.deleteFridgeItem(item);
         dashboard.init();
     };
 
-    dashboard.pantry.changeFridgeItemQuantity = function (oldItem) {
+
+
+    dashboard.fridge.changeQuantity = function (oldItem) {
         StorageModel.updateFridgeItem(oldItem);
         dashboard.init();
     };
 
-    dashboard.pantry.deleteAllFridge = function () {
+    dashboard.fridge.deleteAll = function () {
         StorageModel.deleteFridge();
         dashboard.init();
     };
 
     dashboard.init = function () {
-        dashboard.pantry.fridgeList = StorageModel.getFridgeList();
-        dashboard.pantry.groceryList = StorageModel.getGroceryList();
-        dashboard.pantry.newFridgeItem = angular.copy(MealModel.createDefaultMeal());
-        dashboard.pantry.newGroceryItem = angular.copy(MealModel.createDefaultMeal());
+        dashboard.fridge.list = StorageModel.getFridgeList();
+        dashboard.grocery.list = StorageModel.getGroceryList();
+        dashboard.fridge.newItem = angular.copy(MealModel.createDefaultMeal());
+        dashboard.grocery.newItem = angular.copy(MealModel.createDefaultMeal());
     };
 
     dashboard.init();
