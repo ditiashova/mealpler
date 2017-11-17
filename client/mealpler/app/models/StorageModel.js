@@ -7,7 +7,7 @@ Mealpler.service('StorageModel', function () {
         service.updateFridgeList(list);
     };
 
-    service.addItemToGroceryList = function () {
+    service.addItemToGroceryList = function (item) {
         let list = service.getGroceryList();
         list.push(item);
         service.updateGroceryList(list);
@@ -68,7 +68,7 @@ Mealpler.service('StorageModel', function () {
     service.getGroceryList = function () {
         let groceryList = [];
         try {
-            groceryList = JSON.parse(localStorage.getItem("fridge"));
+            groceryList = JSON.parse(localStorage.getItem("grocery"));
         } catch (error) {
             console.log(error);
         }
