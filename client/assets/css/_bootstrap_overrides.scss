@@ -1,17 +1,36 @@
 .bg-primary {
-  background: linear-gradient(to right, rgba(136, 192, 87, 0.0), $color) !important
+  background: #EEEDEB !important;
 }
 small {
   font-size: 70%;
   color: grey;
 }
 
-hr {
-  margin: 2px 0 10px 0;
-}
 
 i.fa:hover {
   cursor: pointer;
+}
+
+.fa-plus {
+  color: darkgray;
+}
+
+.panel {
+  background: white;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  .panel-heading {
+    border-radius: 0;
+    background-color: #27ae60;
+    padding: 15px;
+    color: white;
+  }
+}
+
+.table th, .table td {
+  padding: 5px;
+  border-top: none !important;
 }
 
 .tab-content {

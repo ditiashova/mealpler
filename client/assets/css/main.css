@@ -5807,17 +5807,32 @@ button.close {
   .hidden-print {
     display: none !important; } }
 .bg-primary {
-  background: linear-gradient(to right, rgba(136, 192, 87, 0), #88C057) !important; }
+  background: #EEEDEB !important; }
 
 small {
   font-size: 70%;
   color: grey; }
 
-hr {
-  margin: 2px 0 10px 0; }
-
 i.fa:hover {
   cursor: pointer; }
+
+.fa-plus {
+  color: darkgray; }
+
+.panel {
+  background: white;
+  border: none;
+  border-radius: 0;
+  box-shadow: none; }
+  .panel .panel-heading {
+    border-radius: 0;
+    background-color: #27ae60;
+    padding: 15px;
+    color: white; }
+
+.table th, .table td {
+  padding: 5px;
+  border-top: none !important; }
 
 .tab-content .col-xs-10 input {
   border: none;
@@ -5837,27 +5852,36 @@ html, body {
 
 /*styling for meals*/
 .meal {
-  padding: 0 10px 10px 5px; }
+  margin-bottom: 10px;
+  padding: 5px;
+  background: white;
+  border: 1px solid #eeedeb; }
+  .meal small {
+    display: block;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #27ae60; }
+  .meal .item {
+    font-size: 12px; }
 
-.meal-breakfast {
-  background-color: greenyellow; }
-
+/*.meal-breakfast {
+  background-color: greenyellow;
+}
 .meal-lunch {
-  background-color: yellow; }
-
+  background-color: yellow;
+}
 .meal-dinner {
-  background-color: lightblue; }
-
+  background-color: lightblue;
+}
 .meal-snacks {
-  background-color: orange; }
-
+  background-color: orange;
+}
 .meal-supper {
-  background-color: palevioletred; }
-
+  background-color: palevioletred;
+}*/
 .delete-item {
-  display: none; }
+  visibility: hidden; }
 
 .item:hover > .delete-item {
-  display: inline; }
+  visibility: visible; }
 
 /*# sourceMappingURL=main.css.map */
