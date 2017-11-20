@@ -1,57 +1,102 @@
-let gulp = require("gulp");
-let dependencies = require("gulp-html-dependencies");
-let less = require("gulp-less");
-let inject = require("gulp-inject");
-let cleanCSS = require('gulp-clean-css');
-let dest = require('gulp-dest');
-let livereload = require('gulp-livereload');
-let copy = require('gulp-copy');
-let path_dest = 'dist/';
-let del = require('del');
+/* PLUGINS */
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const browserSync = require('browser-sync').create();
+const runSequence = require('run-sequence');
+const inject = require('gulp-inject');
+const angularFilesort = require('gulp-angular-filesort');
+const copy = require('gulp-copy');
+const del = require('del');
+const es = require('event-stream');
+const concat = require('gulp-concat');
 
-gulp.task('minify-css', function() {
-    return gulp.src('assets/css/*.css')
-        .pipe(cleanCSS({compatibility: 'ie8'}))
-        /*.pipe(gulp.dest('dist/css'));*/
-});
-gulp.task('dependencies', function() {
-    return gulp.src('index.html')
-        .pipe(dependencies({
-            dest: path_dest,    // The basedir of your application. default: path.dirname(file.path)
-            prefix: 'lib',  // The URL prefix. Default "/"
-        }))
-        .pipe(gulp.dest(path_dest));
-});
+/* PATHS */
+const distDir = './dist'
+const distStylesDir = distDir + '/styles'
+const distScriptsDir = distDir + '/scripts'
+const distImagesDir = distDir + '/images'
+const srcDir = './client'
 
-gulp.task('css', function(){
-    return gulp.src('assets/css/*.less')
-        .pipe(less())
-        .pipe(gulp.dest('assets/css/'))
-        .pipe(livereload());
-});
-
-gulp.task('index', function () {
-    let target = gulp.src('./index.html');
-    // It's not necessary to read the files (will speed up things), we're only after their paths:
-    let sources = gulp.src(['app.js','./src/**/*.js', './src/*.js', '.assets/css/*.css'], {read: false});
-
-    return target.pipe(inject(sources))
-        .pipe(gulp.dest('.'));
+gulp.task('concatVendorJs', () => {
+  return gulp.src([
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/angular/angular.min.js',
+    'node_modules/angular-animate/angular-animate.js',
+    'node_modules/angular-route/angular-route.min.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+    'node_modules/moment/moment.js',
+    'node_modules/bootstrap-daterangepicker/daterangepicker.js'
+  ])
+    .pipe(concat('vendor.js'))
+    .pipe(gulp.dest(distScriptsDir))
 });
 
-gulp.task('copy', function () {
-    return gulp.src(['./src/**/*.js', './src/*.js', './*.js'])
-        .pipe(gulp.dest('dist/src'));
+gulp.task('concatVendorCss', () => {
+  return gulp.src([
+    'node_modules/bootstrap/dist/css/bootstrap.css',
+    'node_modules/bootstrap-daterangepicker/daterangepicker.css'
+  ])
+    .pipe(concat('vendor.css'))
+    .pipe(gulp.dest(distStylesDir))
 });
 
-gulp.task('watch', function() {
-    livereload.listen();
-    gulp.watch('assets/css/*.less', ['css']);
+gulp.task('copy', () => {
+  return es.merge(
+    /* index.html */
+    gulp.src(`${srcDir}/index.html`)
+      .pipe(gulp.dest(distDir)),
+
+    /* JS */
+    gulp.src(`${srcDir}/mealpler/**/*.{js,html,htm}`)
+      .pipe(gulp.dest(distScriptsDir)),
+
+    /* Images */
+    gulp.src(`${srcDir}/assets/images/**/*.{png,ico,jpg}`)
+      .pipe(gulp.dest(distImagesDir))
+  )
 });
 
-gulp.task('clean', function () {
-    return del('./dist');
+gulp.task('clean', () => {
+  return del(distDir);
 });
 
+gulp.task('sass', () => {
+  return gulp.src(`${srcDir}/assets/css/*.scss`)
+    .pipe(sass())
+    .pipe(gulp.dest(distStylesDir))
+});
 
-gulp.task('dev', ['css', 'minify-css', 'dependencies', 'index', 'copy', 'watch']);
+gulp.task('index', () => {
+  return gulp.src(`${distDir}/index.html`)
+    .pipe(inject(
+      gulp.src([ `${distScriptsDir}/**/*.js`, `!${distScriptsDir}/vendor.js` ]).pipe(angularFilesort()).pipe(angularFilesort()), { relative: true }
+    ))
+    .pipe(inject(
+      gulp.src(`${distScriptsDir}/vendor.js`), { relative: true, starttag: '<!-- inject:vendor:{{ext}} -->' }
+    ))
+    .pipe(inject(
+      gulp.src(`${distStylesDir}/vendor.css`), { relative: true, starttag: '<!-- inject:vendor:{{ext}} -->' }
+    ))
+    .pipe(inject(
+      gulp.src([`${distStylesDir}/**/*.css`, `!${distStylesDir}/vendor.css`]), { relative: true }
+    ))
+    .pipe(gulp.dest(distDir))
+});
+
+gulp.task('serve', () => {
+  return browserSync.init({
+    server: './dist',
+    files: './dist/**/*',
+    reloadDebounce: 250
+  })
+});
+
+gulp.task('watch', () => {
+  gulp.watch(`${srcDir}/mealpler/**/*.{js,html,htm}`, [ 'copy' ])
+  gulp.watch(`${srcDir}/index.html`, () => runSequence('copy', 'index'))
+  gulp.watch(`${srcDir}/assets/css/*.scss`, [ 'sass' ])
+})
+
+gulp.task('default', () => runSequence('clean', 'copy', 'concatVendorJs', 'concatVendorCss', 'sass', 'index', 'serve', 'watch'))

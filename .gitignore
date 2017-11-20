@@ -30,6 +30,7 @@
 ## Plugin-specific files:
 
 # IntelliJ
+*.iml
 /out/
 
 # mpeltonen/sbt-idea plugin
@@ -46,5 +47,5 @@ fabric.properties
 
 .gitignore
 .idea/
-public/
+dist/
 node_modules/
