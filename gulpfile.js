@@ -11,11 +11,11 @@ const es = require('event-stream');
 const concat = require('gulp-concat');
 
 /* PATHS */
-const distDir = './dist'
-const distStylesDir = distDir + '/styles'
-const distScriptsDir = distDir + '/scripts'
-const distImagesDir = distDir + '/images'
-const srcDir = './client'
+const distDir = './dist';
+const distStylesDir = distDir + '/styles';
+const distScriptsDir = distDir + '/scripts';
+const distImagesDir = distDir + '/images';
+const srcDir = './client';
 
 gulp.task('concatVendorJs', () => {
   return gulp.src([
@@ -94,9 +94,9 @@ gulp.task('serve', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(`${srcDir}/mealpler/**/*.{js,html,htm}`, [ 'copy' ])
+  gulp.watch(`${srcDir}/mealpler/**/*.{js,html,htm}`, () => runSequence('copy', 'index'))
   gulp.watch(`${srcDir}/index.html`, () => runSequence('copy', 'index'))
   gulp.watch(`${srcDir}/assets/css/*.scss`, [ 'sass' ])
-})
+});
 
 gulp.task('default', () => runSequence('clean', 'copy', 'concatVendorJs', 'concatVendorCss', 'sass', 'index', 'serve', 'watch'))
