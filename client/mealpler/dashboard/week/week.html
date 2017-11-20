@@ -1,17 +1,14 @@
 <div class="panel-body" ng-controller="WeekCtrl as week">
     <table class="table">
-        <!--<thead>
+        <thead>
             <tr>
-                <th colspan="7">
+                <!--<th colspan="7">
                     <input name="daterange" id="daterange" title="datePicker" style="float: right;"/>
-                </th>
-            </tr>
-
-        </thead>-->
-        <tbody>
-            <tr>
+                </th>-->
                 <th ng-repeat="day in week.range track by day.id" class="text-center">{{ day.dayName }}<br/><small>{{ day.fullDate }}</small></th>
             </tr>
+        </thead>
+        <tbody>
             <tr>
                 <td ng-repeat="day in week.range track by day.id">
                     <div  ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="col-xs-12 meal" ng-class="'meal-'+meal.mealName">
@@ -27,6 +24,10 @@
                         </div>
                         <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmMealDelete"
                            ng-click="week.day.setCurrentMeal(meal, day)" ng-show="meal.hasMeals"></i>
+                    </div>
+                    <div>
+                        <span class="day-manager"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"></i></span>
+
                     </div>
                     <div ng-include="'mealpler/tmpl/mealModal.html'"></div>
                     <div ng-include="'mealpler/tmpl/confirmMealDelete.html'"></div>

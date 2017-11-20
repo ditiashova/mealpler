@@ -14,6 +14,13 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
         dashboard.init();
     };
 
+    dashboard.grocery.addItems = function (listOfMeals) {
+        let newItems = [];
+        listOfMeals.map(a => a.mealList.forEach(b => newItems.push(b)));
+        StorageModel.addItemToGroceryList(newItems);
+        dashboard.init();
+    };
+
     dashboard.fridge.deleteItem = function (item) {
         StorageModel.deleteFridgeItem(item);
         dashboard.init();

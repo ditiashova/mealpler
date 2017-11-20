@@ -8,8 +8,7 @@ Mealpler.service('StorageModel', function () {
     };
 
     service.addItemToGroceryList = function (item) {
-        let list = service.getGroceryList();
-        list.push(item);
+        let list = service.getGroceryList().concat(item);
         service.updateGroceryList(list);
     };
 
