@@ -9,6 +9,8 @@ const copy = require('gulp-copy');
 const del = require('del');
 const es = require('event-stream');
 const concat = require('gulp-concat');
+const fs = require('fs');
+const scp = require('gulp-scp2')
 
 /* PATHS */
 const distDir = './dist';
