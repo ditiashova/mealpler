@@ -1,4 +1,4 @@
-Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
+Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
     let week = this;
     week.range = []; //dates for 7 days
     week.day = {};
@@ -60,6 +60,18 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel) {
     week.day.refreshNewMealItems = function () {
         week.newMealItems = {};
         week.newMealItems.mealList = [];
+    };
+
+    week.day.starMenu = function (menu) {
+        StorageModel.addMenuToStarred(menu);
+    };
+
+    week.day.pasteStarredMenu = function (forThisDay) {
+        let star = StorageModel.getStarredMenu();
+        let dat = MealModel.createNewDay(forThisDay);
+        star.forEach(a => dat.mealsList.push(a));
+        MealModel.updateMealsList(forThisDay.fullDate, dat);
+        loadMealsDataForWeek();
     };
 
     week.init = function () {

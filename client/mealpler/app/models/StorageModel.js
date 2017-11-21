@@ -54,6 +54,10 @@ Mealpler.service('StorageModel', function () {
         localStorage.setItem("grocery", JSON.stringify(newItem));
     };
 
+    service.addMenuToStarred = function (menu) {
+        localStorage.setItem("starredMenu", JSON.stringify(menu));
+    };
+
     service.getFridgeList = function () {
         let fridgeList = [];
         try {
@@ -73,4 +77,14 @@ Mealpler.service('StorageModel', function () {
         }
         return groceryList != null ? groceryList : [];
     };
+
+    service.getStarredMenu = function () {
+        let starredMenu = [];
+        try {
+            starredMenu = JSON.parse(localStorage.getItem("starredMenu"));
+        } catch (error) {
+            console.log(error);
+        }
+        return starredMenu != null ? starredMenu : [];
+    }
 });
