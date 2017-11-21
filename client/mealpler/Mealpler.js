@@ -3,7 +3,7 @@ Mealpler.config(function ($routeProvider) {
     $routeProvider
         .when('/',
             {
-                templateUrl: 'mealpler/dashboard/dashboard.html',
+                templateUrl: 'scripts/dashboard/dashboard.html',
                 controller: 'DashboardCtrl',
                 controllerAs: 'dashboard'
             })

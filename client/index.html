@@ -5,41 +5,24 @@
     <meta name="description" content="Meal planning manager"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no" />
     <title>Mealpler</title>
-    <link href="https://unpkg.com/bootstrap@3/dist/css/bootstrap.css" rel="stylesheet">
-    <link rel="icon" href="assets/images/_favicon.ico">
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+    <link rel="icon" href="images/_favicon.ico">
+
+    <!-- inject:vendor:css -->
+    <!-- endinject -->
+
+    <!-- inject:css -->
+    <!-- endinject -->
 </head>
 <body ng-controller="MainCtrl as main">
-<header ng-include="'/mealpler/client/mealpler/tmpl/header.html'"></header>
+<header ng-include="'scripts/tmpl/header.html'"></header>
 <main data-ng-view></main>
-<footer ng-include="'/mealpler/client/mealpler/tmpl/footer.html'"></footer>
+<footer ng-include="'scripts/tmpl/footer.html'"></footer>
+<script src="https://use.fontawesome.com/bf11f5d883.js"></script>
+
+<!-- inject:vendor:js -->
+<!-- endinject -->
 
 <!-- inject:js -->
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="../node_modules/angular/angular.min.js"></script>
-<script src="../node_modules/angular-animate/angular-animate.js"></script>
-<script src="../node_modules/angular-route/angular-route.min.js"></script>
-<script src="../node_modules/popper.js/dist/popper.js"></script>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-<script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
-<script src="../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
-<script src="https://use.fontawesome.com/bf11f5d883.js"></script>
-<script src="../node_modules/lodash/dist/lodash.min.js"></script>
-<script src="../node_modules/moment/moment.js"></script>
-<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
-    <script src="mealpler/Mealpler.js"></script>
-    <script src="mealpler/app/titles.js"></script>
-    <script src="mealpler/app/services/requestSrvc.js"></script>
-    <script src="mealpler/app/controllers/MainCtrl.js"></script>
-    <script src="mealpler/app/models/MealModel.js"></script>
-    <script src="mealpler/app/models/WeekModel.js"></script>
-    <script src="mealpler/app/models/StorageModel.js"></script>
-    <script src="mealpler/dashboard/DashboardCtrl.js"></script>
-<script src="mealpler/dashboard/week/WeekCtrl.js"></script>
-    <!-- endinject -->
+<!-- endinject -->
 </body>
 </html>
