@@ -2,6 +2,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
     let week = this;
     week.range = []; //dates for 7 days
     week.day = {};
+    week.activeTab = 0;
 
     const datePicker = $('input[name="daterange"]');
 
@@ -25,6 +26,7 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
 
     //day settings
     week.day.setCurrentMeal = function (meal, date) {
+        week.day.refreshCurrentMeal();
         week.currentMeal = angular.copy(meal);
         week.currentDate = date;
         week.day.createNewMealItem(week.newMealItems);
@@ -72,6 +74,11 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
         star.forEach(a => dat.mealsList.push(a));
         MealModel.updateMealsList(forThisDay.fullDate, dat);
         loadMealsDataForWeek();
+    };
+
+    week.day.mealModal = function (tab) {
+        week.activeTab = tab;
+        week.day.addProduct = true;
     };
 
     week.init = function () {
