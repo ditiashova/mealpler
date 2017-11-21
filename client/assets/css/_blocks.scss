@@ -13,6 +13,9 @@
   .item {
     font-size: 12px;
   }
+  .meal-recipe {
+    background-color: transparentize(#27ae60, 0.50);
+  }
 }
 /*.meal-breakfast {
   background-color: greenyellow;
@@ -36,4 +39,27 @@
 
 .item:hover > .delete-item {
   visibility: visible;
+}
+
+.modal-tabbed {
+  .modal-header {
+    justify-content: flex-start;
+    background-color: #EEEDEB;
+    border: 0;
+    padding: 0;
+    .modal-tabs {
+      display: flex;
+      margin-right: 10px;
+      .modal-title {
+        padding: 10px;
+        &.active {
+          background-color: #27ae60;
+          color: #ffffff;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
