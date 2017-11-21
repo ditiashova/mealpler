@@ -99,4 +99,19 @@ gulp.task('watch', () => {
   gulp.watch(`${srcDir}/assets/css/*.scss`, [ 'sass' ])
 });
 
+gulp.task('build', () => runSequence('clean', 'copy', 'concatVendorJs', 'concatVendorCss', 'sass', 'index'))
+
+gulp.task('deploy', () => {
+  const key = fs.readFileSync('key.pem', 'utf8')
+
+  return gulp.src('dist/**/*')
+    .pipe(scp({
+      host: '35.156.52.114',
+      username: 'ubuntu',
+      privateKey: key,
+      dest: '/home/ubuntu/public'
+    }))
+    .on('error', (err) => console.log(err))
+});
+
 gulp.task('default', () => runSequence('clean', 'copy', 'concatVendorJs', 'concatVendorCss', 'sass', 'index', 'serve', 'watch'))
