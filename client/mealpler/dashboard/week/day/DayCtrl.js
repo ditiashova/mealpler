@@ -1,6 +1,6 @@
 Mealpler.controller('DayCtrl', function (MealModel) {
     let day = this;
-    let defaultMeal = {
+    let defaultProduct = {
         /*"id": Math.random(),*/
         "name": "",
         "type": "product",
@@ -11,7 +11,7 @@ Mealpler.controller('DayCtrl', function (MealModel) {
     day.setCurrentMeal = function (meal, date) {
         day.currentMeal = angular.copy(meal);
         day.currentDate = moment(date);
-        day.createNewMealItem();
+        day.createNewProduct();
     };
     day.saveCurrentMeal = function () {
         day.mealsList.map(function (a) {
@@ -23,8 +23,8 @@ Mealpler.controller('DayCtrl', function (MealModel) {
         day.refreshCurrentMeal();
     };
 
-    day.createNewMealItem = function () {
-        day.currentMeal.mealList.push(angular.copy(defaultMeal));
+    day.createNewProduct = function () {
+        day.currentMeal.mealList.push(angular.copy(defaultProduct));
     };
 
     day.refreshCurrentMeal = function () {

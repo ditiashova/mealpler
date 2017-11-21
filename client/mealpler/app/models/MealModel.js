@@ -7,11 +7,20 @@ Mealpler.service('MealModel', function () {
         {id: 4, mealNo: 4, mealName: 'supper', mealList: []},
         {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
     ];
-    const defaultMeal = {
+    const defaultProduct = {
         "name": "",
         "type": "product",
         "quantity": 1,
         "hasIngredients": false,
+        "deletable": false
+    };
+
+    const defaultRecipe = {
+        "name": "",
+        "type": "meal",
+        "quantity": 1,
+        "hasIngredients": true,
+        "list": [],
         "deletable": false
     };
 
@@ -95,8 +104,12 @@ Mealpler.service('MealModel', function () {
         return day;
     };
 
-    service.createDefaultMeal = function () {
-        return defaultMeal;
+    service.createDefaultProduct = function () {
+        return defaultProduct;
+    };
+
+    service.createDefaultRecipe = function () {
+        return defaultRecipe;
     };
 
     service.emptyMealsList = function () {

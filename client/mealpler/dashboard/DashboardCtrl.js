@@ -54,8 +54,8 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     dashboard.init = function () {
         dashboard.fridge.list = StorageModel.getFridgeList();
         dashboard.grocery.list = StorageModel.getGroceryList();
-        dashboard.fridge.newItem = angular.copy(MealModel.createDefaultMeal());
-        dashboard.grocery.newItem = angular.copy(MealModel.createDefaultMeal());
+        dashboard.fridge.newItem = angular.copy(MealModel.createDefaultProduct());
+        dashboard.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 
     dashboard.init();
