@@ -12,7 +12,14 @@
   }
   .item {
     font-size: 12px;
-    margin-bottom: 5px;
+    margin: 5px 0;
+      .item-name {
+        padding-left: 5px;
+      }
+      .ingredient {
+        padding-left: 5px;
+      }
+
   }
   /*.meal-recipe {
     background-color: transparentize(#27ae60, 0.50);
