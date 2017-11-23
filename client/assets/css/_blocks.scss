@@ -12,10 +12,11 @@
   }
   .item {
     font-size: 12px;
+    margin-bottom: 5px;
   }
-  .meal-recipe {
+  /*.meal-recipe {
     background-color: transparentize(#27ae60, 0.50);
-  }
+  }*/
 }
 /*.meal-breakfast {
   background-color: greenyellow;
@@ -37,7 +38,7 @@
   visibility: hidden;
 }
 
-.item:hover > .delete-item {
+.item:hover > .item-name > .delete-item {
   visibility: visible;
 }
 

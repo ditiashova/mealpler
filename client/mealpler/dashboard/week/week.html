@@ -17,15 +17,15 @@
                     </div>
                     <div  ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="col-xs-12 meal" ng-class="'meal-'+meal.mealName">
                         <small>{{ meal.mealName }}</small>
-                        <div ng-repeat="item in meal.mealList" class="item">
-                            <span ng-class="item.hasIngredients ? 'meal-recipe' : null">{{ item.name }}</span> |
-                            {{ item.quantity }} |
-                            <span class="delete-item"><i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i></span>
-                            <span class="delete-item"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i></span>
-                            <!--ng-show=item.hasIngredients-->
-                            <ul ng-show="item.hasIngredients">
-                                <li ng-repeat="ingredient in item.list">{{ ingredient.name }}</li>
-                            </ul>
+                        <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'card' : null">
+                            <div ng-class="item.hasIngredients ?  'card-header' : null" class="item-name">
+                                {{ item.name }} | {{ item.quantity }} |
+                                <span class="delete-item"><i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i></span>
+                                <span class="delete-item"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i></span>
+                            </div>
+                            <div ng-show="item.hasIngredients" class="card-body">
+                                <span ng-repeat="ingredient in item.list">{{ ingredient.name }}</span>
+                            </div>
                         </div>
                         <div class="text-center">
                             <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>

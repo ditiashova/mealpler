@@ -31,11 +31,19 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
         week.currentMeal = angular.copy(meal);
         week.currentDate = date;
         week.day.createNewProduct(week.newProducts);
-        week.day.createNewProduct(week.newRecipe);
+        //week.day.createNewProduct(week.newRecipe);
     };
 
-    week.day.addNewProducts = function (meal,date,newProduct) {
-        meal.mealList = meal.mealList.concat(newProduct.list);
+    week.day.addNewProducts = function (meal,date,newProducts) {
+        if (!newProducts.hasIngredients) {
+            meal.mealList = meal.mealList.concat(newProducts.list);
+        } else if (newProducts.hasIngredients) {
+            let recipe = angular.copy(MealModel.createDefaultRecipe());
+            recipe.list = recipe.list.concat(newProducts.list);
+            recipe.name = newProducts.mealName;
+            recipe.quantity = newProducts.portionQuantity;
+            meal.mealList.push(recipe);
+        }
         MealModel.saveMealInfo(meal,date);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
@@ -71,7 +79,10 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
     week.day.refreshNewItems = function () {
         week.newProducts = {};
         week.newProducts.list = [];
-        week.newRecipe = angular.copy(MealModel.createDefaultRecipe());
+        week.newProducts.hasIngredients = false;
+        week.newProducts.portionQuantity = 1;
+        //week.newProducts.list.push(angular.copy(MealModel.createDefaultProduct()));
+        //week.newRecipe = angular.copy(MealModel.createDefaultRecipe());
     };
 
     week.day.starMenu = function (menu) {
