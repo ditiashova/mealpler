@@ -24,7 +24,7 @@
                                 <span class="delete-item"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i></span>
                             </div>
                             <div ng-show="item.hasIngredients" class="card-body">
-                                <span ng-repeat="ingredient in item.list" class="ingredient">{{ ingredient.name }}<br/></span>
+                                <span ng-repeat="ingredient in item.list" class="ingredient">{{ ingredient.name }} | {{ ingredient.quantity }}<br/></span>
                             </div>
                         </div>
                         <div class="text-center">

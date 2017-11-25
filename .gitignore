@@ -50,3 +50,4 @@ fabric.properties
 dist/
 node_modules/
 *.pem
+/document.json
