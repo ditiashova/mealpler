@@ -6,7 +6,7 @@
             <div class="modal-header">
                 <div class="modal-tabs">
                     <h4 class="modal-title" ng-class="week.activeTab === 'product' ? 'active' : null" ng-click="week.day.mealModal('product')">Add products</h4>
-                    <h4 class="modal-title" ng-class="week.activeTab === 'dish' ? 'active' : null" ng-click="week.day.mealModal('dish')">Add recipe</h4>
+                    <h4 class="modal-title" ng-class="week.activeTab === 'dish' ? 'active' : null" ng-click="week.day.mealModal('dish')">Add dish</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
@@ -19,7 +19,7 @@
                         <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
                     </div>
                 </div>
-                <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewProduct(week.newProducts)"></i>
+                <div class="text-center"><i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewProduct(week.newProducts)"></i></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="week.day.addNewProducts(week.currentMeal, week.currentDate, week.newProducts)">Save</button>
             </div>
             <div class="modal-body" ng-show="week.activeTab === 'dish'">
@@ -39,7 +39,7 @@
                         <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control"/>
                     </div>-->
                 </div>
-                <div class="text-center"><i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewProduct(week.newRecipe)"></i></div>
+                <div class="text-center"><i class="fa fa-plus" ng-click="week.day.createNewProduct(week.newRecipe)"></i></div>
                 <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="week.day.addNewRecipe(week.currentMeal, week.currentDate, week.newRecipe)">Save</button>
             </div>
         </div>

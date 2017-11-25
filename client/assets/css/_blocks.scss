@@ -33,8 +33,20 @@
   background-color: palevioletred;
 }*/
 
-.delete-item {
+.delete-item, .plus-hidden {
   visibility: hidden;
+}
+
+.meal:hover > .plus-temp {
+  visibility: visible !important;
+}
+
+.plus-hidden.plus-perm {
+  visibility: visible !important;
+}
+
+.plus-perm {
+  visibility: visible !important;
 }
 
 .item:hover > .delete-item {
