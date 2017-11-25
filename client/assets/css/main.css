@@ -5878,10 +5878,10 @@ html, body {
 .meal-supper {
   background-color: palevioletred;
 }*/
-.delete-item {
+.edit-item {
   visibility: hidden; }
 
-.item:hover > .delete-item {
+.item:hover > .edit-item {
   visibility: visible; }
 
 /*# sourceMappingURL=main.css.map */

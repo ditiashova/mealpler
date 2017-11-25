@@ -8,39 +8,50 @@
                 <!--<th ng-repeat="day in week.range track by day.id" class="text-center">{{ day.dayName }}<br/><small>{{ day.fullDate }}</small></th>-->
             <!--</tr>
         </thead>-->
-
-
-            <div class="col" ng-repeat="day in week.range track by day.id">
-                <div class="text-center">
-                    {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
-                    <small>{{ day.fullDate }}</small>
-                </div>
-                <div  ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="col-xs-12 meal" ng-class="'meal-'+meal.mealName">
-                    <small>{{ meal.mealName }}</small>
-                    <div ng-repeat="item in meal.mealList" class="item">
-                        <span ng-class="item.hasIngredients ? 'meal-recipe' : null">{{ item.name }}</span> |
-                        {{ item.quantity }} |
-                        <span class="delete-item"><i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i></span>
-                        <span class="delete-item"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i></span>
-                        <!--ng-show=item.hasIngredients-->
-                        <ul ng-show="item.hasIngredients">
-                            <li ng-repeat="ingredient in item.list">{{ ingredient.name }}</li>
-                        </ul>
-                    </div>
-                    <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
-                        <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>
-                    </div>
-                    <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmMealDelete"
-                       ng-click="week.day.setCurrentMeal(meal, day)" ng-show="meal.hasMeals"></i>
-                </div>
-                <div class="col-xs-12 meal">
-                    <span class="day-manager"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"></i></span>
-                    <span class="day-manager"><i class="fa fa-star-o" ng-click="week.day.starMenu(day.mealsList)"></i></span>
-                </div>
-                <div ng-include="'scripts/tmpl/mealModal.html'"></div>
-                <div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>
+        <div class="col week-planner" ng-repeat="day in week.range track by day.id">
+            <div class="text-center">
+                {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
+                <small>{{ day.fullDate }}</small>
             </div>
 
+            <div ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
+                <small>{{ meal.mealName }}</small>
 
+                <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
+                    <span data-toggle="dropdown" id="itemName"
+                          ng-class="item.hasIngredients ? 'meal-recipe' : 'meal-simple'" >{{ item.name }}
+                    </span>&nbsp;|&nbsp;
+                    {{ item.quantity }}&nbsp;|&nbsp;
+
+                    <span class="edit-item">
+                        <i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i>
+                    </span>
+
+                    <span class="edit-item" ng-show="!item.hasIngredients">
+                        <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i>
+                    </span>
+                    <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
+                </div>
+
+                <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
+                    <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal"
+                       ng-click="week.day.setCurrentMeal(meal, day)"></i>
+                </div>
+                <div class="text-right">
+                    <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
+                       ng-click="week.day.setCurrentMeal(meal, day)" ng-show="meal.hasMeals"></i>
+
+                </div>
+
+            </div>
+
+            <div class="meal">
+                <span class="day-manager"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"></i></span>
+                <span class="day-manager"><i class="fa fa-star-o" ng-click="week.day.starMenu(day.mealsList)"></i></span>
+            </div>
+
+            <div ng-include="'scripts/tmpl/mealModal.html'"></div>
+            <div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>
+        </div>
     </div>
 </div>
