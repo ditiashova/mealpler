@@ -68,11 +68,14 @@
 }
 
 .modal-tabbed {
+  .row {
+    margin-bottom: 10px;
+  }
   .modal-header {
     justify-content: flex-start;
     background-color: #EEEDEB;
     border: 0;
-    padding: 0;
+    padding: 0 15px 0 0;
     .modal-tabs {
       display: flex;
       margin-right: 10px;
@@ -89,7 +92,6 @@
     }
   }
 }
-
 
 .week-planner {
   .modal.show {

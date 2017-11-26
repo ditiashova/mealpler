@@ -8,7 +8,7 @@
                 <!--<th ng-repeat="day in week.range track by day.id" class="text-center">{{ day.dayName }}<br/><small>{{ day.fullDate }}</small></th>-->
             <!--</tr>
         </thead>-->
-        <div class="col week-planner" ng-repeat="day in week.range track by day.id">
+        <div class="col-sm week-planner" ng-repeat="day in week.range track by day.id">
             <div class="text-center">
                 {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
                 <small>{{ day.fullDate }}</small>

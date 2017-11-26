@@ -10,6 +10,14 @@ small {
   padding: 0 5px;
 }
 
+.btn {
+  margin-left: 5px;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+}
+
 i.fa:hover {
   cursor: pointer;
 }
