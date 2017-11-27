@@ -6,6 +6,9 @@
   }
 }
 
+.today {
+  background-color: #f1f1f1;
+}
 /*styling for meals*/
 .meal {
   margin-bottom: 10px;
@@ -112,7 +115,7 @@
   }
 }
 
-.week-planner {
+.day-planner {
   .modal.show {
     display: flex !important;
     justify-content: center;

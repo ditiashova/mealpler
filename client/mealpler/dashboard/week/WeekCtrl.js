@@ -3,6 +3,7 @@ Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, Stor
     let week = this;
     week.day = {}; // here goes all methods for the day events
     week.activeTab = 'product';
+    week.today = moment().format('YYYY-M-D');
     //week.day.addProduct = true;
 
     const datePicker = $('input[name="daterange"]');

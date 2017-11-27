@@ -1,6 +1,6 @@
 <div class="panel-body">
-    <div class="row">
-        <div class="col-sm week-planner" ng-repeat="day in week.range track by day.fullDate">
+    <div class="row week-planner">
+        <div class="col-sm day-planner" ng-repeat="day in week.range track by day.fullDate" ng-class="{'today' : day.fullDate === week.today}">
             <div class="text-center">
                 {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
                 <small>{{ day.fullDate }}</small>
