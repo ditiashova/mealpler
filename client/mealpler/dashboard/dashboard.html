@@ -30,9 +30,14 @@
             </div>
         </div>
         <div class="col">
-            <div class="panel panel-default">
+            <div class="panel panel-default"  ng-controller="WeekCtrl as week">
                 <div class="panel-heading">
-                    <h2 class="panel-title">{{ main.title['weekPlanner'] }}</h2>
+                    <h2 class="panel-title">
+                        {{ main.title['weekPlanner'] }}
+                        <span class="pull-right date-picker-box">Choose a week:
+                            <input name="daterange" id="daterange" title="datePicker"/>
+                        </span>
+                    </h2>
                 </div>
                 <div ng-include="'scripts/dashboard/week/week.html'"></div>
             </div>

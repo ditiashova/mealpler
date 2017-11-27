@@ -1,14 +1,6 @@
-<div class="panel-body" ng-controller="WeekCtrl as week">
+<div class="panel-body">
     <div class="row">
-        <!--<thead>
-            <tr>-->
-                <!--<th colspan="7">
-                    <input name="daterange" id="daterange" title="datePicker" style="float: right;"/>
-                </th>-->
-                <!--<th ng-repeat="day in week.range track by day.id" class="text-center">{{ day.dayName }}<br/><small>{{ day.fullDate }}</small></th>-->
-            <!--</tr>
-        </thead>-->
-        <div class="col-sm week-planner" ng-repeat="day in week.range track by day.id">
+        <div class="col-sm week-planner" ng-repeat="day in week.range track by day.fullDate">
             <div class="text-center">
                 {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
                 <small>{{ day.fullDate }}</small>

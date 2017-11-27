@@ -1,7 +1,7 @@
-Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
+Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, StorageModel) {
+    const today = moment();
     let week = this;
-    week.range = []; //dates for 7 days
-    week.day = {};
+    week.day = {}; // here goes all methods for the day events
     week.activeTab = 'product';
     //week.day.addProduct = true;
 
@@ -9,21 +9,20 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
 
     //settings for Date Range Picker
     datePicker.daterangepicker({
-        "dateLimit": {
-            "days": 7
-        },
+        singleDatePicker: true,
+        showDropdowns: true,
         "startDate": new Date()
     }, function(start, end, label) {
 
     });
 
     datePicker.on('apply.daterangepicker', function (e, picker) {
-        const startDate = picker.startDate._d.getDay();
-        week.viewDate = new Date(startDate);
+        const newStartDate = picker.startDate;
+        week.init(newStartDate);
+        $rootScope.$digest();
     });
 
-    //moment
-    week.firstDayOfWeek = moment(); //today
+
 
     //day settings
     week.day.setCurrentMeal = function (meal, date) {
@@ -92,18 +91,19 @@ Mealpler.controller('WeekCtrl', function (WeekModel, MealModel, StorageModel) {
         //week.day.addRecipe = !week.day.addProduct;
     };
 
-    week.init = function () {
-        calculateWeekRange();
+    week.init = function (forDate) {
+        week.range = []; //dates for 7 days
+        calculateWeekRange(moment(forDate).startOf('week'));
         //get meal's list for each day of week range
         loadMealsDataForWeek();
         week.day.refreshCurrentMeal();
     };
 
-    week.init();
+    week.init(today);
 
-    function calculateWeekRange() {
+    function calculateWeekRange(firstDay) {
         for (let i = 0; i < 7; i++) {
-            let nextDay = moment().add(i, 'day');
+            let nextDay = moment(firstDay).add(i, 'day');
             nextDay.id = i;
             week.range.push(nextDay);
         }
