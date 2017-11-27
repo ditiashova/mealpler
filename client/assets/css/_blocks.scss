@@ -12,6 +12,7 @@
   padding: 5px;
   background: white;
   border: 1px solid rgb(238, 237, 235);
+  height: 65px;
   small {
     display: block;
     margin-bottom: 5px;
@@ -30,25 +31,35 @@
   }
 }
 
+.meal.meal-manager {
+  height: auto;
+}
 
-/*.meal-breakfast {
-  background-color: greenyellow;
+.meal-breakfast {
+  border-left: 5px solid greenyellow;
 }
 .meal-lunch {
-  background-color: yellow;
+  border-left: 5px solid yellow;
 }
 .meal-dinner {
-  background-color: lightblue;
+  border-left: 5px solid lightblue;
 }
 .meal-snacks {
-  background-color: orange;
+  border-left: 5px solid orange;
 }
 .meal-supper {
-  background-color: palevioletred;
-}*/
+  border-left: 5px solid palevioletred;
+}
 
 .edit-item, .plus-hidden {
   visibility: hidden;
+}
+
+.plus-temp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .meal:hover > .plus-temp {

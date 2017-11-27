@@ -7,7 +7,7 @@
             </div>
 
             <div ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
-                <small>{{ meal.mealName }}</small>
+                <!--<small>{{ meal.mealName }}</small>-->
 
                 <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
                     <span data-toggle="dropdown" id="itemName"
@@ -37,7 +37,7 @@
 
             </div>
 
-            <div class="meal">
+            <div class="meal meal-manager">
                 <span class="day-manager"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"></i></span>
                 <span class="day-manager"><i class="fa fa-star-o" ng-click="week.day.starMenu(day.mealsList)"></i></span>
             </div>
