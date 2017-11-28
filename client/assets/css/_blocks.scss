@@ -10,11 +10,13 @@
   background-color: $light-gray;
 }
 /*styling for meals*/
-.meal {
+.meal, .meal-manager {
   margin-bottom: 10px;
   padding: 5px;
   background: white;
   border: 1px solid rgb(238, 237, 235);
+}
+.meal {
   min-height: 65px;
   small {
     display: block;
@@ -34,7 +36,7 @@
   }
 }
 
-.meal.meal-manager {
+.meal-manager {
   height: auto;
 }
 
