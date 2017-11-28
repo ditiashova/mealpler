@@ -32,12 +32,20 @@
         <div class="col">
             <div class="panel panel-default"  ng-controller="WeekCtrl as week">
                 <div class="panel-heading">
-                    <h2 class="panel-title">
+                    <div class="panel-title">
                         {{ main.title['weekPlanner'] }}
-                        <span class="pull-right date-picker-box">Choose a week:
+                        <span class="date-picker-box pull-right">
+                            Choose a week:
                             <input name="daterange" id="daterange" title="datePicker"/>
                         </span>
-                    </h2>
+                    </div>
+                </div>
+                <div class="panel-subheading">
+                    <div class="week-switcher">
+                        <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.firstDay)"></i>
+                        You are planning for: {{ week.firstDay }} - {{ week.lastDay }}
+                        <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.lastDay)"></i>
+                    </div>
                 </div>
                 <div ng-include="'scripts/dashboard/week/week.html'"></div>
             </div>

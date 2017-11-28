@@ -1,4 +1,4 @@
-Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, StorageModel) {
+Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealModel, StorageModel) {
     const today = moment();
     let week = this;
     week.day = {}; // here goes all methods for the day events
@@ -20,10 +20,8 @@ Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, Stor
     datePicker.on('apply.daterangepicker', function (e, picker) {
         const newStartDate = picker.startDate;
         week.init(newStartDate);
-        $rootScope.$digest();
+        $scope.$apply();
     });
-
-
 
     //day settings
     week.day.setCurrentMeal = function (meal, date) {
@@ -92,6 +90,14 @@ Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, Stor
         //week.day.addRecipe = !week.day.addProduct;
     };
 
+    week.switchWeek = function (time) {
+        if (time === 'past') {
+            week.init(week.range[0].subtract(1, 'day'));
+        } else if (time === 'future') {
+            week.init(week.range[6].add(1, 'day'));
+        }
+    };
+
     week.init = function (forDate) {
         week.range = []; //dates for 7 days
         calculateWeekRange(moment(forDate).startOf('week'));
@@ -111,7 +117,10 @@ Mealpler.controller('WeekCtrl', function ($rootScope, WeekModel, MealModel, Stor
         week.range.map(function(d) {
             d.dayName = moment(d).format('dddd');
             d.shortDate = moment(d).format('dddd, Do');
-            d.fullDate = moment(d).format('YYYY-M-D')});
+            d.fullDate = moment(d).format('YYYY-M-D')
+        });
+        week.firstDay = week.range[0].format("MMMM Do");
+        week.lastDay = week.range[6].format("MMMM Do");
     }
 
     function loadMealsDataForWeek() {
