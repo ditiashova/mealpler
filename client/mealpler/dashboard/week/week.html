@@ -1,9 +1,9 @@
 <div class="panel-body">
     <div class="row week-planner">
-        <div class="col-sm day-planner" ng-repeat="day in week.range track by day.fullDate" ng-class="{'today' : day.fullDate === week.today}">
+        <div class="col-sm day-planner" ng-repeat="day in week.range track by day.id" ng-class="{'today' : (day | fullDate) === week.today}">
             <div class="text-center">
-                {{ day.dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
-                <small>{{ day.fullDate }}</small>
+                {{ day | dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
+                <small>{{ day | fullDate }}</small>
             </div>
 
             <div ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">

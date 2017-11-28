@@ -114,13 +114,9 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
             nextDay.id = i;
             week.range.push(nextDay);
         }
-        week.range.map(function(d) {
-            d.dayName = moment(d).format('dddd');
-            d.shortDate = moment(d).format('dddd, Do');
-            d.fullDate = moment(d).format('YYYY-M-D')
-        });
-        week.firstDay = week.range[0].format("MMMM Do");
-        week.lastDay = week.range[6].format("MMMM Do");
+
+        week.firstDay = week.range[0];
+        week.lastDay = week.range[6];
     }
 
     function loadMealsDataForWeek() {
