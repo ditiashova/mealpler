@@ -41,19 +41,19 @@
 }
 
 .meal-breakfast {
-  border-left: 5px solid greenyellow;
+  border-left: 5px solid #4AC957;
 }
 .meal-lunch {
-  border-left: 5px solid yellow;
+  border-left: 5px solid #4AC957;
 }
 .meal-dinner {
-  border-left: 5px solid lightblue;
+  border-left: 5px solid #BBF762;
 }
 .meal-snacks {
-  border-left: 5px solid orange;
+  border-left: 5px solid #A4F9F5;
 }
 .meal-supper {
-  border-left: 5px solid palevioletred;
+  border-left: 5px solid #30B5A7;
 }
 
 .edit-item, .plus-hidden {
@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  min-height: 55px;
 }
 
 .meal:hover > .plus-temp {
