@@ -16,7 +16,7 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
 
     dashboard.grocery.addItems = function (listOfMeals) {
         let newItems = [];
-        listOfMeals.map(a => a.mealList.forEach(b => newItems.push(b)));
+        listOfMeals.map(a => a.mealList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
         StorageModel.addItemToGroceryList(newItems);
         dashboard.init();
     };
