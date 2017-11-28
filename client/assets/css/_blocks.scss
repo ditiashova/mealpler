@@ -1,3 +1,27 @@
+.sidebar {
+  display: none;
+  height: 100%;
+  width: 25%;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  padding: 0;
+  .panel-heading {
+    padding-bottom: 0;
+    border-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.sidebar.open {
+  display: block;
+}
+
+
 .date-picker-box {
   color: white;
   font-size: 12px;
