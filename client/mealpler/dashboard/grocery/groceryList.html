@@ -1,13 +1,10 @@
 <div ng-repeat="item in dashboard.grocery.list track by $index" class="row">
-    <div class="col-xs-8">
-        <i class="fa fa-minus-circle" ng-click="dashboard.grocery.deleteItem(item)" style="color:orangered"></i>
+    <div class="col-xs-10">
+        <i class="fa fa-check-circle text-success" ng-click="dashboard.grocery.deleteItem(item)"></i>
         <span>{{ item.name }}</span>
     </div>
     <div class="col-xs-2">
-        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5"/>
-    </div>
-    <div class="col-xs-2">
-        <i class="fa fa-check-circle" ng-click="dashboard.grocery.changeQuantity(item)" style="color:limegreen"></i>
+        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>
     </div>
 </div>
 <div class="row form-group">
