@@ -39,9 +39,10 @@ i.fa-plus {
   box-shadow: none;
   .panel-heading {
     border-radius: 0;
-    background-color: #27ae60;
+    background-color: $nephritis;
     padding: 15px;
     color: white;
+    border: none;
   }
 }
 
