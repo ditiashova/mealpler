@@ -1,5 +1,6 @@
-Mealpler.service('MealModel', function () {
-    let service = this;
+Mealpler.service('MealModel', MealModel);
+
+function MealModel () {
     const meals = [
         {id: 1, mealNo: 1, mealName: 'breakfast', mealList: []},
         {id: 2, mealNo: 2, mealName: 'lunch', mealList: []},
@@ -22,49 +23,49 @@ Mealpler.service('MealModel', function () {
         "deletable": false
     };
 
-    service.saveMealInfo = function (dayMeal, date) {
+    this.saveMealInfo = (dayMeal, date) => {
         const storedDayName = date.format("YYYY-M-D");
-        let storedDay = service.getMealsList(storedDayName);
+        let storedDay = this.getMealsList(storedDayName);
 
         //check if there is nothing for this day
         if (storedDay === null) {
-            let itemContent = service.createNewDay(date);
+            let itemContent = this.createNewDay(date);
             itemContent.mealsList.push(angular.copy(dayMeal));
-            service.updateMealsList(storedDayName,itemContent);
+            this.updateMealsList(storedDayName,itemContent);
         } else {
             //check if we already have smth. for this MEAL
             let oldItemContent = storedDay.mealsList.filter(old => old.mealNo === dayMeal.mealNo);
 
             if (oldItemContent.length === 0) {
                 storedDay.mealsList.push(dayMeal);
-                service.updateMealsList(storedDayName,storedDay);
+                this.updateMealsList(storedDayName,storedDay);
             } else {
                 storedDay.mealsList.filter(old => old.mealNo === dayMeal.mealNo)[0].mealList = dayMeal.mealList;
-                service.updateMealsList(storedDayName,storedDay);
+                this.updateMealsList(storedDayName,storedDay);
             }
         }
     };
 
-    service.deleteAllMeal = function (mealName, date) {
+    this.deleteAllMeal = (mealName, date) => {
         const storedDayName = date.format("YYYY-M-D");
-        let availableItem = service.getMealsList(storedDayName);
+        let availableItem = this.getMealsList(storedDayName);
         let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
         availableItem.mealsList.splice(i, 1);
-        service.updateMealsList(storedDayName,availableItem);
+        this.updateMealsList(storedDayName,availableItem);
     };
 
-    service.deleteItemMeal = function (item, mealName, date) {
+    this.deleteItemMeal = (item, mealName, date) => {
         const storedDayName = date.format("YYYY-M-D");
-        let availableItem = service.getMealsList(storedDayName);
+        let availableItem = this.getMealsList(storedDayName);
         let currentMeals = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList;
         let i = currentMeals.findIndex(b => b.name === item.name);
         currentMeals.splice(i, 1);
-        service.updateMealsList(storedDayName, availableItem);
+        this.updateMealsList(storedDayName, availableItem);
     };
 
-    service.findMealList = function(date) {
+    this.findMealList = (date) => {
         const storedDayName = date.format("YYYY-M-D");
-        let data = service.getMealsList(storedDayName);
+        let data = this.getMealsList(storedDayName);
         if (data === null) return meals;
         if (data != null) {
             if (data.mealsList === undefined) {
@@ -83,7 +84,7 @@ Mealpler.service('MealModel', function () {
         }
     };
 
-    service.getMealsList = function (forDate) {
+    this.getMealsList = (forDate) => {
         let all = [];
         try {
             all = JSON.parse(localStorage.getItem(forDate));
@@ -93,26 +94,20 @@ Mealpler.service('MealModel', function () {
         return all;
     };
 
-    service.updateMealsList = function (date, newData) {
+    this.updateMealsList = (date, newData) => {
         localStorage.setItem(date, JSON.stringify(newData));
     };
 
-    service.createNewDay = function (date) {
+    this.createNewDay = (date) => {
         let day = {};
         day.dayNo = moment(date).day();
         day.mealsList = [];
         return day;
     };
 
-    service.createDefaultProduct = function () {
-        return defaultProduct;
-    };
+    this.createDefaultProduct = () => defaultProduct;
 
-    service.createDefaultRecipe = function () {
-        return defaultRecipe;
-    };
+    this.createDefaultRecipe = () => defaultRecipe;
 
-    service.emptyMealsList = function () {
-        return meals;
-    };
-});
+    this.emptyMealsList = () => meals;
+}

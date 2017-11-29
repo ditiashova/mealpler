@@ -1,5 +1,6 @@
-Mealpler.service('WeekModel', function () {
-   let service = this;
+Mealpler.service('WeekModel', WeekModel);
+
+function WeekModel () {
    const week = [
        {id: 0, name: 'Sun', fullName: 'Sunday'},
        {id: 1, name: 'Mon', fullName: 'Monday'},
@@ -9,7 +10,5 @@ Mealpler.service('WeekModel', function () {
        {id: 4, name: 'Fri', fullName: 'Friday'},
        {id: 6, name: 'Sat', fullName: 'Saturday'},
    ];
-   service.weekDays = function () {
-       return week;
-   };
-});
+   this.weekDays = () => week;
+}

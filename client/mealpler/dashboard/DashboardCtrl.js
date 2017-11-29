@@ -1,35 +1,35 @@
-Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
-    let dashboard = this;
-    //dashboard.pantry = {};
-    dashboard.grocery = {};
+Mealpler.controller('DashboardCtrl', DashboardController);
 
-    dashboard.grocery.addItem = function (newItem) {
+function DashboardController (MealModel, StorageModel) {
+    this.grocery = {};
+
+    this.grocery.addItem = (newItem) => {
         StorageModel.addItemToGroceryList(newItem);
-        dashboard.init();
+        this.init();
     };
 
-    dashboard.grocery.addItems = function (listOfMeals) {
+    this.grocery.addItems = (listOfMeals) => {
         let newItems = [];
         listOfMeals.map(a => a.mealList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
         StorageModel.addItemToGroceryList(newItems);
-        dashboard.init();
+        this.init();
     };
 
-    dashboard.grocery.deleteItem = function (item) {
+    this.grocery.deleteItem = (item) => {
         StorageModel.deleteGroceryItem(item);
-        dashboard.init();
+        this.init();
     };
 
-    dashboard.grocery.deleteAll = function () {
+    this.grocery.deleteAll = () => {
         StorageModel.deleteGrocery();
-        dashboard.init();
+        this.init();
     };
 
-    dashboard.init = function () {
-        dashboard.grocery.list = StorageModel.getStoredItem("grocery");
-        dashboard.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
+    this.init = () => {
+        this.grocery.list = StorageModel.getStoredItem("grocery");
+        this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 
-    dashboard.init();
+    this.init();
 
-});
+};

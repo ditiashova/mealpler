@@ -1,9 +1,9 @@
-Mealpler.controller('MainCtrl', ['request', function (request) {
-    let main = this;
-    main.title = Mealpler.titles;
-    main.openShopList = false;
+Mealpler.controller('MainCtrl', MainController);
 
-    main.toggleShopList = function () {
-        main.openShopList = !main.openShopList;
+function MainController () {
+    this.title = Mealpler.titles;
+    this.openShopList = false;
+    this.toggleShopList = () => {
+        this.openShopList = !this.openShopList;
     };
-}]);
+}

@@ -1,38 +1,38 @@
-Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealModel, StorageModel) {
-    const today = moment();
-    let week = this;
-    week.day = {}; // here goes all methods for the day events
-    week.activeTab = 'product';
-    week.today = moment().format('YYYY-M-D');
-    //week.day.addProduct = true;
+Mealpler.controller('WeekCtrl', WeekController);
 
+function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel) {
+    const today = moment();
     const datePicker = $('input[name="daterange"]');
+
+    this.day = {}; // here goes all methods for the day events
+    this.activeTab = 'product';
+    this.today = moment().format('YYYY-M-D');
 
     //settings for Date Range Picker
     datePicker.daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         "startDate": new Date()
-    }, function(start, end, label) {
+    }, (start, end, label) => {
 
     });
 
-    datePicker.on('apply.daterangepicker', function (e, picker) {
+    datePicker.on('apply.daterangepicker', (e, picker) => {
         const newStartDate = picker.startDate;
-        week.init(newStartDate);
+        this.init(newStartDate);
         $scope.$apply();
     });
 
     //day settings
-    week.day.setCurrentMeal = function (meal, date) {
-        week.day.refreshCurrentMeal();
-        week.currentMeal = angular.copy(meal);
-        week.currentDate = date;
-        week.day.createNewProduct(week.newProducts);
-        week.day.createNewProduct(week.newRecipe);
+    this.day.setCurrentMeal = (meal, date) => {
+        this.day.refreshCurrentMeal();
+        this.currentMeal = angular.copy(meal);
+        this.currentDate = date;
+        this.day.createNewProduct(this.newProducts);
+        this.day.createNewProduct(this.newRecipe);
     };
 
-    week.day.addNewItems = function (type, forMeal, forDay, newItems) {
+    this.day.addNewItems = (type, forMeal, forDay, newItems) => {
         if (type === 'list') {
             forMeal.mealList = forMeal.mealList.concat(newItems.list);
         } else if (type === 'recipe') {
@@ -41,93 +41,94 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
             forMeal.mealList = forMeal.mealList.concat(newItems.mealList);
         }
         MealModel.saveMealInfo(forMeal,forDay);
-        week.day.refreshCurrentMeal();
-        loadMealsDataForWeek();
+        this.day.refreshCurrentMeal();
+        this._loadMealsDataForWeek();
     };
 
-    week.day.deleteMeal = function (meal, date) {
+    this.day.deleteMeal = (meal, date) => {
         MealModel.deleteAllMeal(meal, date);
-        week.day.refreshCurrentMeal();
-        loadMealsDataForWeek();
+        this.day.refreshCurrentMeal();
+        this._loadMealsDataForWeek();
     };
 
-    week.day.deleteItem = function (item, mealName, date) {
+    this.day.deleteItem = (item, mealName, date) => {
         MealModel.deleteItemMeal(item, mealName, date);
-        loadMealsDataForWeek();
+        this._loadMealsDataForWeek();
     };
 
-    week.day.createNewProduct = function (forMeal) {
+    this.day.createNewProduct = (forMeal) => {
         forMeal.list.push(angular.copy(MealModel.createDefaultProduct()));
     };
 
-    week.day.refreshCurrentMeal = function () {
-        week.currentMeal = {}; week.currentDate = '';
-        week.day.refreshNewItems();
+    this.day.refreshCurrentMeal = () => {
+        this.currentMeal = {}; this.currentDate = '';
+        this.day.refreshNewItems();
     };
 
-    week.day.refreshNewItems = function () {
-        week.newProducts = {};
-        week.newProducts.list = [];
-        week.newRecipe = angular.copy(MealModel.createDefaultRecipe());
+    this.day.refreshNewItems = () => {
+        this.newProducts = {};
+        this.newProducts.list = [];
+        this.newRecipe = angular.copy(MealModel.createDefaultRecipe());
     };
 
-    week.day.copyFood = function (name, content) {
+    this.day.copyFood = (name, content) => {
         StorageModel.addFoodToStored(name, content);
     };
 
-    week.day.pasteMenu = function (forDay) {
+    this.day.pasteMenu = (forDay) => {
         let stored = StorageModel.getStoredItem("menu");
         let dat = MealModel.createNewDay(forDay);
         stored.forEach(a => dat.mealsList.push(a));
         MealModel.updateMealsList(forDay.format("YYYY-M-D"), dat);
-        loadMealsDataForWeek();
+        this._loadMealsDataForWeek();
     };
 
-    week.day.pasteFood = function (name, forMeal, forDay) {
+    this.day.pasteFood = (name, forMeal, forDay) => {
         let stored = StorageModel.getStoredItem(name);
-        week.day.addNewItems('stored', forMeal, forDay, stored);
+        this.day.addNewItems('stored', forMeal, forDay, stored);
     };
 
-    week.day.mealModal = function (tab) {
-        week.activeTab = tab;
-        //week.day.addProduct = tab === 0;
-        //week.day.addRecipe = !week.day.addProduct;
+    this.day.mealModal = (tab) => {
+        this.activeTab = tab;
+        //this.day.addProduct = tab === 0;
+        //this.day.addRecipe = !this.day.addProduct;
     };
 
-    week.switchWeek = function (time) {
+    this.switchWeek = (time) => {
         if (time === 'past') {
-            week.init(week.range[0].subtract(1, 'day'));
+            this.init(this.range[0].subtract(1, 'day'));
         } else if (time === 'future') {
-            week.init(week.range[6].add(1, 'day'));
+            this.init(this.range[6].add(1, 'day'));
         }
     };
 
-    week.init = function (forDate) {
-        week.range = []; //dates for 7 days
-        calculateWeekRange(moment(forDate).startOf('week'));
+    this.init = (forDate) => {
+        this.range = []; //dates for 7 days
+        this._calculateWeekRange(moment(forDate).startOf('week'));
         //get meal's list for each day of week range
-        loadMealsDataForWeek();
-        week.day.refreshCurrentMeal();
+        this._loadMealsDataForWeek();
+        this.day.refreshCurrentMeal();
     };
 
-    week.init(today);
 
-    function calculateWeekRange(firstDay) {
+
+    this._calculateWeekRange = (firstDay) => {
         for (let i = 0; i < 7; i++) {
             let nextDay = moment(firstDay).add(i, 'day');
             nextDay.id = i;
-            week.range.push(nextDay);
+            this.range.push(nextDay);
         }
 
-        week.firstDay = week.range[0];
-        week.lastDay = week.range[6];
-    }
+        this.firstDay = this.range[0];
+        this.lastDay = this.range[6];
+    };
 
-    function loadMealsDataForWeek() {
-        week.range.map(function (d) {
+    this._loadMealsDataForWeek = () => {
+        this.range.map(function (d) {
             d.mealsList = angular.copy(MealModel.findMealList(d));
             d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
-    }
-});
+    };
 
+    this.init(today);
+}
