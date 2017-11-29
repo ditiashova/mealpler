@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="DashboardCtrl as dashboard">
     <div class="row">
-        <div class="sidebar" ng-class="{'open': main.openedFridge}">
+        <div class="sidebar" ng-class="{'open': main.openShopList}">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <ul class="nav nav-tabs" role="tablist">
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                     </ul>
-                    <i class="fa fa-close" ng-click="main.toggleFridge()"></i>
+                    <i class="fa fa-close" ng-click="main.toggleShopList()"></i>
                 </div>
                 <div class="panel-body">
                     <div class="tab-content">

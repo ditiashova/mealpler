@@ -1,13 +1,7 @@
 Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     let dashboard = this;
     //dashboard.pantry = {};
-    dashboard.fridge = {};
     dashboard.grocery = {};
-
-    dashboard.fridge.addItem = function (newItem) {
-        StorageModel.addItemToFridgeList(newItem);
-        dashboard.init();
-    };
 
     dashboard.grocery.addItem = function (newItem) {
         StorageModel.addItemToGroceryList(newItem);
@@ -21,18 +15,8 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
         dashboard.init();
     };
 
-    dashboard.fridge.deleteItem = function (item) {
-        StorageModel.deleteFridgeItem(item);
-        dashboard.init();
-    };
-
     dashboard.grocery.deleteItem = function (item) {
         StorageModel.deleteGroceryItem(item);
-        dashboard.init();
-    };
-
-    dashboard.fridge.deleteAll = function () {
-        StorageModel.deleteFridge();
         dashboard.init();
     };
 
@@ -42,9 +26,7 @@ Mealpler.controller('DashboardCtrl', function (MealModel, StorageModel) {
     };
 
     dashboard.init = function () {
-        dashboard.fridge.list = StorageModel.getStoredItem("fridge");
         dashboard.grocery.list = StorageModel.getStoredItem("grocery");
-        dashboard.fridge.newItem = angular.copy(MealModel.createDefaultProduct());
         dashboard.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 

@@ -1,21 +1,9 @@
 Mealpler.service('StorageModel', function () {
     let service = this;
 
-    service.addItemToFridgeList = function (item) {
-        let list = service.getStoredItem("fridge");
-        list.push(item);
-        service.addFoodToStored("fridge", list);
-    };
-
     service.addItemToGroceryList = function (item) {
         let list = service.getStoredItem("grocery").concat(item);
         service.addFoodToStored("grocery", list);
-    };
-
-    service.updateFridgeItem = function (oldItem) {
-        let list = service.getStoredItem("fridge");
-        list.filter(a => a.name === oldItem.name)[0].quantity = oldItem.quantity;
-        service.addFoodToStored("fridge", list);
     };
 
     service.updateGroceryItem = function (oldItem) {
@@ -24,22 +12,11 @@ Mealpler.service('StorageModel', function () {
         service.addFoodToStored("grocery", list);
     };
 
-    service.deleteFridgeItem = function (itemToDelete) {
-      let list = service.getStoredItem("fridge");
-      let i = list.findIndex(a => a.name === itemToDelete.name && a.quantity === itemToDelete.quantity);
-      list.splice(i, 1);
-        service.addFoodToStored("fridge", list);
-    };
-
     service.deleteGroceryItem = function (itemToDelete) {
         let list = service.getStoredItem("grocery");
         let i = list.findIndex(a => a.name === itemToDelete.name && a.quantity === itemToDelete.quantity);
         list.splice(i, 1);
         service.addFoodToStored("grocery", list);
-    };
-
-    service.deleteFridge = function () {
-        localStorage.removeItem("fridge");
     };
 
     service.deleteGrocery = function () {
