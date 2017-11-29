@@ -92,7 +92,7 @@ gulp.task('serve', () => {
   return browserSync.init({
     server: './dist',
     files: './dist/**/*',
-    reloadDebounce: 250
+    reloadDebounce: 500
   })
 });
 
