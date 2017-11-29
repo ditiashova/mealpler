@@ -24,7 +24,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-.gitignore
 .idea/
 dist/
 node_modules/
