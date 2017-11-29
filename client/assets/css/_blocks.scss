@@ -30,6 +30,17 @@
   }
 }
 
+.day-manager {
+  .fa-arrow-down {
+    display: none;
+  }
+  &:hover {
+    .fa-arrow-down {
+      display: inline;
+    }
+  }
+}
+
 .today {
   background-color: $light-gray;
 }

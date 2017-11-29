@@ -1,8 +1,9 @@
 <div class="panel-body">
     <div class="row week-planner">
         <div class="col-sm day-planner" ng-repeat="day in week.range track by day.id" ng-class="{'today' : (day | fullDate) === week.today}">
-            <div class="text-center">
-                {{ day | dayName }}<i class="fa fa-arrow-down" ng-click="week.day.pasteStarredMenu(day)"></i> <br/>
+            <div class="text-center day-manager">
+                {{ day | dayName }}&nbsp;
+                <i class="fa fa-arrow-down" ng-click="week.day.pasteDayMenu(day)" title="Paste menu"></i> <br/>
                 <small>{{ day | fullDate }}</small>
             </div>
 
@@ -38,8 +39,13 @@
             </div>
 
             <div class="meal-manager">
-                <span class="day-manager"><i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"></i></span>
-                <span class="day-manager"><i class="fa fa-star-o" ng-click="week.day.starMenu(day.mealsList)"></i></span>
+                <span class="day-manager">
+                    <i class="fa fa-clone" ng-click="week.day.copyDayMenu(day.mealsList)" title="Copy menu"></i>
+                </span>&nbsp;|&nbsp;
+                <span class="day-manager">
+                    <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"
+                        title="Send menu to shopping list"></i>
+                </span>
             </div>
 
             <div ng-include="'scripts/tmpl/mealModal.html'"></div>

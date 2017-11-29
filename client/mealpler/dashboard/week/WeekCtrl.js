@@ -72,11 +72,11 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
         week.newRecipe = angular.copy(MealModel.createDefaultRecipe());
     };
 
-    week.day.starMenu = function (menu) {
+    week.day.copyDayMenu = function (menu) {
         StorageModel.addMenuToStarred(menu);
     };
 
-    week.day.pasteStarredMenu = function (forThisDay) {
+    week.day.pasteDayMenu = function (forThisDay) {
         let star = StorageModel.getStarredMenu();
         let dat = MealModel.createNewDay(forThisDay);
         star.forEach(a => dat.mealsList.push(a));
