@@ -10,7 +10,6 @@ Mealpler.service('MealModel', function () {
     const defaultProduct = {
         "name": "",
         "type": "product",
-        "quantity": 1,
         "hasIngredients": false,
         "deletable": false
     };
@@ -18,7 +17,6 @@ Mealpler.service('MealModel', function () {
     const defaultRecipe = {
         "name": "",
         "type": "meal",
-        "quantity": 1,
         "hasIngredients": true,
         "list": [],
         "deletable": false
@@ -59,7 +57,7 @@ Mealpler.service('MealModel', function () {
         const storedDayName = date.format("YYYY-M-D");
         let availableItem = service.getMealsList(storedDayName);
         let currentMeals = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList;
-        let i = currentMeals.findIndex(b => b.name === item.name && b.quantity === item.quantity);
+        let i = currentMeals.findIndex(b => b.name === item.name);
         currentMeals.splice(i, 1);
         service.updateMealsList(storedDayName, availableItem);
     };
