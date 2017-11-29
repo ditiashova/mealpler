@@ -34,8 +34,13 @@
                 <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
                     <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal"
                        ng-click="week.day.setCurrentMeal(meal, day)"></i>
+                    <span ng-hide="meal.hasMeals">&nbsp;|&nbsp;
+                        <i class="fa fa-arrow-down" ng-click="week.day.pasteFood('wholeMeal', meal, day)" style="font-size: 12px;"></i>
+                    </span>
+
                 </div>
                 <div class="text-right ingestion-manager" ng-show="meal.hasMeals">
+                    <i class="fa fa-arrow-down" ng-click="week.day.pasteFood('wholeMeal', meal, day)" style="font-size: 12px;"></i>
                     <i class="fa fa-clone" ng-click="week.day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
                     <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
                        ng-click="week.day.setCurrentMeal(meal, day)"></i>

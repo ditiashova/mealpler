@@ -23,7 +23,7 @@
                     <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewProduct(week.newProducts)"></i>
                 </div>
                 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
-                        ng-click="week.day.addNewProducts(week.currentMeal, week.currentDate, week.newProducts)">Save</button>
+                        ng-click="week.day.addNewItems('list', week.currentMeal, week.currentDate, week.newProducts)">Save</button>
                 <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Close</button>
             </div>
 
@@ -45,7 +45,7 @@
                     <i class="fa fa-plus" ng-click="week.day.createNewProduct(week.newRecipe)"></i>
                 </div>
                 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
-                        ng-click="week.day.addNewRecipe(week.currentMeal, week.currentDate, week.newRecipe)">Save</button>
+                        ng-click="week.day.addNewItems('recipe', week.currentMeal, week.currentDate, week.newRecipe)">Save</button>
                 <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Close</button>
             </div>
         </div>

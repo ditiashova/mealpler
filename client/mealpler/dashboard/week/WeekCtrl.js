@@ -32,16 +32,15 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
         week.day.createNewProduct(week.newRecipe);
     };
 
-    week.day.addNewProducts = function (meal,date,newProduct) {
-        meal.mealList = meal.mealList.concat(newProduct.list);
-        MealModel.saveMealInfo(meal,date);
-        week.day.refreshCurrentMeal();
-        loadMealsDataForWeek();
-    };
-
-    week.day.addNewRecipe = function (meal, date, newRecipe) {
-        meal.mealList.push(newRecipe);
-        MealModel.saveMealInfo(meal,date);
+    week.day.addNewItems = function (type, forMeal, forDay, newItems) {
+        if (type === 'list') {
+            forMeal.mealList = forMeal.mealList.concat(newItems.list);
+        } else if (type === 'recipe') {
+            forMeal.mealList.push(newItems);
+        } else if (type === 'stored') {
+            forMeal.mealList = forMeal.mealList.concat(newItems.mealList);
+        }
+        MealModel.saveMealInfo(forMeal,forDay);
         week.day.refreshCurrentMeal();
         loadMealsDataForWeek();
     };
@@ -76,12 +75,17 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
         StorageModel.addFoodToStored(name, content);
     };
 
-    week.day.pasteMenu = function (forThisDay) {
-        let star = StorageModel.getStarredMenu();
-        let dat = MealModel.createNewDay(forThisDay);
-        star.forEach(a => dat.mealsList.push(a));
-        MealModel.updateMealsList(forThisDay.format("YYYY-M-D"), dat);
+    week.day.pasteMenu = function (forDay) {
+        let stored = StorageModel.getStoredItem("menu");
+        let dat = MealModel.createNewDay(forDay);
+        stored.forEach(a => dat.mealsList.push(a));
+        MealModel.updateMealsList(forDay.format("YYYY-M-D"), dat);
         loadMealsDataForWeek();
+    };
+
+    week.day.pasteFood = function (name, forMeal, forDay) {
+        let stored = StorageModel.getStoredItem(name);
+        week.day.addNewItems('stored', forMeal, forDay, stored);
     };
 
     week.day.mealModal = function (tab) {
