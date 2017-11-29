@@ -4,38 +4,38 @@ Mealpler.service('StorageModel', function () {
     service.addItemToFridgeList = function (item) {
         let list = service.getFridgeList();
         list.push(item);
-        service.updateFridgeList(list);
+        service.addFoodToStored("fridge", list);
     };
 
     service.addItemToGroceryList = function (item) {
         let list = service.getGroceryList().concat(item);
-        service.updateGroceryList(list);
+        service.addFoodToStored("grocery", list);
     };
 
     service.updateFridgeItem = function (oldItem) {
         let list = service.getFridgeList();
         list.filter(a => a.name === oldItem.name)[0].quantity = oldItem.quantity;
-        service.updateFridgeList(list);
+        service.addFoodToStored("fridge", list);
     };
 
     service.updateGroceryItem = function (oldItem) {
         let list = service.getGroceryList();
         list.filter(a => a.name === oldItem.name)[0].quantity = oldItem.quantity;
-        service.updateGroceryList(list);
+        service.addFoodToStored("grocery", list);
     };
 
     service.deleteFridgeItem = function (itemToDelete) {
       let list = service.getFridgeList();
       let i = list.findIndex(a => a.name === itemToDelete.name && a.quantity === itemToDelete.quantity);
       list.splice(i, 1);
-      service.updateFridgeList(list);
+        service.addFoodToStored("fridge", list);
     };
 
     service.deleteGroceryItem = function (itemToDelete) {
         let list = service.getGroceryList();
         let i = list.findIndex(a => a.name === itemToDelete.name && a.quantity === itemToDelete.quantity);
         list.splice(i, 1);
-        service.updateGroceryList(list);
+        service.addFoodToStored("grocery", list);
     };
 
     service.deleteFridge = function () {
@@ -46,16 +46,8 @@ Mealpler.service('StorageModel', function () {
         localStorage.removeItem("grocery");
     };
 
-    service.updateFridgeList = function (newItem) {
-        localStorage.setItem("fridge", JSON.stringify(newItem));
-    };
-
-    service.updateGroceryList = function (newItem) {
-        localStorage.setItem("grocery", JSON.stringify(newItem));
-    };
-
-    service.addMenuToStarred = function (menu) {
-        localStorage.setItem("starredMenu", JSON.stringify(menu));
+    service.addFoodToStored = function (name, content) {
+        localStorage.setItem(name, JSON.stringify(content));
     };
 
     service.getFridgeList = function () {
