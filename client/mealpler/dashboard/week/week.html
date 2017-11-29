@@ -3,7 +3,7 @@
         <div class="col-sm day-planner" ng-repeat="day in week.range track by day.id" ng-class="{'today' : (day | fullDate) === week.today}">
             <div class="text-center day-manager">
                 {{ day | dayName }}&nbsp;
-                <i class="fa fa-arrow-down" ng-click="week.day.pasteDayMenu(day)" title="Paste menu"></i> <br/>
+                <i class="fa fa-arrow-down" ng-click="week.day.pasteMenu(day)" title="Paste menu"></i> <br/>
                 <small>{{ day | fullDate }}</small>
             </div>
 
@@ -11,10 +11,14 @@
                 <!--<small>{{ meal.mealName }}</small>-->
 
                 <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
-                    <span data-toggle="dropdown" id="itemName"
-                          ng-class="item.hasIngredients ? 'meal-recipe' : 'meal-simple'" >{{ item.name }}
-                    </span>&nbsp;|&nbsp;
-                    {{ item.quantity }}&nbsp;|&nbsp;
+                    <span ng-if="item.hasIngredients" ng-dblclick="week.day.copyFood('oneItem', item)"
+                          data-toggle="dropdown" class="meal-recipe">
+                        {{ item.name }}
+                    </span>
+                    <span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="week.day.copyFood('oneItem', item)">
+                        {{ item.name }}
+                    </span>
+                    |&nbsp;{{ item.quantity }}&nbsp;|&nbsp;
 
                     <span class="edit-item">
                         <i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i>
@@ -23,6 +27,7 @@
                     <span class="edit-item" ng-show="!item.hasIngredients">
                         <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i>
                     </span>
+
                     <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
                 </div>
 
@@ -30,17 +35,17 @@
                     <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal"
                        ng-click="week.day.setCurrentMeal(meal, day)"></i>
                 </div>
-                <div class="text-right">
+                <div class="text-right ingestion-manager" ng-show="meal.hasMeals">
+                    <i class="fa fa-clone" ng-click="week.day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
                     <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
-                       ng-click="week.day.setCurrentMeal(meal, day)" ng-show="meal.hasMeals"></i>
-
+                       ng-click="week.day.setCurrentMeal(meal, day)"></i>
                 </div>
 
             </div>
 
             <div class="meal-manager">
                 <span class="day-manager">
-                    <i class="fa fa-clone" ng-click="week.day.copyDayMenu(day.mealsList)" title="Copy menu"></i>
+                    <i class="fa fa-clone" ng-click="week.day.copyFood('menu', day.mealsList)" title="Copy menu"></i>
                 </span>&nbsp;|&nbsp;
                 <span class="day-manager">
                     <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"

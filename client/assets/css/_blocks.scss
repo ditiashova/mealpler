@@ -53,6 +53,12 @@
 }
 .meal {
   min-height: 65px;
+  .ingestion-manager {
+    visibility: hidden;
+  }
+  &:hover > .ingestion-manager {
+    visibility: visible;
+  }
   small {
     display: block;
     margin-bottom: 5px;
@@ -65,8 +71,10 @@
   .meal-recipe {
     background-color: rgb(236, 236, 236);
     border-radius: 8px;
+    padding: 2px 5px;
+    margin-right: 5px;
   }
-  .meal-recipe, .meal-simple {
+  .meal-simple {
     padding: 2px 5px;
   }
 }
