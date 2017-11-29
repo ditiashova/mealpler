@@ -80,7 +80,7 @@ Mealpler.controller('WeekCtrl', function ($rootScope, $scope, WeekModel, MealMod
         let star = StorageModel.getStarredMenu();
         let dat = MealModel.createNewDay(forThisDay);
         star.forEach(a => dat.mealsList.push(a));
-        MealModel.updateMealsList(forThisDay.fullDate, dat);
+        MealModel.updateMealsList(forThisDay.format("YYYY-M-D"), dat);
         loadMealsDataForWeek();
     };
 
