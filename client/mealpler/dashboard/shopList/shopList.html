@@ -1,12 +1,12 @@
-<div ng-repeat="item in dashboard.grocery.list track by $index" class="row">
-    <div class="col-xs-10">
-        <i class="fa fa-check-circle text-success" ng-click="dashboard.grocery.deleteItem(item)"></i>
+<div ng-repeat="item in dashboard.grocery.list track by $index" class="row shop-item">
+    <div class="col-xs-12">
+        <!--<i class="fa fa-check-circle text-success" ng-click="dashboard.grocery.deleteItem(item)"></i>-->
         <span>{{ item.name }}</span>
-    </div>
-    <div class="col-xs-2">
         <div class="badge badge-success">{{ item.quantity }}</div>
-        <!--<input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>-->
     </div>
+    <!--<div class="col-xs-2">
+        &lt;!&ndash;<input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>&ndash;&gt;
+    </div>-->
 </div>
 <!--<div class="row form-group">
     <form name="newFridgeItemAdder" role="form" ng-submit="dashboard.grocery.addItem(dashboard.grocery.newItem)">
