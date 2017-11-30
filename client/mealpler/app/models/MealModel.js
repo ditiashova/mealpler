@@ -64,6 +64,15 @@ function MealModel () {
         this.updateMealsList(storedDayName, availableItem);
     };
 
+    this.deleteIngredient = (item, recipeName, mealName, date) => {
+        const storedDayName = date.format("YYYY-M-D");
+        let availableItem = this.getMealsList(storedDayName);
+        let currentRecipe = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList.filter(b => b.name === recipeName && b.hasIngredients)[0];
+        let i = currentRecipe.list.findIndex(a => a.name === item.name);
+        currentRecipe.list.splice(i, 1);
+        this.updateMealsList(storedDayName, availableItem);
+    };
+
     this.findMealList = (forDate) => {
         let data = this.getMealsList(forDate);
         if (data === null) return meals;
