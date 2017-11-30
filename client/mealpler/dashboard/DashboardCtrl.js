@@ -50,7 +50,7 @@ function DashboardController ($rootScope, $scope, MealModel, StorageModel) {
         //this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 
-    $rootScope.$on('newItemAdded', () => this.grocery.init());
+    $rootScope.$on('updateShopList', () => this.grocery.init());
 
     this.grocery.init();
 

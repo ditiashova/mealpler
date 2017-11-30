@@ -44,7 +44,6 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
         MealModel.saveMealInfo(forMeal,forDay);
         this.day.refreshCurrentMeal();
         this._loadMealsDataForWeek();
-        $rootScope.$emit('newItemAdded');
     };
 
     this.day.deleteMeal = (meal, date) => {
@@ -55,6 +54,11 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
 
     this.day.deleteItem = (item, mealName, date) => {
         MealModel.deleteItemMeal(item, mealName, date);
+        this._loadMealsDataForWeek();
+    };
+
+    this.day.deleteIngredient = (item, recipe, mealName, date) => {
+        MealModel.deleteIngredient(item, recipe, mealName, date);
         this._loadMealsDataForWeek();
     };
 
@@ -132,6 +136,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
             d.mealsList = angular.copy(storedMeals.filter(s => s.dayName === d.dayName)[0].list);
             d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
+        $rootScope.$emit('updateShopList');
     };
 
     this.init(today);
