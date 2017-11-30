@@ -114,7 +114,7 @@
 }
 
 .edit-item {
-  display: none;
+  visibility: hidden;
 }
 .plus-hidden {
   visibility: hidden;
@@ -122,17 +122,16 @@
 
 .item.dropdown.show {
   .edit-item {
-    display: none;
+    visibility: hidden;
   }
 }
 
 .edit-item {
   width: auto;
-  padding: 2px 5px 2px 5px;
-  position: absolute;
-  color: white;
+  padding: 2px;
+  /*color: white;
   background-color: #27ae60;
-  border-radius: 8px;
+  border-radius: 8px;*/
 }
 
 .plus-temp {
@@ -155,7 +154,7 @@
 }
 
 .item:hover > .edit-item, .ingredient:hover > .edit-item {
-  display: block;
+  visibility: visible;
 }
 
 .meal {
