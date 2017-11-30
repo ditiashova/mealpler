@@ -1,6 +1,6 @@
 Mealpler.controller('DashboardCtrl', DashboardController);
 
-function DashboardController (MealModel, StorageModel) {
+function DashboardController ($rootScope, $scope, MealModel, StorageModel) {
     const dateRangePicker = $('input[name="daterangepicker"]');
     this.grocery = {};
     this.grocery.rangeStart = moment().startOf('week');
@@ -48,6 +48,8 @@ function DashboardController (MealModel, StorageModel) {
         this.grocery.list = MealModel.extractAndSortProducts(storedItems);
         //this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
+
+    $rootScope.$on('newItemAdded', () => this.init());
 
     this.init();
 

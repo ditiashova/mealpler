@@ -44,6 +44,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
         MealModel.saveMealInfo(forMeal,forDay);
         this.day.refreshCurrentMeal();
         this._loadMealsDataForWeek();
+        $rootScope.$emit('newItemAdded');
     };
 
     this.day.deleteMeal = (meal, date) => {
