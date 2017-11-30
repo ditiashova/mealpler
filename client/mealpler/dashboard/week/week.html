@@ -23,10 +23,6 @@
                         <i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i>
                     </span>
 
-                    <span class="edit-item" ng-show="!item.hasIngredients">
-                        <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItem(item)"></i>
-                    </span>
-
                     <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
                 </div>
 
