@@ -12,6 +12,7 @@ function MealModel () {
         "name": "",
         "type": "product",
         "hasIngredients": false,
+        "quantity": 1,
         "deletable": false
     };
 
