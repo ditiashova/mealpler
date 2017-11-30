@@ -6,6 +6,10 @@
                     <h2 class="panel-title">{{ main.title['shopList'] }}</h2>
                     <i class="fa fa-close" ng-click="main.toggleShopList()"></i>
                 </div>
+                <div class="panel-subheading">
+                    Choose a range of day to display SH for:
+                    <input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>
+                </div>
                 <div class="panel-body">
                     <div ng-include="'scripts/dashboard/shopList/shopList.html'"></div>
                 </div>
@@ -18,7 +22,7 @@
                         {{ main.title['weekPlanner'] }}
                         <span class="date-picker-box pull-right">
                             Choose a week:
-                            <input name="daterange" id="daterange" title="datePicker"/>
+                            <input name="datepicker" id="datepicker" title="datePicker"/>
                         </span>
                     </div>
                 </div>

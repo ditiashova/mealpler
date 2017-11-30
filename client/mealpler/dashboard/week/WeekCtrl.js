@@ -2,16 +2,16 @@ Mealpler.controller('WeekCtrl', WeekController);
 
 function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel) {
     const today = moment();
-    const datePicker = $('input[name="daterange"]');
+    const datePicker = $('input[name="datepicker"]');
 
     this.day = {}; // here goes all methods for the day events
     this.activeTab = 'product';
     this.today = moment().format('YYYY-M-D');
 
-    //settings for Date Range Picker
+    //settings for Date Picker
     datePicker.daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
+        "singleDatePicker": true,
+        "showDropdowns": true,
         "startDate": new Date()
     }, (start, end, label) => {
 

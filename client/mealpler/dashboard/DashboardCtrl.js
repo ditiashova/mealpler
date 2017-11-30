@@ -1,7 +1,23 @@
 Mealpler.controller('DashboardCtrl', DashboardController);
 
 function DashboardController (MealModel, StorageModel) {
+    const dateRangePicker = $('input[name="daterangepicker"]');
     this.grocery = {};
+
+    //settings for Date Range Picker
+    dateRangePicker.daterangepicker({
+        "dateLimit": {
+            "days": 7
+        },
+        "showDropdowns": true,
+        "startDate": moment().startOf('week')
+    }, () => {});
+
+    dateRangePicker.on('apply.daterangepicker', (e, picker) => {
+        /*const newStartDate = picker.startDate;
+        this.init(newStartDate);
+        $scope.$apply();*/
+    });
 
     this.grocery.addItem = (newItem) => {
         StorageModel.addItemToGroceryList(newItem);
