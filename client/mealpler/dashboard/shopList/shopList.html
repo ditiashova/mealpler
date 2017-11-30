@@ -4,10 +4,11 @@
         <span>{{ item.name }}</span>
     </div>
     <div class="col-xs-2">
-        <input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>
+        <div class="badge badge-success">{{ item.quantity }}</div>
+        <!--<input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>-->
     </div>
 </div>
-<div class="row form-group">
+<!--<div class="row form-group">
     <form name="newFridgeItemAdder" role="form" ng-submit="dashboard.grocery.addItem(dashboard.grocery.newItem)">
         <div class="col-xs-8">
             <input ng-model="dashboard.grocery.newItem.name" placeholder="e.g. Cocoa" name="mealName" class="form-control" minlength="2" required/>
@@ -25,4 +26,4 @@
         <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmGroceryDelete" ng-show="dashboard.grocery.list.length > 0"></i>
     </div>
     <div ng-include="'scripts/tmpl/confirmGroceryDelete.html'"></div>
-</div>
+</div>-->
