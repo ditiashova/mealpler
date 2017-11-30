@@ -3,11 +3,13 @@ Mealpler.controller('DashboardCtrl', DashboardController);
 function DashboardController (MealModel, StorageModel) {
     const dateRangePicker = $('input[name="daterangepicker"]');
     this.grocery = {};
+    this.grocery.rangeStart = moment().startOf('week');
+    this.grocery.rangeLength = 7;
 
     //settings for Date Range Picker
     dateRangePicker.daterangepicker({
         "dateLimit": {
-            "days": 7
+            "days": 14
         },
         "showDropdowns": true,
         "startDate": moment().startOf('week')
@@ -42,10 +44,11 @@ function DashboardController (MealModel, StorageModel) {
     };
 
     this.init = () => {
-        this.grocery.list = StorageModel.getStoredItem("grocery");
-        this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
+        const storedItems = MealModel.findDateRangeMealList(this.grocery.rangeStart, this.grocery.rangeLength);
+        this.grocery.list = MealModel.extractAndSortProducts(storedItems);
+        //this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 
     this.init();
 
-};
+}

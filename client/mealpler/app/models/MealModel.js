@@ -121,6 +121,41 @@ function MealModel () {
         return day;
     };
 
+    this.extractAndSortProducts = (listOfMeals) => {
+        return this._sortProducts(this._extractProducts(listOfMeals));
+        //const extractedProducts = this._extractProducts(listOfMeals);
+        //const sortedProducts = this._sortProducts(extractedProducts);
+        //return sortedProducts;
+    };
+
+    this._extractProducts = (listOfMeals) => {
+        let extracted = [];
+        listOfMeals.map(ingestion => ingestion.list.map(meal => meal.mealList.map(food => {
+            if (!food.hasIngredients) {
+                extracted.push(food)
+            } else if (food.hasIngredients) {
+                food.list.map(product => extracted.push(product));
+            }
+        })));
+        extracted.forEach(a => {
+            a.name = a.name.trim();
+        });
+        return extracted;
+    };
+
+    this._sortProducts = (listOfProducts) => {
+        let sorted = [];
+        listOfProducts.forEach((a) => {
+            let thisNameIndex = sorted.findIndex(b => b.name === a.name);
+            if (thisNameIndex > -1) {
+                sorted[thisNameIndex].quantity++;
+            } else {
+                sorted.push(angular.copy(a));
+            }
+        });
+        return sorted;
+    };
+
     this.createDefaultProduct = () => defaultProduct;
 
     this.createDefaultRecipe = () => defaultRecipe;
