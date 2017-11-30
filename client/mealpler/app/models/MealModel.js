@@ -64,9 +64,8 @@ function MealModel () {
         this.updateMealsList(storedDayName, availableItem);
     };
 
-    this.findMealList = (date) => {
-        const storedDayName = date.format("YYYY-M-D");
-        let data = this.getMealsList(storedDayName);
+    this.findMealList = (forDate) => {
+        let data = this.getMealsList(forDate);
         if (data === null) return meals;
         if (data != null) {
             if (data.mealsList === undefined) {
@@ -83,6 +82,22 @@ function MealModel () {
                 return data.mealsList;
             }
         }
+    };
+
+    this.findDateRangeMealList = (start, q) => {
+        const dayNames = [];
+        let results = [];
+
+        for (let i = 0; i < q; i++) {
+            dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
+        }
+
+        dayNames.forEach((a) => {
+            results.push({"dayName" : a});
+            results.filter(b => b.dayName === a)[0].list = this.findMealList(a);
+        });
+
+        return results;
     };
 
     this.getMealsList = (forDate) => {

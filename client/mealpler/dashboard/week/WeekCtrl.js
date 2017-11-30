@@ -7,6 +7,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
     this.day = {}; // here goes all methods for the day events
     this.activeTab = 'product';
     this.today = moment().format('YYYY-M-D');
+    this._weekDuration = 7;
 
     //settings for Date Picker
     datePicker.daterangepicker({
@@ -113,19 +114,21 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
 
 
     this._calculateWeekRange = (firstDay) => {
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this._weekDuration; i++) {
             let nextDay = moment(firstDay).add(i, 'day');
             nextDay.id = i;
+            nextDay.dayName = moment(nextDay).format("YYYY-M-D");
             this.range.push(nextDay);
         }
 
         this.firstDay = this.range[0];
-        this.lastDay = this.range[6];
+        this.lastDay = this.range[this._weekDuration - 1];
     };
 
     this._loadMealsDataForWeek = () => {
-        this.range.map(function (d) {
-            d.mealsList = angular.copy(MealModel.findMealList(d));
+        const storedMeals = MealModel.findDateRangeMealList(this.firstDay, this._weekDuration);
+        this.range.map(d => {
+            d.mealsList = angular.copy(storedMeals.filter(s => s.dayName === d.dayName)[0].list);
             d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
     };
