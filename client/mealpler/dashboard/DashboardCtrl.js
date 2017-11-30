@@ -3,8 +3,8 @@ Mealpler.controller('DashboardCtrl', DashboardController);
 function DashboardController ($rootScope, $scope, MealModel, StorageModel) {
     const dateRangePicker = $('input[name="daterangepicker"]');
     this.grocery = {};
-    this.grocery.rangeStart = moment().startOf('week');
-    this.grocery.rangeLength = 7;
+    this.defaultRangeStart = moment().startOf('week');
+    this.defaultRangeLength = 7;
 
     //settings for Date Range Picker
     dateRangePicker.daterangepicker({
@@ -16,41 +16,42 @@ function DashboardController ($rootScope, $scope, MealModel, StorageModel) {
     }, () => {});
 
     dateRangePicker.on('apply.daterangepicker', (e, picker) => {
-        /*const newStartDate = picker.startDate;
-        this.init(newStartDate);
-        $scope.$apply();*/
+        this.defaultRangeStart = picker.startDate;
+        this.defaultRangeLength = picker.endDate.diff(picker.startDate, 'days')+1;
+        this.grocery.init();
+        $scope.$apply();
     });
 
     this.grocery.addItem = (newItem) => {
         StorageModel.addItemToGroceryList(newItem);
-        this.init();
+        this.grocery.init();
     };
 
     this.grocery.addItems = (listOfMeals) => {
         let newItems = [];
         listOfMeals.map(a => a.mealList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
         StorageModel.addItemToGroceryList(newItems);
-        this.init();
+        this.grocery.init();
     };
 
     this.grocery.deleteItem = (item) => {
         StorageModel.deleteGroceryItem(item);
-        this.init();
+        this.grocery.init();
     };
 
     this.grocery.deleteAll = () => {
         StorageModel.deleteGrocery();
-        this.init();
+        this.grocery.init();
     };
 
-    this.init = () => {
-        const storedItems = MealModel.findDateRangeMealList(this.grocery.rangeStart, this.grocery.rangeLength);
+    this.grocery.init = () => {
+        const storedItems = MealModel.findDateRangeMealList(this.defaultRangeStart, this.defaultRangeLength);
         this.grocery.list = MealModel.extractAndSortProducts(storedItems);
         //this.grocery.newItem = angular.copy(MealModel.createDefaultProduct());
     };
 
-    $rootScope.$on('newItemAdded', () => this.init());
+    $rootScope.$on('newItemAdded', () => this.grocery.init());
 
-    this.init();
+    this.grocery.init();
 
 }
