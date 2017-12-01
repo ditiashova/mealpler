@@ -1,5 +1,54 @@
-<div class="col-xs-12 meal" ng-repeat="meal in day.mealsList" ng-class="'meal-'+meal.mealName">
-    <small>{{ meal.mealName }}</small><hr/>
-    <div ng-repeat="item in meal.mealList">{{ item.name }}</div>
-    <i class="fa fa-plus" aria-hidden="true" data-toggle="modal" data-target="#mealModal" ng-click="week.day.setCurrentMeal(meal, day)"></i>
+<div  ng-controller="DayCtrl as day">
+    <div class="text-center day-manager">
+        {{ date | dayName }}&nbsp;
+        <i class="fa fa-arrow-down" ng-click="day.pasteMenu(date)" title="Paste menu"></i> <br/>
+        <small>{{ date | fullDate }}</small>
+    </div>
+
+    <div ng-repeat="meal in date.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
+        <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
+            <span ng-if="item.hasIngredients" ng-dblclick="day.copyFood('oneItem', item)"
+                  data-toggle="dropdown" class="meal-recipe">
+                {{ item.name }}
+            </span>
+            <span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="day.copyFood('oneItem', item)">
+                {{ item.name }}
+            </span>
+
+            <span class="edit-item">
+                <i class="fa fa-times" ng-click="day.deleteItem(item, meal.mealName, date)"></i>
+            </span>
+
+            <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
+        </div>
+
+        <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
+            <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal"
+               ng-click="day.setCurrentMeal(meal, date)"></i>
+            <span ng-hide="meal.hasMeals">&nbsp;|&nbsp;
+                <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
+            </span>
+
+        </div>
+        <div class="text-right ingestion-manager" ng-show="meal.hasMeals">
+            <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
+            <i class="fa fa-clone" ng-click="day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
+            <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
+               ng-click="day.setCurrentMeal(meal, date)"></i>
+        </div>
+
+    </div>
+
+    <div class="meal-manager">
+        <span class="day-manager">
+            <i class="fa fa-clone" ng-click="day.copyFood('menu', date.mealsList)" title="Copy menu"></i>
+        </span>&nbsp;|&nbsp;
+        <span class="day-manager">
+            <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(date.mealsList)"
+               title="Send menu to shopping list"></i>
+        </span>
+    </div>
+
+    <div ng-include="'scripts/tmpl/mealModal.html'"></div>
+    <div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>
 </div>

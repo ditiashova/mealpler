@@ -4,42 +4,45 @@
         <div class="modal-content modal-tabbed">
             <div class="modal-header">
                 <div class="modal-tabs">
-                    <h4 class="modal-title" ng-class="week.activeTab === 'product' ? 'active' : null" ng-click="week.day.mealModal('product')">Add products</h4>
-                    <h4 class="modal-title" ng-class="week.activeTab === 'dish' ? 'active' : null" ng-click="week.day.mealModal('dish')">Add dish</h4>
+                    <h4 class="modal-title" ng-class="day.activeTab === 'product' ? 'active' : null" ng-click="day.setMealModal('product')">Add products</h4>
+                    <h4 class="modal-title" ng-class="day.activeTab === 'dish' ? 'active' : null" ng-click="day.setMealModal('dish')">Add dish</h4>
                 </div>
                 <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
             </div>
 
-            <div class="modal-body" ng-show="week.activeTab === 'product'">
-                <div ng-repeat="item in week.newProducts.list track by $index" class="row">
+            <div class="modal-body" ng-show="day.activeTab === 'product'">
+                {{day.newProducts}}
+                {{ day.newProducts.list }}
+                <div ng-repeat="item in day.newProducts.list track by $index" class="row">
                     <div class="col-xs-12">
                         <input ng-model="item.name" placeholder="Add new item" name="productName" class="form-control"/>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <i class="fa fa-plus" aria-hidden="true" ng-click="week.day.createNewProduct(week.newProducts)"></i>
+                    <i class="fa fa-plus" aria-hidden="true" ng-click="day.createNewProduct(day.newProducts)"></i>
                 </div>
                 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
-                        ng-click="week.day.addNewItems('list', week.currentMeal, week.currentDate, week.newProducts)">Save</button>
+                        ng-click="day.addNewItems('list', day.currentMeal, day.currentDate, day.newProducts)">Save</button>
                 <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Close</button>
             </div>
 
-            <div class="modal-body" ng-show="week.activeTab === 'dish'">
+            <div class="modal-body" ng-show="day.activeTab === 'dish'">
                 <div class="row">
                     <div class="col-xs-12">
-                        <input ng-model="week.newRecipe.name" placeholder="dish name" name="dishName" class="form-control"/>
+                        <label for="dishName">Dish name</label>
+                        <input ng-model="day.newRecipe.name" placeholder="dish name" name="dishName" id="dishName" class="form-control"/>
                     </div>
                 </div>
-                <div ng-repeat="item in week.newRecipe.list track by $index" class="row">
+                <div ng-repeat="item in day.newRecipe.list track by $index" class="row">
                     <div class="col-xs-12">
                         <input ng-model="item.name" placeholder="1 cup of flour" name="productName" class="form-control"/>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <i class="fa fa-plus" ng-click="week.day.createNewProduct(week.newRecipe)"></i>
+                    <i class="fa fa-plus" ng-click="day.createNewProduct(day.newRecipe)"></i>
                 </div>
                 <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
-                        ng-click="week.day.addNewItems('recipe', week.currentMeal, week.currentDate, week.newRecipe)">Save</button>
+                        ng-click="day.addNewItems('recipe', day.currentMeal, day.currentDate, day.newRecipe)">Save</button>
                 <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Close</button>
             </div>
         </div>

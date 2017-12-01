@@ -16,25 +16,7 @@
             </div>
         </div>
         <div class="col">
-            <div class="panel panel-default"  ng-controller="WeekCtrl as week">
-                <div class="panel-heading">
-                    <div class="panel-title">
-                        {{ main.title['weekPlanner'] }}
-                        <span class="date-picker-box pull-right">
-                            Choose a week:
-                            <input name="datepicker" id="datepicker" title="datePicker"/>
-                        </span>
-                    </div>
-                </div>
-                <div class="panel-subheading">
-                    <div class="week-switcher">
-                        <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.firstDay)"></i>
-                        You are planning for: {{ week.firstDay | monthDayth }} - {{ week.lastDay | monthDayth }}
-                        <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.lastDay)"></i>
-                    </div>
-                </div>
-                <div ng-include="'scripts/dashboard/week/week.html'"></div>
-            </div>
+            <div ng-include="'scripts/dashboard/week/week.html'"></div>
         </div>
     </div>
 </div>

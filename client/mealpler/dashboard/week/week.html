@@ -1,60 +1,25 @@
-<div class="panel-body">
-    <div class="row week-planner">
-        <div class="col-sm day-planner" ng-repeat="day in week.range track by day.id" ng-class="{'today' : (day | fullDate) === week.today}">
-            <div class="text-center day-manager">
-                {{ day | dayName }}&nbsp;
-                <i class="fa fa-arrow-down" ng-click="week.day.pasteMenu(day)" title="Paste menu"></i> <br/>
-                <small>{{ day | fullDate }}</small>
+<div class="panel panel-default"  ng-controller="WeekCtrl as week">
+    <div class="panel-heading">
+        <div class="panel-title">
+            {{ main.title['weekPlanner'] }}
+            <span class="date-picker-box pull-right">
+                Choose a week:
+                <input name="datepicker" id="datepicker" title="datePicker"/>
+            </span>
+        </div>
+    </div>
+    <div class="panel-subheading">
+        <div class="week-switcher"> <!--this should go to dashboard CTRL-->
+            <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.firstDay)"></i>
+            You are planning for: {{ week.firstDay | monthDayth }} - {{ week.lastDay | monthDayth }}
+            <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.lastDay)"></i>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row week-planner">
+            <div class="col-sm day-planner" ng-repeat="date in week.range track by date.id" ng-class="{'today' : (date | fullDate) === week.today}">
+                <div ng-include="'scripts/dashboard/week/day/day.html'"></div>
             </div>
-
-            <div ng-repeat="meal in day.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
-                <!--<small>{{ meal.mealName }}</small>-->
-
-                <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
-                    <span ng-if="item.hasIngredients" ng-dblclick="week.day.copyFood('oneItem', item)"
-                          data-toggle="dropdown" class="meal-recipe">
-                        {{ item.name }}
-                    </span>
-                    <span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="week.day.copyFood('oneItem', item)">
-                        {{ item.name }}
-                    </span>
-
-                    <span class="edit-item">
-                        <i class="fa fa-times" ng-click="week.day.deleteItem(item, meal.mealName, day)"></i>
-                    </span>
-
-                    <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
-                </div>
-
-                <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
-                    <i class="fa fa-plus" data-toggle="modal" data-target="#mealModal"
-                       ng-click="week.day.setCurrentMeal(meal, day)"></i>
-                    <span ng-hide="meal.hasMeals">&nbsp;|&nbsp;
-                        <i class="fa fa-arrow-down" ng-click="week.day.pasteFood('wholeMeal', meal, day)" style="font-size: 12px;"></i>
-                    </span>
-
-                </div>
-                <div class="text-right ingestion-manager" ng-show="meal.hasMeals">
-                    <i class="fa fa-arrow-down" ng-click="week.day.pasteFood('wholeMeal', meal, day)" style="font-size: 12px;"></i>
-                    <i class="fa fa-clone" ng-click="week.day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
-                    <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
-                       ng-click="week.day.setCurrentMeal(meal, day)"></i>
-                </div>
-
-            </div>
-
-            <div class="meal-manager">
-                <span class="day-manager">
-                    <i class="fa fa-clone" ng-click="week.day.copyFood('menu', day.mealsList)" title="Copy menu"></i>
-                </span>&nbsp;|&nbsp;
-                <span class="day-manager">
-                    <i class="fa fa-arrow-right" ng-click="dashboard.grocery.addItems(day.mealsList)"
-                        title="Send menu to shopping list"></i>
-                </span>
-            </div>
-
-            <div ng-include="'scripts/tmpl/mealModal.html'"></div>
-            <div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>
         </div>
     </div>
 </div>
