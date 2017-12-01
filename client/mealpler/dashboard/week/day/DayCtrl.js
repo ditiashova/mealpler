@@ -89,46 +89,4 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
     this.refreshNewItems();
 
     $rootScope.$on("refreshCurrentMeal", () => this.refreshCurrentMeal());
-
-
-
-
-    /*let day = this;
-    let defaultProduct = {
-        /!*"id": Math.random(),*!/
-        "name": "",
-        "type": "product",
-        "quantity": 1,
-        "hasIngredients": false
-    };
-
-    day.setCurrentMeal = function (meal, date) {
-        day.currentMeal = angular.copy(meal);
-        day.currentDate = moment(date);
-        day.createNewProduct();
-    };
-    day.saveCurrentMeal = function () {
-        day.mealsList.map(function (a) {
-            if (a.id === day.currentMeal.id) {
-                day.currentMeal.mealList.forEach(m => a.mealList.push(m));
-            }
-        });
-        MealModel.updateMealInfo(day);
-        day.refreshCurrentMeal();
-    };
-
-    day.createNewProduct = function () {
-        day.currentMeal.mealList.push(angular.copy(defaultProduct));
-    };
-
-    day.refreshCurrentMeal = function () {
-        day.currentMeal = {}; day.currentDate = '';
-    };
-
-    day.init = function () {
-        let list = MealModel.findMealList(day.date);
-        day.mealsList = list != null ? list : angular.copy(MealModel.emptyMealsList());
-    };
-
-    day.init();*/
 }
