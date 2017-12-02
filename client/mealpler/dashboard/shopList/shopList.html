@@ -1,29 +1,21 @@
-<div ng-repeat="item in dashboard.grocery.list track by $index" class="row shop-item">
-    <div class="col-xs-12">
-        <!--<i class="fa fa-check-circle text-success" ng-click="dashboard.grocery.deleteItem(item)"></i>-->
-        <span>{{ item.name }}</span>
-        <div class="badge badge-success">{{ item.quantity }}</div>
+<div class="panel panel-sidebar panel-default"  ng-class="{'open': main.openShopList}" ng-controller="ShoplistCtrl as shopList">
+    <div class="panel-heading">
+        <h2 class="panel-title">{{ main.title['shopList'] }}</h2>
+        <i class="fa fa-close" ng-click="main.toggleShopList()"></i>
     </div>
-    <!--<div class="col-xs-2">
-        &lt;!&ndash;<input ng-model="item.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" ng-change="dashboard.grocery.changeQuantity(item)"/>&ndash;&gt;
-    </div>-->
-</div>
-<!--<div class="row form-group">
-    <form name="newFridgeItemAdder" role="form" ng-submit="dashboard.grocery.addItem(dashboard.grocery.newItem)">
-        <div class="col-xs-8">
-            <input ng-model="dashboard.grocery.newItem.name" placeholder="e.g. Cocoa" name="mealName" class="form-control" minlength="2" required/>
-        </div>
-        <div class="col-xs-2">
-            <input ng-model="dashboard.grocery.newItem.quantity" type="number" name="mealQuantity" class="form-control" min="0.5" step="0.5" required/>
-        </div>
-        <div class="col-xs-2">
-            <button class="btn btn-success"><i class="fa fa-plus-circle"></i></button>
-        </div>
-    </form>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <i class="fa fa-trash-o pull-right" data-toggle="modal" data-target="#confirmGroceryDelete" ng-show="dashboard.grocery.list.length > 0"></i>
+    <div class="panel-subheading">
+        Choose a range of dates to display list for:
+        <input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>
     </div>
-    <div ng-include="'scripts/tmpl/confirmGroceryDelete.html'"></div>
-</div>-->
+    <div class="panel-body">
+        <div ng-repeat="item in shopList.list track by $index" class="row shop-item">
+            <div class="col-xs-12">
+                <span>{{ item.name }}</span>
+                <div class="badge badge-success">{{ item.quantity }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

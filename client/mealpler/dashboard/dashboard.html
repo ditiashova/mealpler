@@ -1,19 +1,7 @@
 <div class="container-fluid" ng-controller="DashboardCtrl as dashboard">
     <div class="row">
-        <div class="sidebar" ng-class="{'open': main.openShopList}">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">{{ main.title['shopList'] }}</h2>
-                    <i class="fa fa-close" ng-click="main.toggleShopList()"></i>
-                </div>
-                <div class="panel-subheading">
-                    Choose a range of dates to display list for:
-                    <input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>
-                </div>
-                <div class="panel-body">
-                    <div ng-include="'scripts/dashboard/shopList/shopList.html'"></div>
-                </div>
-            </div>
+        <div class="sidebar">
+            <div ng-include="'scripts/dashboard/shopList/shopList.html'"></div>
         </div>
         <div class="col">
             <div ng-include="'scripts/dashboard/week/week.html'"></div>
