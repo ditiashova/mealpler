@@ -8,23 +8,30 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
         "firstDay": 1
     };
 
-    this.rangeStart = today.startOf('week');
-    this.rangeLength = 7;
+    const rangeSettings = (start) => {
+        return {
+            "locale": localization,
+            "dateLimit": {
+                "days": 14
+            },
+            "showDropdowns": true,
+            "startDate": start,
+            "endDate": this.rangeLength
+        };
+    };
 
-    //settings for Date Range Picker
-    dateRangePicker.daterangepicker({
-        "locale": localization,
-        "dateLimit": {
-            "days": 14
-        },
-        "showDropdowns": true,
-        "startDate": this.rangeStart
-    }, (start, end, label) => {
+    const rangeCallback = (start, end, label) => {
         this.rangeStart = start;
         this.rangeLength = end.diff(start, 'days')+1;
         this.init(this.rangeStart, this.rangeLength);
         $scope.$apply();
-    });
+    };
+
+    this.rangeStart = today.startOf('week');
+    this.rangeLength = 7;
+
+    //settings for Date Range Picker
+    dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
 
     this.addItem = (newItem) => {
         StorageModel.addItemToGroceryList(newItem);
@@ -55,11 +62,13 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
         }
         const storedItems = MealModel.findDateRangeMealList(start, duration);
         this.list = MealModel.extractAndSortProducts(storedItems);
+        dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
     };
 
     this.init();
 
     $scope.$on('updateShopList', (e, date) => {
+        this.rangeStart = date;
         this.init(date, this.rangeLength);
     });
 }

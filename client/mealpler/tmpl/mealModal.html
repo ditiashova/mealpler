@@ -11,8 +11,6 @@
             </div>
 
             <div class="modal-body" ng-show="day.activeTab === 'product'">
-                {{day.newProducts}}
-                {{ day.newProducts.list }}
                 <div ng-repeat="item in day.newProducts.list track by $index" class="row">
                     <div class="col-xs-12">
                         <input ng-model="item.name" placeholder="Add new item" name="productName" class="form-control"/>

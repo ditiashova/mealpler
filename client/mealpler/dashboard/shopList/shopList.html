@@ -8,7 +8,10 @@
         <input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>
     </div>
     <div class="panel-body">
-        <div ng-repeat="item in shopList.list track by $index" class="row shop-item">
+        <div ng-if="shopList.list.length === 0">
+            You haven't planned any food for this range yet.
+        </div>
+        <div ng-repeat="item in shopList.list track by $index" ng-if="shopList.list.length > 0" class="row shop-item">
             <div class="col-xs-12">
                 <span>{{ item.name }}</span>
                 <div class="badge badge-success">{{ item.quantity }}</div>
