@@ -6,9 +6,44 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
     this.today = moment().format('YYYY-M-D');
     this._weekDuration = 7;
 
+    const datePicker = $("#datePicker");
+    const localization = {
+        "format": "DD/MM/YYYY",
+        "firstDay": 1
+    };
+
+    //settings for Date Picker
+    datePicker.daterangepicker({
+        "locale": localization,
+        "singleDatePicker": true,
+        "showDropdowns": true,
+        "startDate": this.weekStartDate
+    }, (start, end, label) => {
+        const newStartDate = this.setNewWeekStart(start);
+        this.init(newStartDate);
+        $scope.$broadcast('refreshDataForWeek', this.weekStartDate);
+        $scope.$apply();
+    });
+
+    this.setNewWeekStart = (date) => {
+        return date.startOf('week');
+    };
+
+    this.switchWeek = (time) => {
+        let newStartDate = {};
+        if (time === 'past') {
+            newStartDate = this.weekStartDate.subtract(1, 'day');
+        } else if (time === 'future') {
+            newStartDate = this.weekStartDate.add(this._weekDuration, 'day').add(1, 'day');
+        }
+        this.weekStartDate = this.setNewWeekStart(newStartDate);
+        this.init(this.weekStartDate);
+        $scope.$emit('updateShopList', this.weekStartDate);
+    };
+
     this.init = (forDate) => {
         this.range = []; //dates for 7 days
-        this._calculateWeekRange(moment(forDate).startOf('week'));
+        this._calculateWeekRange(forDate);
         //get meal's list for each day of week range
         this._loadMealsDataForWeek();
         $rootScope.$broadcast('refreshCurrentMeal');
@@ -35,9 +70,10 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         $rootScope.$emit('updateShopList');
     };
 
+    this.weekStartDate = this.setNewWeekStart(today);
     this.init(today);
 
     $scope.$on('refreshMealsForWeek', () => this._loadMealsDataForWeek());
-    $scope.$on('refreshDataForWeek', (e, newWeekStart) => this.init(newWeekStart));
+    $scope.$on('refreshDataForWeek', (e, newWeekStart) => this.init(this.setNewWeekStart(newWeekStart)));
 
 }
