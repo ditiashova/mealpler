@@ -2,33 +2,9 @@ Mealpler.controller('WeekCtrl', WeekController);
 
 function WeekController ($rootScope, $scope, WeekModel, MealModel) {
     const today = moment();
-    const datePicker = $('input[name="datepicker"]');
 
     this.today = moment().format('YYYY-M-D');
     this._weekDuration = 7;
-
-    //settings for Date Picker
-    datePicker.daterangepicker({
-        "singleDatePicker": true,
-        "showDropdowns": true,
-        "startDate": new Date()
-    }, (start, end, label) => {
-
-    });
-
-    datePicker.on('apply.daterangepicker', (e, picker) => {
-        const newStartDate = picker.startDate;
-        this.init(newStartDate);
-        $scope.$apply();
-    });
-
-    this.switchWeek = (time) => {
-        if (time === 'past') {
-            this.init(this.range[0].subtract(1, 'day'));
-        } else if (time === 'future') {
-            this.init(this.range[6].add(1, 'day'));
-        }
-    };
 
     this.init = (forDate) => {
         this.range = []; //dates for 7 days
@@ -37,8 +13,6 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         this._loadMealsDataForWeek();
         $rootScope.$broadcast('refreshCurrentMeal');
     };
-
-
 
     this._calculateWeekRange = (firstDay) => {
         for (let i = 0; i < this._weekDuration; i++) {
@@ -63,6 +37,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
 
     this.init(today);
 
-    $rootScope.$on('refreshDataForWeek', () => this._loadMealsDataForWeek());
+    $scope.$on('refreshMealsForWeek', () => this._loadMealsDataForWeek());
+    $scope.$on('refreshDataForWeek', (e, newWeekStart) => this.init(newWeekStart));
 
 }
