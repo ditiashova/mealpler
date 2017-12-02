@@ -9,7 +9,7 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
 
     this.deleteItem = (item, mealName, date) => {
         MealModel.deleteItemMeal(item, mealName, date);
-        $rootScope.$broadcast('refreshDataForWeek');
+        $rootScope.$broadcast('refreshMealsForWeek');
     };
 
     this.createNewProduct = (forMeal) => {
@@ -38,13 +38,13 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
 
     this.deleteIngredient = (item, recipe, mealName, date) => {
         MealModel.deleteIngredient(item, recipe, mealName, date);
-        $rootScope.$broadcast('refreshDataForWeek');
+        $rootScope.$broadcast('refreshMealsForWeek');
     };
 
     this.deleteMeal = (meal, date) => {
         MealModel.deleteAllMeal(meal, date);
         this.refreshCurrentMeal();
-        $rootScope.$broadcast('refreshDataForWeek');
+        $rootScope.$broadcast('refreshMealsForWeek');
     };
 
     this.addNewItems = (type, forMeal, forDay, newItems) => {
@@ -57,7 +57,7 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         }
         MealModel.saveMealInfo(forMeal,forDay);
         this.refreshCurrentMeal();
-        $rootScope.$broadcast('refreshDataForWeek');
+        $rootScope.$broadcast('refreshMealsForWeek');
     };
 
     this.pasteFood = (name, forMeal, forDay) => {
@@ -70,7 +70,7 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         let dat = MealModel.createNewDay(forDay);
         stored.forEach(a => dat.mealsList.push(a));
         MealModel.updateMealsList(forDay.format("YYYY-M-D"), dat);
-        $rootScope.$broadcast('refreshDataForWeek');
+        $rootScope.$broadcast('refreshMealsForWeek');
     };
 
     this.setMealModal = (tab) => {
