@@ -20,8 +20,11 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel) {
         "showDropdowns": true,
         "startDate": this.defaultRangeStart
     }, (start, end, label) => {
-        this.rangeStart = start;
-        this.rangeLength = end.diff(start, 'days')+1;
+    });
+
+    dateRangePicker.on('apply.daterangepicker', (e, picker) => {
+        this.rangeStart = picker.startDate;
+        this.rangeLength = picker.endDate.diff(picker.startDate, 'days')+1;
         this.init(this.rangeStart, this.rangeLength);
         $scope.$apply();
     });

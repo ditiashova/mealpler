@@ -18,8 +18,10 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         "singleDatePicker": true,
         "showDropdowns": true,
         "startDate": this.weekStartDate
-    }, (start, end, label) => {
-        const newStartDate = this.setNewWeekStart(start);
+    }, (start, end, label) => {});
+
+    datePicker.on('apply.daterangepicker', (e, picker) => {
+        const newStartDate = this.setNewWeekStart(picker.startDate);
         this.init(newStartDate);
         $scope.$broadcast('refreshDataForWeek', this.weekStartDate);
         $scope.$apply();
@@ -38,7 +40,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         }
         this.weekStartDate = this.setNewWeekStart(newStartDate);
         this.init(this.weekStartDate);
-        $scope.$emit('updateShopList', this.weekStartDate);
+        $rootScope.$emit('updateShopList', this.weekStartDate);
     };
 
     this.init = (forDate) => {
@@ -67,7 +69,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
             d.mealsList = angular.copy(storedMeals.filter(s => s.dayName === d.dayName)[0].list);
             d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
         });
-        $rootScope.$emit('updateShopList');
+        $rootScope.$emit('updateShopList', this.weekStartDate);
     };
 
     this.weekStartDate = this.setNewWeekStart(today);
