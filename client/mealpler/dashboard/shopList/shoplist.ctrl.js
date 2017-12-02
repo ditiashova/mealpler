@@ -1,6 +1,6 @@
 Mealpler.controller('ShoplistCtrl', ShoplistCtrl);
 
-function ShoplistCtrl ($rootScope, $scope, StorageModel) {
+function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
     const today = moment();
     const dateRangePicker = $("#dateRangePicker");
     const localization = {
@@ -18,13 +18,10 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel) {
             "days": 14
         },
         "showDropdowns": true,
-        "startDate": this.defaultRangeStart
+        "startDate": this.rangeStart
     }, (start, end, label) => {
-    });
-
-    dateRangePicker.on('apply.daterangepicker', (e, picker) => {
-        this.rangeStart = picker.startDate;
-        this.rangeLength = picker.endDate.diff(picker.startDate, 'days')+1;
+        this.rangeStart = start;
+        this.rangeLength = end.diff(start, 'days')+1;
         this.init(this.rangeStart, this.rangeLength);
         $scope.$apply();
     });
@@ -60,9 +57,9 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel) {
         this.list = MealModel.extractAndSortProducts(storedItems);
     };
 
+    this.init();
 
     $scope.$on('updateShopList', (e, date) => {
         this.init(date, this.rangeLength);
     });
-
 }

@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="DashboardCtrl as dashboard">
     <div class="row">
-        <div class="sidebar">
+        <div class="sidebar" ng-class="{'open': main.openShopList}">
             <div ng-include="'scripts/dashboard/shopList/shopList.html'"></div>
         </div>
         <div class="col">

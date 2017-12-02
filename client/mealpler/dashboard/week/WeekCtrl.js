@@ -18,10 +18,8 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         "singleDatePicker": true,
         "showDropdowns": true,
         "startDate": this.weekStartDate
-    }, (start, end, label) => {});
-
-    datePicker.on('apply.daterangepicker', (e, picker) => {
-        const newStartDate = this.setNewWeekStart(picker.startDate);
+    }, (start, end, label) => {
+        const newStartDate = this.setNewWeekStart(start);
         this.init(newStartDate);
         $scope.$broadcast('refreshDataForWeek', this.weekStartDate);
         $scope.$apply();
