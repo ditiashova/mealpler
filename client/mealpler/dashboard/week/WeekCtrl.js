@@ -1,11 +1,9 @@
 Mealpler.controller('WeekCtrl', WeekController);
 
-function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel) {
+function WeekController ($rootScope, $scope, WeekModel, MealModel) {
     const today = moment();
     const datePicker = $('input[name="datepicker"]');
 
-    this.day = {}; // here goes all methods for the day events
-    /*this.activeTab = 'product';*/
     this.today = moment().format('YYYY-M-D');
     this._weekDuration = 7;
 
@@ -38,7 +36,6 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, StorageModel)
         //get meal's list for each day of week range
         this._loadMealsDataForWeek();
         $rootScope.$broadcast('refreshCurrentMeal');
-        //this.day.refreshCurrentMeal(); //broadcast event to refresh in dayCtrl
     };
 
 

@@ -10,10 +10,7 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
     this.deleteItem = (item, mealName, date) => {
         MealModel.deleteItemMeal(item, mealName, date);
         $rootScope.$broadcast('refreshDataForWeek');
-        //this._loadMealsDataForWeek(); //emit event for updating week data
     };
-
-
 
     this.createNewProduct = (forMeal) => {
         forMeal.list.push(angular.copy(MealModel.createDefaultProduct()));
@@ -31,27 +28,23 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         this.currentMeal = {}; this.currentDate = '';
     };
 
-    this.setCurrentMeal = (meal, date) => { //when modal opens
+    //when modal opens
+    this.setCurrentMeal = (meal, date) => {
         this.refreshCurrentMeal();
         this.refreshNewItems();
         this.currentMeal = angular.copy(meal);
         this.currentDate = date;
-        //this.createNewProduct(this.newProducts);
-        //this.createNewProduct(this.newRecipe);
-        console.log(this.newProducts.list);
     };
 
     this.deleteIngredient = (item, recipe, mealName, date) => {
         MealModel.deleteIngredient(item, recipe, mealName, date);
         $rootScope.$broadcast('refreshDataForWeek');
-        //this._loadMealsDataForWeek(); //emit event for updating week data
     };
 
     this.deleteMeal = (meal, date) => {
         MealModel.deleteAllMeal(meal, date);
         this.refreshCurrentMeal();
         $rootScope.$broadcast('refreshDataForWeek');
-        //this._loadMealsDataForWeek();
     };
 
     this.addNewItems = (type, forMeal, forDay, newItems) => {
@@ -65,7 +58,6 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         MealModel.saveMealInfo(forMeal,forDay);
         this.refreshCurrentMeal();
         $rootScope.$broadcast('refreshDataForWeek');
-        //this._loadMealsDataForWeek(); //emit event for updating week data
     };
 
     this.pasteFood = (name, forMeal, forDay) => {
@@ -79,7 +71,6 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         stored.forEach(a => dat.mealsList.push(a));
         MealModel.updateMealsList(forDay.format("YYYY-M-D"), dat);
         $rootScope.$broadcast('refreshDataForWeek');
-        //this._loadMealsDataForWeek(); //emit event for updating week data
     };
 
     this.setMealModal = (tab) => {
