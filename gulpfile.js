@@ -30,6 +30,7 @@ gulp.task('concatVendorJs', () => {
     'node_modules/angular-route/angular-route.min.js',
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+    'node_modules/angularfire/dist/angularfire.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
     'node_modules/moment/moment.js',
