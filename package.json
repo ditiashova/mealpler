@@ -43,7 +43,9 @@
     "bootstrap-daterangepicker": "^2.1.25",
     "bootstrap-sass": "^3.3.7",
     "components-font-awesome": "^4.6.3",
+    "firebaseui": "^2.5.1",
     "moment": "^2.19.1",
+    "npm": "^5.5.1",
     "popper.js": "^1.12.5",
     "sass": "^1.0.0-beta.2"
   }

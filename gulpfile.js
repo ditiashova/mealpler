@@ -22,6 +22,9 @@ const srcDir = './client';
 gulp.task('concatVendorJs', () => {
   return gulp.src([
     'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/firebase/firebase-app.js',
+    'node_modules/firebase/firebase-auth.js',
+    'node_modules/firebaseui/dist/firebaseui.js',
     'node_modules/angular/angular.min.js',
     'node_modules/angular-animate/angular-animate.js',
     'node_modules/angular-route/angular-route.min.js',
@@ -38,6 +41,7 @@ gulp.task('concatVendorJs', () => {
 
 gulp.task('concatVendorCss', () => {
   return gulp.src([
+    'node_modules/firebaseui/dist/firebaseui.css',
     'node_modules/bootstrap/dist/css/bootstrap.css',
     'node_modules/bootstrap-daterangepicker/daterangepicker.css'
   ])
