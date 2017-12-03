@@ -19,6 +19,7 @@
         <div class="row week-planner">
             <div class="col-sm day-planner" ng-repeat="date in week.range track by date.id" ng-class="{'today' : (date | fullDate) === week.today}">
                 <div ng-include="'scripts/dashboard/week/day/day.html'"></div>
+                <!--<div day-block></div>-->
             </div>
         </div>
     </div>
