@@ -1,13 +1,13 @@
-<span ng-if="item.hasIngredients" ng-dblclick="portion.copyFood('oneItem', portion)"
+<span ng-if="item.hasIngredients" ng-dblclick="portion.copyItem('oneItem', portion)"
       data-toggle="dropdown" class="meal-recipe">
     {{ item.name }}
 </span>
-<span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="day.copyFood('oneItem', item)">
+<div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
+
+<span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="portion.copyItem('oneItem', item)">
     {{ item.name }}
 </span>
 
 <span class="edit-item">
-    <i class="fa fa-times" ng-click="day.deleteItem(item, meal.mealName, date)"></i>
+    <i class="fa fa-times" ng-click="deleteItem(item, mealName, date)" style="visibility: visible"></i>
 </span>
-
-<div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
