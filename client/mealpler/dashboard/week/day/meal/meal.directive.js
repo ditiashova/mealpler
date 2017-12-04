@@ -1,8 +1,8 @@
 Mealpler.directive('mealManager', function () {
     const link = (scope, el, attrs, controllers) => {
+        const MealCtrl = scope.meal;
         const DayCtrl = controllers[0];
         const WeekCtrl = controllers[1];
-        const MealCtrl = scope.meal;
         scope.copyFood = (name, food) => {
             DayCtrl.copyFood(name, food);
         };

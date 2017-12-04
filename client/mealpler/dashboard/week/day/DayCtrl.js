@@ -5,12 +5,7 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
 
     this.copyFood = (name, content) => {
         StorageModel.addFoodToStored(name, content);
-    };
-
-    this.deleteItem = (item, mealName, date) => {
-        MealModel.deleteItemMeal(item, mealName, date);
-        $rootScope.$broadcast('refreshMealsForWeek');
-    };
+    }; /*!!!*/
 
     this.createNewProduct = (forMeal) => {
         forMeal.list.push(angular.copy(MealModel.createDefaultProduct()));
@@ -45,24 +40,6 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         MealModel.deleteAllMeal(meal, date);
         this.refreshCurrentMeal();
         $rootScope.$broadcast('refreshMealsForWeek');
-    };
-
-    this.addNewItems = (type, forMeal, forDay, newItems) => {
-        if (type === 'list') {
-            forMeal.mealList = forMeal.mealList.concat(newItems.list);
-        } else if (type === 'recipe') {
-            forMeal.mealList.push(newItems);
-        } else if (type === 'stored') {
-            forMeal.mealList = forMeal.mealList.concat(newItems.mealList);
-        }
-        MealModel.saveMealInfo(forMeal,forDay);
-        this.refreshCurrentMeal();
-        $rootScope.$broadcast('refreshMealsForWeek');
-    };
-
-    this.pasteFood = (name, forMeal, forDay) => {
-        let stored = StorageModel.getStoredItem(name);
-        this.addNewItems('stored', forMeal, forDay, stored);
     };
 
     this.pasteMenu = (forDay) => {

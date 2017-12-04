@@ -1,12 +1,11 @@
 Mealpler.directive('dayManager', function () {
     const link = (scope, el, attrs, controller) => {
-        /*scope.showAnnotations = function() {
-            /!*controller.showAnnotations();*!/
+        const DayCtrl = scope.day;
+        const WeekCtrl = controller;
+        scope.pasteMenu = (date) => {
+            DayCtrl.pasteMenu(date);
+            WeekCtrl._loadMealsDataForWeek();
         };
-
-        controller.onShowAnnotations(function() {
-            scope.viewing = true;
-        });*/
     };
 
     return {

@@ -1,11 +1,11 @@
 <div class="text-center day-manager">
     {{ date | dayName }}&nbsp;
-    <i class="fa fa-arrow-down" ng-click="day.pasteMenu(date)" title="Paste menu"></i> <br/>
+    <i class="fa fa-arrow-down" ng-click="pasteMenu(date)" title="Paste menu"></i> <br/>
     <small>{{ date | fullDate }}</small>
 </div>
 
 <div ng-repeat="meal in date.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
-    <meal-manager food="meal"></meal-manager>
+    <meal-manager food="meal" date="date"></meal-manager>
 </div>
 
 <div class="day-control">
@@ -17,4 +17,5 @@
            title="Send menu to shopping list"></i>
     </span>
 </div>
-<div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>
+<!--
+<div ng-include="'scripts/tmpl/confirmMealDelete.html'"></div>-->
