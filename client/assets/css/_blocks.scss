@@ -191,11 +191,16 @@
   }
 }
 
-.day-planner {
-  .modal.show {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
+.modal.show {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-auth {
+  .modal-header {
+    background: $light-gray;
+    color: black;
   }
 }
 
