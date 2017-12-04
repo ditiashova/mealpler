@@ -1,4 +1,4 @@
-Mealpler.directive('week', function () {
+Mealpler.directive('weekManager', function () {
     return {
         restrict: 'E',
         transclude: true,
