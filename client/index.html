@@ -14,13 +14,25 @@
     <!-- endinject -->
 </head>
 <body ng-controller="MainCtrl as main">
-<div id="firebaseui-auth-container"></div>
 <div id="sign-in-status"></div>
 <button id="sign-in" onClick="firebase.auth().signOut()">Sign Out</button>
 <div id="account-details"></div>
 <header ng-include="'scripts/tmpl/header.html'"></header>
 <main data-ng-view></main>
 <footer ng-include="'scripts/tmpl/footer.html'"></footer>
+<div id="authModal" class="modal fade"  role="dialog">
+    <div class="modal-dialog modal-auth">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Please, sign in to save your data</h4>
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+            <div class="modal-body">
+                <div id="firebaseui-auth-container" ></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://use.fontawesome.com/bf11f5d883.js"></script>
 
 
