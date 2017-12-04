@@ -1,10 +1,10 @@
-<span ng-if="item.hasIngredients" ng-dblclick="portion.copyItem('oneItem', portion)"
+<span ng-if="item.hasIngredients" ng-dblclick="copyFood('oneItem', portion)"
       data-toggle="dropdown" class="meal-recipe">
     {{ item.name }}
 </span>
 <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
 
-<span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="portion.copyItem('oneItem', item)">
+<span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="copyFood('oneItem', item)">
     {{ item.name }}
 </span>
 
