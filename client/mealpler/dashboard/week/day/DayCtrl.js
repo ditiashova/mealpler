@@ -1,15 +1,15 @@
 Mealpler.controller('DayCtrl', DayCtrl);
 
 function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
-    this.activeTab = 'product';
+    /*this.activeTab = 'product';*/
 
     this.copyFood = (name, content) => {
         StorageModel.addFoodToStored(name, content);
     }; /*!!!*/
 
-    this.createNewProduct = (forMeal) => {
+    /*this.createNewProduct = (forMeal) => {
         forMeal.list.push(angular.copy(MealModel.createDefaultProduct()));
-    };
+    };*/
 
     this.refreshNewItems = () => {
         this.newProducts = {};
@@ -50,9 +50,9 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
         $rootScope.$broadcast('refreshMealsForWeek');
     };
 
-    this.setMealModal = (tab) => {
+    /*this.setMealModal = (tab) => {
         this.activeTab = tab;
-    };
+    };*/
 
     this.refreshNewItems();
 

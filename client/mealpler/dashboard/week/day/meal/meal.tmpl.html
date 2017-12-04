@@ -2,8 +2,7 @@
     <portion-block item="item" meal-name="food.mealName" date="date"></portion-block>
 </div>
 <div class="text-center plus-hidden" ng-class="food.hasMeals ? 'plus-perm' : 'plus-temp'">
-    <i class="fa fa-plus" ng-click="main.openModal('meal')"
-       ng-click="day.setCurrentMeal(food, date)"></i>
+    <i class="fa fa-plus" ng-click="meal.openModal('add-modal', '.modal-parent')"></i>
     <span ng-hide="food.hasMeals">&nbsp;|&nbsp;
         <i class="fa fa-arrow-down" ng-click="pasteFood('wholeMeal', food, date)" style="font-size: 12px;"></i>
     </span>
@@ -13,4 +12,6 @@
     <i class="fa fa-clone" ng-click="copyFood('wholeMeal', food)" style="font-size: 12px;"></i>
     <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
        ng-click="day.setCurrentMeal(food, date)"></i>
+</div>
+<div class="modal-parent">
 </div>

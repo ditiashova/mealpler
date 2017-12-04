@@ -2,7 +2,7 @@
     <div class="modal-header">
         <div class="modal-tabs">
             <h4 class="modal-title" ng-class="addMeal.addProduct ? 'active' : null" ng-click="addMeal.toggleMealModal()">Add products</h4>
-            <h4 class="modal-title" ng-class="addMeal.addProduct ? 'active' : null" ng-click="addMeal.toggleMealModal()">Add dish</h4>
+            <h4 class="modal-title" ng-class="!addMeal.addProduct ? 'active' : null" ng-click="addMeal.toggleMealModal()">Add dish</h4>
         </div>
         <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <i class="fa fa-plus" ng-click="day.createNewProduct(day.newRecipe)"></i>
+            <i class="fa fa-plus" ng-click="addMeal.createNewProduct(addMeal.newRecipe)"></i>
         </div>
         <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal"
                 ng-click="day.addNewItems('recipe', day.currentMeal, day.currentDate, day.newRecipe)">Save</button>
