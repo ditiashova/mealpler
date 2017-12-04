@@ -1,0 +1,17 @@
+<div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
+    <item-block item="item"></item-block>
+</div>
+
+<div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
+    <i class="fa fa-plus" ng-click="main.openModal('meal')"
+       ng-click="day.setCurrentMeal(meal, date)"></i>
+    <span ng-hide="meal.hasMeals">&nbsp;|&nbsp;
+            <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
+        </span>
+</div>
+<div class="text-right ingestion-manager" ng-show="meal.hasMeals">
+    <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
+    <i class="fa fa-clone" ng-click="day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
+    <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
+       ng-click="day.setCurrentMeal(meal, date)"></i>
+</div>

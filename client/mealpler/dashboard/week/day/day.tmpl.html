@@ -5,39 +5,10 @@
 </div>
 
 <div ng-repeat="meal in date.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
-    <div ng-repeat="item in meal.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
-        <span ng-if="item.hasIngredients" ng-dblclick="day.copyFood('oneItem', item)"
-              data-toggle="dropdown" class="meal-recipe">
-            {{ item.name }}
-        </span>
-        <span ng-if="!item.hasIngredients" class="meal-simple" ng-dblclick="day.copyFood('oneItem', item)">
-            {{ item.name }}
-        </span>
-
-        <span class="edit-item">
-            <i class="fa fa-times" ng-click="day.deleteItem(item, meal.mealName, date)"></i>
-        </span>
-
-        <div ng-if="item.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/tmpl/ingredientDropdown.html'"></div>
-    </div>
-
-    <div class="text-center plus-hidden" ng-class="meal.hasMeals ? 'plus-perm' : 'plus-temp'">
-        <i class="fa fa-plus" ng-click="main.openModal('meal')"
-           ng-click="day.setCurrentMeal(meal, date)"></i>
-        <span ng-hide="meal.hasMeals">&nbsp;|&nbsp;
-            <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
-        </span>
-    </div>
-    <div class="text-right ingestion-manager" ng-show="meal.hasMeals">
-        <i class="fa fa-arrow-down" ng-click="day.pasteFood('wholeMeal', meal, date)" style="font-size: 12px;"></i>
-        <i class="fa fa-clone" ng-click="day.copyFood('wholeMeal', meal)" style="font-size: 12px;"></i>
-        <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
-           ng-click="day.setCurrentMeal(meal, date)"></i>
-    </div>
-
+    <meal-manager food="meal"></meal-manager>
 </div>
 
-<div class="meal-manager">
+<div class="day-control">
     <span class="day-manager">
         <i class="fa fa-clone" ng-click="day.copyFood('menu', date.mealsList)" title="Copy menu"></i>
     </span>&nbsp;|&nbsp;
