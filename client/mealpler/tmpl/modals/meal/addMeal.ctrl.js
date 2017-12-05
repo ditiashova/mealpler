@@ -1,19 +1,19 @@
 Mealpler.controller('AddMealModalCtrl', AddMealModalController);
 
-function AddMealModalController (MealModel, StorageModel) {
+function AddMealModalController ($scope, $uibModalInstance, MealModel) {
     this.addProduct = true;
-
     this.newProducts = {};
     this.newProducts.list = [];
-    this.newProducts.list.push(angular.copy(MealModel.createDefaultProduct()));
     this.newRecipe = angular.copy(MealModel.createDefaultRecipe());
-    this.newRecipe.list.push(angular.copy(MealModel.createDefaultProduct()));
+
+    this.toggleMealModal = () => {
+        this.addProduct = !this.addProduct;
+    };
 
     this.createNewProduct = (forMeal) => {
         forMeal.list.push(angular.copy(MealModel.createDefaultProduct()));
     };
 
-    this.toggleMealModal = () => {
-        this.addProduct = !this.addProduct;
-    };
+    this.createNewProduct(this.newProducts);
+    this.createNewProduct(this.newRecipe);
 }
