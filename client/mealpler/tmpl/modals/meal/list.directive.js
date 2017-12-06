@@ -1,13 +1,12 @@
 Mealpler.directive('newProductList', function () {
-    const link = (scope, el, attrs, controller) => {
+    const link = (scope, el, attrs, controller, transcludeFn) => {
         const AddModal = controller;
         scope.createNew = (forItems) => {
             AddModal.createNewProduct(forItems);
         };
-        scope.saveAdded = (newItems) => {
+        scope.save = (newItems) => {
             let type = newItems.hasIngredients ? 'recipe' : 'list';
             AddModal.saveNew(type, newItems);
-            //MealCtrl.addNewItems(type, newItems);
         };
 
     };
