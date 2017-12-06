@@ -25,12 +25,12 @@ function MealModel () {
     };
 
     this.saveMealInfo = (dayMeal, date) => {
-        const storedDayName = date.format("YYYY-M-D");
+        const storedDayName = date;
         let storedDay = this.getMealsList(storedDayName);
 
         //check if there is nothing for this day
         if (storedDay === null) {
-            let itemContent = this.createNewDay(date);
+            let itemContent = this.createNewDay(moment(date));
             itemContent.mealsList.push(angular.copy(dayMeal));
             this.updateMealsList(storedDayName,itemContent);
         } else {

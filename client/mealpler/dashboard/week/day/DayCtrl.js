@@ -24,12 +24,12 @@ function DayCtrl ($rootScope, $scope, MealModel, StorageModel) {
     };
 
     //when modal opens
-    this.setCurrentMeal = (meal, date) => {
+    /*this.setCurrentMeal = (meal, date) => {
         this.refreshCurrentMeal();
         this.refreshNewItems();
         this.currentMeal = angular.copy(meal);
         this.currentDate = date;
-    };
+    };*/
 
     this.deleteIngredient = (item, recipe, mealName, date) => {
         MealModel.deleteIngredient(item, recipe, mealName, date);

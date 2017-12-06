@@ -1,40 +1,21 @@
 Mealpler.controller('MealCtrl', MealController);
 
-function MealController ($scope,$uibModal, MealModel, StorageModel,  $document) {
+function MealController ($scope, MealModel, StorageModel) {
 
-    this.addNewItems = (type, forMeal, forDay, newItems) => {
+    this.addNewItems = (type, newItems, forMeal, forDay) => {
+        let oldMealList = MealModel.findMealList(forDay).filter(a => a.mealName === forMeal)[0];
         if (type === 'list') {
-            forMeal.mealList = forMeal.mealList.concat(newItems.list);
+            oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
         } else if (type === 'recipe') {
-            forMeal.mealList.push(newItems);
+            oldMealList.mealList.push(newItems);
         } else if (type === 'stored') {
-            forMeal.mealList = forMeal.mealList.concat(newItems.mealList);
+            oldMealList.mealList = oldMealList.mealList.concat(newItems.mealList);
         }
-        MealModel.saveMealInfo(forMeal,forDay);
+        MealModel.saveMealInfo(oldMealList,forDay);
     };
 
     this.pasteFood = (name, forMeal, forDay) => {
         let stored = StorageModel.getStoredItem(name);
         this.addNewItems('stored', forMeal, forDay, stored);
     };
-
-    this.openModal = (modalName, parentSelector) => {
-        const temp = '<' + modalName + '>'+'</' + modalName + '>';
-        $uibModal.open({
-            appendTo: angular.element($document[0].querySelector(parentSelector)),
-            template: temp, //paste simple directive resolved
-            animation: true,
-            controller: ($scope, $uibModalInstance) => {
-                this.ok = function () {
-                    $uibModalInstance.close();
-                };
-
-                this.cancel = function () {
-                    $uibModalInstance.dismiss('cancel');
-                };
-            }
-        })
-    };
-
-
 }
