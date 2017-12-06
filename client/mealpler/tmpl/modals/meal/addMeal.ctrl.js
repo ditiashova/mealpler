@@ -1,6 +1,6 @@
 Mealpler.controller('AddMealModalCtrl', AddMealModalController);
 
-function AddMealModalController ($scope, $uibModalInstance, MealModel) {
+function AddMealModalController ($scope, MealModel) {
     this.addProduct = true;
     this.newProducts = {};
     this.newProducts.list = [];
