@@ -1,8 +1,8 @@
 <div ng-repeat="item in food.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
     <portion-block item="item" meal-name="food.mealName" date="date"></portion-block>
 </div>
-<div class="text-center plus-hidden" ng-class="food.hasMeals ? 'plus-perm' : 'plus-temp'">
-    <i class="fa fa-plus" ng-click="meal.openModal('add-modal', '.modal-parent')"></i>
+<div class="text-center plus-hidden" ng-class="food.hasMeals ? 'plus-perm' : 'plus-temp'" style="visibility: visible">
+    <i class="fa fa-plus" ng-click="meal.openModal('add-modal', '.modal-parent', food.mealName, date)"></i>
     <span ng-hide="food.hasMeals">&nbsp;|&nbsp;
         <i class="fa fa-arrow-down" ng-click="pasteFood('wholeMeal', food, date)" style="font-size: 12px;"></i>
     </span>
