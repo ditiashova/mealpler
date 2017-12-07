@@ -5,7 +5,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
 
     this.addNewItems = (type, newItems, forMeal, forDay) => {
         const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
-        let oldMealList = MealModel.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0];
+        let oldMealList = angular.copy(MealModel.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
         if (type === 'list') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
         } else if (type === 'recipe') {
@@ -17,8 +17,8 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     };
 
     this.pasteFood = (name, forMeal, forDay) => {
-        let stored = StorageModel.getStoredItem(name);
-        this.addNewItems('stored', stored, forMeal, forDay);
+        let storedOld = StorageModel.getStoredItem(name);
+        this.addNewItems('stored', storedOld, forMeal, forDay);
     };
 
     this.addNewMeal = (mealName, date) => {
