@@ -10,8 +10,7 @@
 <div class="text-right ingestion-manager" ng-show="food.hasMeals" style="visibility: visible">
     <i class="fa fa-arrow-down" ng-click="pasteFood('wholeMeal', food.mealName, date)" style="font-size: 12px;"></i>
     <i class="fa fa-clone" ng-click="copyFood('wholeMeal', food)" style="font-size: 12px;"></i>
-    <i class="fa fa-trash-o" data-toggle="modal" data-target="#confirmMealDelete"
-       ng-click="day.setCurrentMeal(food, date)"></i>
+    <i class="fa fa-trash-o" ng-click="meal.deleteOldMeal(food.mealName, date)"></i>
 </div>
 <div class="modal-parent">
 </div>
