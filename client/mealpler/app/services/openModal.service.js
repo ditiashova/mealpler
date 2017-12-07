@@ -2,18 +2,18 @@ Mealpler.service('openModal', OpenModalService);
 
 function OpenModalService ($uibModal) {
     this.open = (template, appendTo, scope, controller) => {
-        return this.modalInstance = $uibModal.open({
+        $uibModal.open({
             appendTo: appendTo,
-            template: template,
+            templateUrl: template,
             scope: scope,
-            controller: function ($scope, $uibModalInstance) {
-                $scope.save = function () {
-                    $uibModalInstance.close();
-                };
-
-                $scope.cancel = function () {
-                    $uibModalInstance.dismiss('cancel');
-                };
+            controller: controller,
+            controllerAs: 'modalCtrl'
+        }).result.then(function(e) {
+            //Success
+        }, function(e) {
+            //Error
+            if (!(e === 'cancel' || e === 'escape key press')) {
+                throw e;
             }
         });
     }
