@@ -65,7 +65,7 @@
   .ingestion-manager {
     visibility: hidden;
   }
-  &:hover > .ingestion-manager {
+  &:hover .ingestion-manager {
     visibility: visible;
   }
   small {
@@ -141,7 +141,7 @@
   min-height: 55px;
 }
 
-.meal:hover > .plus-temp {
+.meal:hover .plus-temp {
   visibility: visible !important;
 }
 
@@ -153,7 +153,7 @@
   visibility: visible !important;
 }
 
-.item:hover > .edit-item, .ingredient:hover > .edit-item {
+.item:hover .edit-item, .ingredient:hover .edit-item {
   visibility: visible;
 }
 
@@ -215,4 +215,8 @@
       padding: 0 5px;
     }
   }
+}
+
+.recipe-items {
+  padding-left: 20px;
 }
