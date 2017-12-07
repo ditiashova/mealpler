@@ -8,6 +8,9 @@ Mealpler.directive('newProductList', function () {
             let type = newItems.hasIngredients ? 'recipe' : 'list';
             AddModal.saveNew(type, newItems);
         };
+        scope.cancel = () => {
+            AddModal.cancelModal();
+        }
     };
 
     return {
@@ -17,7 +20,7 @@ Mealpler.directive('newProductList', function () {
             initItem: '='
         },
         require: '^^addModal',
-        templateUrl: 'scripts/tmpl/modals/meal/list.tmpl.html',
+        templateUrl: 'scripts/tmpl/modals/meal/add/list.tmpl.html',
         link: link
     };
 });
