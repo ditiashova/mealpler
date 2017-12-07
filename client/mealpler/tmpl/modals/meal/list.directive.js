@@ -1,5 +1,5 @@
 Mealpler.directive('newProductList', function () {
-    const link = (scope, el, attrs, controller, transcludeFn) => {
+    const link = (scope, el, attrs, controller) => {
         const AddModal = controller;
         scope.createNew = (forItems) => {
             AddModal.createNewProduct(forItems);
@@ -8,7 +8,6 @@ Mealpler.directive('newProductList', function () {
             let type = newItems.hasIngredients ? 'recipe' : 'list';
             AddModal.saveNew(type, newItems);
         };
-
     };
 
     return {
