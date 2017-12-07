@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h2 class="modal-title">Confirm delete</h2>
+    <button type="button" class="close" ng-click="meal.cancel()"><i class="fa fa-times" aria-hidden="true"></i></button>
+</div>
+<div class="modal-body">
+    <div class="alert alert-danger">
+        Are you sure you want to delete all items for this meal? This cannot be undone.
+    </div>
+</div>
+<div class="modal-footer">
+    <delete-modal date="date" meal="meal"></delete-modal>
+</div>
