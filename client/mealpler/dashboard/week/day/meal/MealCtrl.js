@@ -1,6 +1,7 @@
 Mealpler.controller('MealCtrl', MealController);
 
 function MealController ($scope, MealModel, StorageModel, openModal, $document) {
+    const parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
 
     this.addNewItems = (type, newItems, forMeal, forDay) => {
         const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
@@ -21,8 +22,36 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     };
 
     this.addNewMeal = (mealName, date) => {
-        const templateContent = '<add-modal date="' + date.format("YYYY-M-D") + '" meal="' + mealName + '"></add-modal>';
-        const parentDiv = angular.element($document[0].querySelector('.modal-parent'));
-        openModal.open(templateContent, parentDiv, $scope, controller);
-    }
+        const templatePath = 'scripts/tmpl/modals/meal/add/modal.tmpl.html';
+        const newMealCtrl = ($scope, $uibModalInstance) => {
+            this.meal = mealName;
+            this.date = date.format("YYYY-M-D");
+            this.save = function (type, newItems, forMeal, forDay) {
+                this.addNewItems(type, newItems, forMeal, forDay);
+                $uibModalInstance.close();
+            };
+            this.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            }};
+        openModal.open(templatePath, parentDivForMealModals, $scope, newMealCtrl);
+    };
+
+    this.deleteOldMeal = (mealName, date) => {
+        const templatePath = 'scripts/tmpl/modals/meal/delete/modal.tmpl.html';
+        const deleteMealCtrl = ($scope, $uibModalInstance) => {
+            this.meal = mealName;
+            this.date = date.format("YYYY-M-D");
+            this.delete = function (forMeal, forDay) {
+                this.confirmMealDelete(forMeal, forDay);
+                $uibModalInstance.close();
+            };
+            this.cancel = function () {
+                $uibModalInstance.dismiss('cancel');
+            }};
+        openModal.open(templatePath, parentDivForMealModals, $scope, deleteMealCtrl);
+    };
+
+    this.confirmMealDelete = (meal, date) => {
+        MealModel.deleteAllMeal(meal, date);
+    };
 }
