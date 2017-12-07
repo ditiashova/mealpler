@@ -6,6 +6,10 @@ Mealpler.directive('portionBlock', function (MealModel) {
             MealModel.deleteItemMeal(item, mealName, date);
             WeekCtrl._loadMealsDataForWeek();
         };
+        scope.deleteIngredient = (ingredient, itemName, mealName, date) => {
+            MealModel.deleteIngredient(ingredient, itemName, mealName, date);
+            WeekCtrl._loadMealsDataForWeek();
+        };
         scope.copyFood = (name, food) => {
             DayCtrl.copyFood(name, food);
         };
