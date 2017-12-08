@@ -5,8 +5,10 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
 
     this.today = moment().format('YYYY-M-D');
     this._weekDuration = 7;
+    this.datePickerName = 'datePicker';
+    this.dateRangePickerName = 'dateRangePicker';
 
-    const datePicker = $("#datePicker");
+    /*const datePicker = $("#datePicker");
     const localization = {
         "format": "DD/MM/YYYY",
         "firstDay": 1
@@ -23,7 +25,7 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel) {
         this.init(this.weekStartDate);
         $rootScope.$broadcast('updateShopList', this.weekStartDate);
         $scope.$apply();
-    });
+    });*/
 
     this.setNewWeekStart = (date) => {
         return date.startOf('week');
