@@ -56,7 +56,7 @@
 /*styling for meals*/
 .meal, .meal-manager {
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 5px 5px 5px 0;
   background: white;
   border: 1px solid rgb(238, 237, 235);
 }
@@ -115,6 +115,8 @@
 
 .edit-item {
   visibility: hidden;
+  width: auto;
+  padding: 0 2px;
 }
 .plus-hidden {
   visibility: hidden;
@@ -124,14 +126,6 @@
   .edit-item {
     visibility: hidden;
   }
-}
-
-.edit-item {
-  width: auto;
-  padding: 2px;
-  /*color: white;
-  background-color: #27ae60;
-  border-radius: 8px;*/
 }
 
 .plus-temp {
@@ -219,4 +213,9 @@
 
 .recipe-items {
   padding-left: 20px;
+}
+
+.meal-portion {
+  display: flex;
+  align-items: baseline;
 }

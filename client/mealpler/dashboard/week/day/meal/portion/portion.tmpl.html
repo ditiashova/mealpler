@@ -1,3 +1,6 @@
+<span class="edit-item">
+    <i class="fa fa-times" ng-click="deleteItem(item, mealName, date)"></i>
+</span>
 <span ng-if="item.hasIngredients" ng-dblclick="copyFood('oneItem', portion)"
       data-toggle="dropdown" class="meal-recipe">
     {{ item.name }}
@@ -8,6 +11,3 @@
     {{ item.name }}
 </span>
 
-<span class="edit-item">
-    <i class="fa fa-times" ng-click="deleteItem(item, mealName, date)"></i>
-</span>
