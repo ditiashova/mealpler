@@ -2,10 +2,9 @@ Mealpler.directive('datePicker', function () {
     const link = (scope, el, attrs, controller) => {
         const weekCtrl = controller;
         const dateCtrl = scope.dateCtrl;
-        const datePickerTarget = $('#' + attrs.name);
 
-        dateCtrl.pickerName = attrs.name;
-        datePickerTarget.daterangepicker({
+        dateCtrl.datePickerTarget = $('#' + attrs.name);
+        dateCtrl.datePickerTarget.daterangepicker({
             "locale": dateCtrl.getLocalization(),
             "singleDatePicker": !attrs.single,
             "showDropdowns": true,
@@ -22,7 +21,7 @@ Mealpler.directive('datePicker', function () {
     };
 
     return {
-        restrict: 'E',
+        restrict: 'C',
         transclude: true,
         scope: {
             single: '=',
@@ -32,7 +31,6 @@ Mealpler.directive('datePicker', function () {
         require: '^^weekManager',
         controller: 'DatePickerCtrl',
         controllerAs: 'dateCtrl',
-        templateUrl: 'scripts/app/directives/datePicker.tmpl.html',
         link: link
     };
 });
