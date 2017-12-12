@@ -1,17 +1,17 @@
-<div class="panel panel-default"  ng-controller="ShoplistCtrl as shopList">
+<div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">{{ main.title['shopList'] }}</h2>
-        <i class="fa fa-close" ng-click="main.toggleShopList()"></i>
+        <h2 class="panel-title">{{ listCtrl.title }}</h2>
+        <i class="fa fa-close" ng-click="listCtrl.closeShopList()"></i>
     </div>
     <div class="panel-subheading">
         Choose a range of dates to display list for:
         <input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>
     </div>
     <div class="panel-body">
-        <div ng-if="shopList.list.length === 0">
+        <div ng-if="listCtrl.list.length === 0">
             You haven't planned any food for this range yet.
         </div>
-        <div ng-repeat="item in shopList.list track by $index" ng-if="shopList.list.length > 0" class="row shop-item">
+        <div ng-repeat="item in listCtrl.list track by $index" ng-if="listCtrl.list.length > 0" class="row shop-item">
             <div class="col-xs-12">
                 <span>{{ item.name }}</span>
                 <div class="badge badge-success">{{ item.quantity }}</div>
@@ -19,6 +19,3 @@
         </div>
     </div>
 </div>
-
-
-

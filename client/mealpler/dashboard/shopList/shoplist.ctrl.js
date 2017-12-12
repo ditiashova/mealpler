@@ -2,13 +2,13 @@ Mealpler.controller('ShoplistCtrl', ShoplistCtrl);
 
 function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
     const today = moment();
-    const dateRangePicker = $("#dateRangePicker");
-    const localization = {
+    //const dateRangePicker = $("#dateRangePicker");
+    /*const localization = {
         "format": "DD/MM/YYYY",
         "firstDay": 1
-    };
+    };*/
 
-    const rangeSettings = (start) => {
+    /*const rangeSettings = (start) => {
         return {
             "locale": localization,
             "dateLimit": {
@@ -18,20 +18,22 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
             "startDate": start,
             "endDate": this.rangeLength
         };
-    };
+    };*/
 
-    const rangeCallback = (start, end, label) => {
+    /*const rangeCallback = (start, end, label) => {
         this.rangeStart = start;
         this.rangeLength = end.diff(start, 'days')+1;
         this.init(this.rangeStart, this.rangeLength);
         $scope.$apply();
-    };
+    };*/
+
+    this.title = Mealpler.titles.shopList;
 
     this.rangeStart = today.startOf('week');
     this.rangeLength = 7;
 
     //settings for Date Range Picker
-    dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
+    //dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
 
     this.addItem = (newItem) => {
         StorageModel.addItemToGroceryList(newItem);
@@ -62,7 +64,7 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
         }
         const storedItems = MealModel.findDateRangeMealList(start, duration);
         this.list = MealModel.extractAndSortProducts(storedItems);
-        dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
+        //dateRangePicker.daterangepicker(rangeSettings(this.rangeStart), rangeCallback);
     };
 
     this.init();
