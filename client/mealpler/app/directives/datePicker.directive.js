@@ -1,23 +1,20 @@
 Mealpler.directive('datePicker', function () {
     const link = (scope, el, attrs, controller) => {
-        const localization = {
-            "format": "DD/MM/YYYY",
-            "firstDay": 1
-        };
-        const WeekCtrl = controller;
-        scope.pickerName = attrs.name;
+        const weekCtrl = controller;
+        const dateCtrl = scope.dateCtrl;
         const datePickerTarget = $('#' + attrs.name);
+
+        dateCtrl.pickerName = attrs.name;
         datePickerTarget.daterangepicker({
-            "locale": localization,
+            "locale": dateCtrl.getLocalization(),
             "singleDatePicker": !attrs.single,
             "showDropdowns": true,
-            "startDate": WeekCtrl.weekStartDate
+            "startDate": weekCtrl.weekStartDate
         }, (start, end, label) => {
             if (attrs.refreshFridge) {
 
             }
-            WeekCtrl.weekStartDate = WeekCtrl.setNewWeekStart(start);
-            WeekCtrl.init(WeekCtrl.weekStartDate);
+            weekCtrl.init(start);
             scope.$apply();
         });
 
@@ -33,6 +30,8 @@ Mealpler.directive('datePicker', function () {
             name: '='
         },
         require: '^^weekManager',
+        controller: 'DatePickerCtrl',
+        controllerAs: 'dateCtrl',
         templateUrl: 'scripts/app/directives/datePicker.tmpl.html',
         link: link
     };
