@@ -13,13 +13,10 @@
     <!-- inject:css -->
     <!-- endinject -->
 </head>
-<body ng-controller="MainCtrl as main">
-<div id="sign-in-status"></div>
-<button id="sign-in" onClick="firebase.auth().signOut()">Sign Out</button>
-<div id="account-details"></div>
-<header ng-include="'scripts/tmpl/header.html'"></header>
-<main data-ng-view></main>
-<footer ng-include="'scripts/tmpl/footer.html'"></footer>
+<body>
+
+
+<main-block ></main-block>
 <div id="authModal" class="modal fade"  role="dialog">
     <div class="modal-dialog modal-auth">
         <div class="modal-content">
