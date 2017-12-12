@@ -1,9 +1,10 @@
-<div class="container-fluid" ng-controller="DashboardCtrl as dashboard">
+<div class="container-fluid">
     <div class="row">
-        <div class="sidebar" ng-class="{'open': main.openShopList}">
-            <div ng-include="'scripts/dashboard/shopList/shopList.html'"></div>
+        <div class="sidebar" ng-class="{'open': dashboardCtrl.showShopList}">
+            <shop-list></shop-list>
         </div>
-        <div class="col" ng-controller="WeekCtrl as week">
+
+        <div class="col">
             <week-manager></week-manager>
         </div>
     </div>
