@@ -31,11 +31,9 @@ function ShoplistCtrl ($rootScope, $scope, StorageModel, MealModel) {
     };
 
     this.init = (start, duration) => {
-        if (!start || !duration) {
-            start = this.rangeStart;
-            duration = this.rangeLength;
-        }
-        const storedItems = MealModel.findDateRangeMealList(start, duration);
+        const newStart = start || this.rangeStart;
+        const newDuration = duration || this.rangeLength;
+        const storedItems = MealModel.findDateRangeMealList(newStart, newDuration);
         this.list = MealModel.extractAndSortProducts(storedItems);
     };
 
