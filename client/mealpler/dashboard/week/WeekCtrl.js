@@ -1,81 +1,59 @@
 Mealpler.controller('WeekCtrl', WeekController);
 
-function WeekController ($rootScope, $scope, WeekModel, MealModel) {
+function WeekController ($rootScope, $scope, WeekModel, MealModel, DayModel) {
     const today = moment();
 
-    this.today = moment().format('YYYY-M-D');
-    this._weekDuration = 7;
-    this.datePickerName = 'datePicker';
-    this.dateRangePickerName = 'dateRangePicker';
-
-    /*const datePicker = $("#datePicker");
-    const localization = {
-        "format": "DD/MM/YYYY",
-        "firstDay": 1
-    };
-
-    //settings for Date Picker
-    datePicker.daterangepicker({
-        "locale": localization,
-        "singleDatePicker": true,
-        "showDropdowns": true,
-        "startDate": this.weekStartDate
-    }, (start, end, label) => {
-        this.weekStartDate = this.setNewWeekStart(start);
-        this.init(this.weekStartDate);
-        $rootScope.$broadcast('updateShopList', this.weekStartDate);
-        $scope.$apply();
-    });*/
-
-    this.setNewWeekStart = (date) => {
-        return date.startOf('week');
-    };
+    this.todayFullDate = moment().format('YYYY-M-D');
+    this.weekDuration = 7;
 
     this.switchWeek = (time) => {
         let newStartDate = {};
+
         if (time === 'past') {
             newStartDate = this.weekStartDate.subtract(1, 'day');
         } else if (time === 'future') {
-            newStartDate = this.weekStartDate.add(this._weekDuration, 'day').add(1, 'day');
+            newStartDate = this.weekStartDate.add(this.weekDuration + 1, 'day');
         }
-        this.weekStartDate = this.setNewWeekStart(newStartDate);
-        this.init(this.weekStartDate);
-        $rootScope.$broadcast('updateShopList', this.weekStartDate);
+
+        this.init(newStartDate);
     };
 
     this.init = (forDate) => {
-        this.range = []; //dates for 7 days
-        this._calculateWeekRange(forDate);
-        //get meal's list for each day of week range
-        this._loadMealsDataForWeek();
-        $rootScope.$broadcast('refreshCurrentMeal');
+        this._setNewWeekStart(forDate);
+        this._calculateWeekRange(this.weekStartDate);
+        this._setWeekFirstAndLastDays(forDate);
+        this._loadMealsDataForWeekRange();
+    };
+
+    this._getWeekStart = (date) => {
+        return moment(date).startOf('week');
+    };
+
+    this._setNewWeekStart = (date) => {
+        this.weekStartDate = this._getWeekStart(date);
     };
 
     this._calculateWeekRange = (firstDay) => {
-        for (let i = 0; i < this._weekDuration; i++) {
-            let nextDay = moment(firstDay).add(i, 'day');
-            nextDay.id = i;
-            nextDay.dayName = moment(nextDay).format("YYYY-M-D");
-            this.range.push(nextDay);
+        this.weekDaysFoodInfo = [];
+
+        for (let i = 0; i < this.weekDuration; i++) {
+            let newDay = DayModel.createNewDay(moment(firstDay).add(i, 'day'), i);
+            this.weekDaysFoodInfo.push(newDay);
         }
-
-        this.firstDay = this.range[0];
-        this.lastDay = this.range[this._weekDuration - 1];
     };
 
-    this._loadMealsDataForWeek = () => {
-        const storedMeals = MealModel.findDateRangeMealList(this.firstDay, this._weekDuration);
-        this.range.map(d => {
-            d.mealsList = angular.copy(storedMeals.filter(s => s.dayName === d.dayName)[0].list);
-            d.mealsList.map(a => a.mealList.length > 0 ? a.hasMeals = true : a.hasMeals = false);
+    this._setWeekFirstAndLastDays = (date) => {
+        this.weekFirstDay = this._getWeekStart(date);
+        this.weekLastDay = this._getWeekStart(date).add(this.weekDuration, 'day');
+    };
+
+    this._loadMealsDataForWeekRange = () => {
+        const storedMeals = MealModel.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
+        this.weekDaysFoodInfo.map(day => {
+            day.mealsList = angular.copy(storedMeals.filter(a => a.fullDate === day.fullDate)[0].list);
+            day.mealsList.map(a => a.hasMeals = a.mealList.length > 0);
         });
-        $rootScope.$broadcast('updateShopList', this.weekStartDate);
     };
 
-    this.weekStartDate = this.setNewWeekStart(today);
     this.init(today);
-
-    $scope.$on('refreshMealsForWeek', () => this._loadMealsDataForWeek());
-    $scope.$on('refreshDataForWeek', (e, newWeekStart) => this.init(this.setNewWeekStart(newWeekStart)));
-
 }
