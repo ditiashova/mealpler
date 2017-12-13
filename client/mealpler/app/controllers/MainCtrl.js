@@ -1,7 +1,7 @@
 Mealpler.controller('MainCtrl', MainController);
 Mealpler.directive( 'mainBlock', function () {
     const link = (scope, el, attrs, controller) => {
-        let a = scope.main;
+
     };
     return {
         restrict: 'E',
@@ -23,11 +23,7 @@ function MainController () {
         this.openedShopList = !this.openedShopList;
         this.executeShopListActions();
     };
-    /*this.setShopListState = (bool) => {
-        this.openShopList = bool;
-    };*/
 }
-
 
 MainController.prototype.executeShopListActions = function () {
     this.handlers.showShopList.forEach(function (handler) {
