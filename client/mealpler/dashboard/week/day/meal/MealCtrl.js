@@ -4,7 +4,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     const parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
 
     this.addNewItems = (type, newItems, forMeal, forDay) => {
-        const formattedDay = moment(forDay.dateObj).format("YYYY-M-D"); //in case nonformatted day was passed
+        const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
         let oldMealList = angular.copy(MealModel.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
         if (type === 'list') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
