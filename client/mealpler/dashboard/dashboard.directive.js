@@ -1,11 +1,12 @@
 Mealpler.directive( 'dashboard', function () {
     const link = (scope, el, attrs, controller) => {
-        let dashboardCtrl = scope.dashboardCtrl;
-        //controller.showSideBar();
-        dashboardCtrl.showShopList = controller.openedShopList;
+        const dashboardCtrl = scope.dashboardCtrl;
+        const mainCtrl = controller;
 
-        controller.setShopListShowActions(() => {
-            dashboardCtrl.showShopList = controller.openedShopList;
+        dashboardCtrl.showShopList = mainCtrl.openedShopList;
+
+        mainCtrl.setShopListShowActions(() => {
+            dashboardCtrl.showShopList = mainCtrl.openedShopList;
         });
     };
     return {
