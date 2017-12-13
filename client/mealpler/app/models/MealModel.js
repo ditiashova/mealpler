@@ -48,7 +48,7 @@ function MealModel () {
     };
 
     this.deleteAllMeal = (mealName, date) => {
-        const storedDayName = date.dateObj.format("YYYY-M-D");
+        const storedDayName = date.format("YYYY-M-D");
         let availableItem = this.getMealsList(storedDayName);
         let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
         availableItem.mealsList.splice(i, 1);
