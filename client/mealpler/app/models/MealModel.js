@@ -48,7 +48,7 @@ function MealModel () {
     };
 
     this.deleteAllMeal = (mealName, date) => {
-        const storedDayName = date.format("YYYY-M-D");
+        const storedDayName = date.dateObj.format("YYYY-M-D");
         let availableItem = this.getMealsList(storedDayName);
         let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
         availableItem.mealsList.splice(i, 1);
@@ -56,7 +56,7 @@ function MealModel () {
     };
 
     this.deleteItemMeal = (item, mealName, date) => {
-        const storedDayName = date.format("YYYY-M-D");
+        const storedDayName = date.dateObj.format("YYYY-M-D");
         let availableItem = this.getMealsList(storedDayName);
         let currentMeals = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList;
         let i = currentMeals.findIndex(b => b.name === item.name);
@@ -65,7 +65,7 @@ function MealModel () {
     };
 
     this.deleteIngredient = (item, recipeName, mealName, date) => {
-        const storedDayName = date.format("YYYY-M-D");
+        const storedDayName = date.dateObj.format("YYYY-M-D");
         let availableItem = this.getMealsList(storedDayName);
         let currentRecipe = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList.filter(b => b.name === recipeName && b.hasIngredients)[0];
         let i = currentRecipe.list.findIndex(a => a.name === item.name);
@@ -95,15 +95,15 @@ function MealModel () {
 
     this.findDateRangeMealList = (start, q) => {
         const dayNames = [];
-        let results = [];
+        const results = [];
 
         for (let i = 0; i < q; i++) {
             dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
         }
 
         dayNames.forEach((a) => {
-            results.push({"dayName" : a});
-            results.filter(b => b.dayName === a)[0].list = this.findMealList(a);
+            results.push({"fullDate" : a});
+            results.filter(b => b.fullDate === a)[0].list = this.findMealList(a);
         });
 
         return results;

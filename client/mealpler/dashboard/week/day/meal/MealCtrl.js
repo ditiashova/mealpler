@@ -4,7 +4,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     const parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
 
     this.addNewItems = (type, newItems, forMeal, forDay) => {
-        const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
+        const formattedDay = moment(forDay.dateObj).format("YYYY-M-D"); //in case nonformatted day was passed
         let oldMealList = angular.copy(MealModel.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
         if (type === 'list') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
@@ -25,7 +25,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
         const templatePath = 'scripts/tmpl/modals/meal/add/modal.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
-            this.date = date.format("YYYY-M-D");
+            this.date = date.dateObj.format("YYYY-M-D");
             this.save = function (type, newItems, forMeal, forDay) {
                 this.addNewItems(type, newItems, forMeal, forDay);
                 $uibModalInstance.close();
@@ -40,7 +40,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
         const templatePath = 'scripts/tmpl/modals/meal/delete/modal.tmpl.html';
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
-            this.date = date.format("YYYY-M-D");
+            this.date = date.dateObj.format("YYYY-M-D");
             this.delete = function (forMeal, forDay) {
                 this.confirmMealDelete(forMeal, forDay);
                 $uibModalInstance.close();
