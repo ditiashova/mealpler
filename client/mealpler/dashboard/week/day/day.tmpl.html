@@ -1,7 +1,7 @@
 <div class="text-center day-manager">
-    {{ date | dayName }}&nbsp;
-    <i class="fa fa-arrow-down" ng-click="pasteMenu(date)" title="Paste menu"></i> <br/>
-    <small>{{ date | fullDate }}</small>
+    {{ date.dateObj | dayName }}&nbsp;
+    <i class="fa fa-arrow-down" ng-click="pasteMenu(date.dateObj)" title="Paste menu"></i> <br/>
+    <small>{{ date.dateObj | fullDate }}</small>
 </div>
 
 <div ng-repeat="meal in date.mealsList | orderBy : 'mealNo'" class="meal" ng-class="'meal-'+meal.mealName">
