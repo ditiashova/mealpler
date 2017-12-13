@@ -4,7 +4,7 @@ Mealpler.directive('dayManager', function () {
         const WeekCtrl = controller;
         scope.pasteMenu = (date) => {
             DayCtrl.pasteMenu(date);
-            WeekCtrl._loadMealsDataForWeek();
+            WeekCtrl._loadMealsDataForWeekRange();
         };
     };
 

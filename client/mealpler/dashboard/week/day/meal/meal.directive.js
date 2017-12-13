@@ -8,7 +8,7 @@ Mealpler.directive('mealManager', function () {
         };
         scope.pasteFood = (name, food, date) => {
             MealCtrl.pasteFood(name, food, date);
-            WeekCtrl._loadMealsDataForWeek();
+            WeekCtrl._loadMealsDataForWeekRange();
         };
     };
 

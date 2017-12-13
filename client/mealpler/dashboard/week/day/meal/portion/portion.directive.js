@@ -4,11 +4,11 @@ Mealpler.directive('portionBlock', function (MealModel) {
         const WeekCtrl = controllers[2];
         scope.deleteItem = (item, mealName, date) => {
             MealModel.deleteItemMeal(item, mealName, date);
-            WeekCtrl._loadMealsDataForWeek();
+            WeekCtrl._loadMealsDataForWeekRange();
         };
         scope.deleteIngredient = (ingredient, itemName, mealName, date) => {
             MealModel.deleteIngredient(ingredient, itemName, mealName, date);
-            WeekCtrl._loadMealsDataForWeek();
+            WeekCtrl._loadMealsDataForWeekRange();
         };
         scope.copyFood = (name, food) => {
             DayCtrl.copyFood(name, food);
