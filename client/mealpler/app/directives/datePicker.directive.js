@@ -30,12 +30,13 @@ Mealpler.directive('datePicker', function () {
                     //if one date is chosen
                     const startOfWeek = start.startOf('week');
                     dashboardCtrl.refreshShopList(startOfWeek, dashboardCtrl.defaultWeekDuration);
+                    dashboardCtrl.callDatePickerEvents(start);
                 } else {
                     let duration = end.diff(start, 'days')+1;
                     dashboardCtrl.refreshShopList(start, duration);
+                    dashboardCtrl.callDatePickerEvents(start, end);
                 }
             }
-            dashboardCtrl.callDatePickerEvents(start, end);
 
             scope.$apply();
         }
