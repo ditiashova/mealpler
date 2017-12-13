@@ -6,18 +6,6 @@ function WeekController ($rootScope, $scope, WeekModel, MealModel, DayModel) {
     this.todayFullDate = moment().format('YYYY-M-D');
     this.weekDuration = 7;
 
-    this.switchWeek = (time) => {
-        let newStartDate = {};
-
-        if (time === 'past') {
-            newStartDate = this.weekStartDate.subtract(1, 'day');
-        } else if (time === 'future') {
-            newStartDate = this.weekStartDate.add(this.weekDuration + 1, 'day');
-        }
-
-        this.init(newStartDate);
-    };
-
     this.init = (forDate) => {
         this._setNewWeekStart(forDate);
         this._calculateWeekRange(this.weekStartDate);
