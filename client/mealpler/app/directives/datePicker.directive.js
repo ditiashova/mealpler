@@ -2,16 +2,23 @@ Mealpler.directive('datePicker', function () {
     const link = (scope, el, attrs, controller) => {
         const dashboardCtrl = controller;
         const dateCtrl = scope.dateCtrl;
-        const startDate = dashboardCtrl.getWeekStartDate();
+        const startDate = dashboardCtrl.defaultWeekStartDate;
 
         dateCtrl.datePickerTarget = $('#' + attrs.name);
-        dateCtrl.datePickerTarget.daterangepicker({
-            "locale": dateCtrl.getLocalization(),
-            "singleDatePicker": !!attrs.single,
-            "showDropdowns": true,
-            "startDate": startDate
-        }, (start, end, label) => {
+        dateCtrl.datePickerTarget.daterangepicker(setDatePickerSettings(startDate), datePickerCallback);
+        dashboardCtrl.setDatePickerEvents((startDate, endDate) => setDatePickerSettings(startDate, endDate));
 
+        function setDatePickerSettings(start, end) {
+            return {
+                "locale": dateCtrl.getLocalization(),
+                "singleDatePicker": !!attrs.single,
+                "showDropdowns": true,
+                "startDate": start,
+                "endDate": end ? end : !!attrs.single ? null : angular.copy(start).add(dashboardCtrl.defaultWeekDuration-1, 'day')
+            }
+        }
+
+        function datePickerCallback(start, end, label) {
             //refresh week only from directive placed in week tmpl
             if (!!attrs.refreshWeek) {
                 dashboardCtrl.refreshMealDataForWeek(start);
@@ -24,13 +31,14 @@ Mealpler.directive('datePicker', function () {
                     const startOfWeek = start.startOf('week');
                     dashboardCtrl.refreshShopList(startOfWeek, dashboardCtrl.defaultWeekDuration);
                 } else {
-                    let duration = end.diff(start, 'days');
+                    let duration = end.diff(start, 'days')+1;
                     dashboardCtrl.refreshShopList(start, duration);
                 }
             }
-            scope.$apply();
-        });
+            dashboardCtrl.callDatePickerEvents(start, end);
 
+            scope.$apply();
+        }
 
     };
 
