@@ -19,7 +19,6 @@ Mealpler.directive('weekManager', function () {
         };
 
         function callShopListAndDatePickerEvents(date) {
-            dashboardCtrl.saveWeekStartDate(date);
             dashboardCtrl.refreshShopList(date);
             dashboardCtrl.callDatePickerEvents(date);
         }
