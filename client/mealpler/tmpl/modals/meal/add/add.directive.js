@@ -10,7 +10,7 @@ Mealpler.directive('addModal', function () {
         };
         AddMealCtrl.saveNew = (type, newItems) => {
             MealCtrl.save(type, newItems, meal, date);
-            WeekCtrl._loadMealsDataForWeek();
+            WeekCtrl._loadMealsDataForWeekRange();
         };
         AddMealCtrl.cancelModal = scope.cancel;
     };
