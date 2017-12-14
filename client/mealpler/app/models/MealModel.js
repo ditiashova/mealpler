@@ -1,4 +1,4 @@
-Mealpler.service('MealModel', MealModel);
+Mealpler.service('MealModel', MealModel); //todo split model and service
 
 function MealModel () {
     const meals = [
@@ -64,15 +64,6 @@ function MealModel () {
         this.updateMealsList(storedDayName, availableItem);
     };
 
-    this.deleteIngredient = (item, recipeName, mealName, date) => {
-        const storedDayName = date.dateObj.format("YYYY-M-D");
-        let availableItem = this.getMealsList(storedDayName);
-        let currentRecipe = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList.filter(b => b.name === recipeName && b.hasIngredients)[0];
-        let i = currentRecipe.list.findIndex(a => a.name === item.name);
-        currentRecipe.list.splice(i, 1);
-        this.updateMealsList(storedDayName, availableItem);
-    };
-
     this.findMealList = (forDate) => {
         let data = this.getMealsList(forDate);
         if (data === null) return meals;
@@ -102,8 +93,10 @@ function MealModel () {
         }
 
         dayNames.forEach((a) => {
-            results.push({"fullDate" : a});
-            results.filter(b => b.fullDate === a)[0].list = this.findMealList(a);
+            results.push({
+                fullDate: a,
+                list: this.findMealList(a)
+            });
         });
 
         return results;
