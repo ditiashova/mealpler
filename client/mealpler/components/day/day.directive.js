@@ -1,9 +1,9 @@
-Mealpler.directive('dayManager', function () {
+Mealpler.directive('dayManager', function (DayService) {
     const link = (scope, el, attrs, controller) => {
-        const DayCtrl = scope.day;
+        const DayCtrl = scope.dayCtrl;
         const WeekCtrl = controller;
-        scope.pasteMenu = (date) => {
-            DayCtrl.pasteMenu(date);
+        DayCtrl.pasteMenu = (date) => {
+            DayService.pasteMenuForDay(date);
             WeekCtrl._loadMealsDataForWeekRange();
         };
     };
@@ -15,9 +15,9 @@ Mealpler.directive('dayManager', function () {
             date: '='
         },
         controller: 'DayCtrl',
-        controllerAs: 'day',
+        controllerAs: 'dayCtrl',
         require: '^^weekManager',
-        templateUrl: 'scripts/dashboard/week/day/day.tmpl.html',
+        templateUrl: 'scripts/components/day/day.tmpl.html',
         link: link
     };
 });
