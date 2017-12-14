@@ -55,15 +55,6 @@ function MealModel (DayModel) {
         this.updateMealsList(storedDayName,availableItem);
     };
 
-    this.deleteItemMeal = (item, mealName, date) => {
-        const storedDayName = date.dateObj.format("YYYY-M-D");
-        let availableItem = this.getMealsList(storedDayName);
-        let currentMeals = availableItem.mealsList.filter(b => b.mealName === mealName)[0].mealList;
-        let i = currentMeals.findIndex(b => b.name === item.name);
-        currentMeals.splice(i, 1);
-        this.updateMealsList(storedDayName, availableItem);
-    };
-
     this.findMealList = (forDate) => {
         let data = this.getMealsList(forDate);
         if (data === null) return meals;
