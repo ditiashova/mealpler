@@ -17,7 +17,7 @@ Mealpler.directive('shopList', function () {
         transclude: true,
         scope: {},
         require: ['^^mainBlock', '^^dashboard'],
-        templateUrl: 'scripts/dashboard/shopList/shopList.tmpl.html',
+        templateUrl: 'scripts/components/shoplist/shopList.tmpl.html',
         controller: 'ShoplistCtrl',
         controllerAs: 'listCtrl',
         link: link

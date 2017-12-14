@@ -4,7 +4,7 @@ class ShopListService {
     }
 
     extractAndSortProducts(list) {
-        return sortProducts(extractProducts(list));
+        return this.sortProducts(this.extractProducts(list));
     }
 
     extractProducts(list) {
