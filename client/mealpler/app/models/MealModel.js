@@ -1,6 +1,6 @@
 Mealpler.service('MealModel', MealModel); //todo split model and service
 
-function MealModel () {
+function MealModel (DayModel) {
     const meals = [
         {id: 1, mealNo: 1, mealName: 'breakfast', mealList: []},
         {id: 2, mealNo: 2, mealName: 'lunch', mealList: []},
@@ -30,7 +30,7 @@ function MealModel () {
 
         //check if there is nothing for this day
         if (storedDay === null) {
-            let itemContent = this.createNewDay(moment(date));
+            let itemContent = DayModel.createNewDay(moment(date));
             itemContent.mealsList.push(angular.copy(dayMeal));
             this.updateMealsList(storedDayName,itemContent);
         } else {
@@ -116,12 +116,12 @@ function MealModel () {
         localStorage.setItem(date, JSON.stringify(newData));
     };
 
-    this.createNewDay = (date) => {
+    /*this.createNewDay = (date) => {
         let day = {};
         day.dayNo = moment(date).day();
         day.mealsList = [];
         return day;
-    };
+    };*/
 
     this.extractAndSortProducts = (listOfMeals) => {
         return this._sortProducts(this._extractProducts(listOfMeals));
