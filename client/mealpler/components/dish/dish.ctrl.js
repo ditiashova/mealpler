@@ -1,7 +1,11 @@
-Mealpler.controller('DishCtrl', DishCtrl);
+class DishCtrl {
+    constructor(StorageModel) {
+        Object.assign(this, {StorageModel});
+    }
 
-function DishCtrl (StorageModel) {
-    this.copyItem = (name, content) => {
-        StorageModel.addFoodToStored(name, content);
-    };
+    copyDish(name, content) {
+        this.StorageModel.addFoodToStored(name, content);
+    }
 }
+
+Mealpler.controller('DishCtrl', DishCtrl);
