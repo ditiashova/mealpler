@@ -3,17 +3,20 @@ Mealpler.directive( 'dashboard', function () {
         const dashboardCtrl = scope.dashboardCtrl;
         const mainCtrl = controller;
 
-        dashboardCtrl.showShopList = mainCtrl.openedShopList;
+        setIsShopListOpened();
 
-        mainCtrl.setShopListShowActions(() => {
-            dashboardCtrl.showShopList = mainCtrl.openedShopList;
-        });
+        //todo rename setIsShoplistActive
+        mainCtrl.setIsShopListOpenedHandlers(() => setIsShopListOpened());
+
+        function setIsShopListOpened() {
+            dashboardCtrl.isShopListOpened = mainCtrl.isShopListOpened;
+        }
     };
     return {
         restrict: 'E',
         scope: {},
         require: '^^mainBlock',
-        templateUrl: 'scripts/dashboard/dashboard.html',
+        templateUrl: 'scripts/components/dashboard/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboardCtrl',
         link: link

@@ -16,21 +16,22 @@ Mealpler.directive( 'mainBlock', function () {
 function MainController () {
     this.title = Mealpler.titles;
     this.handlers = {
-        showShopList: []
+        showShopListHandlers: []
     };
-    this.openedShopList = false;
+    this.isShopListOpened = false;
     this.toggleShopListState = () => {
-        this.openedShopList = !this.openedShopList;
-        this.executeShopListActions();
+        this.isShopListOpened = !this.isShopListOpened;
+        this.runIsShopListOpenedHandlers();
+    };
+
+
+    this.runIsShopListOpenedHandlers = function () {
+        this.handlers.showShopListHandlers.forEach(function (handler) {
+            handler();
+        })
+    };
+
+    this.setIsShopListOpenedHandlers = function(handler) {
+        this.handlers.showShopListHandlers.push(handler);
     };
 }
-
-MainController.prototype.executeShopListActions = function () {
-    this.handlers.showShopList.forEach(function (handler) {
-        handler();
-    })
-};
-
-MainController.prototype.setShopListShowActions = function(handler) {
-    this.handlers.showShopList.push(handler);
-};
