@@ -1,6 +1,6 @@
-Mealpler.controller('PortionCtrl', PortionCtrl);
+Mealpler.controller('DishCtrl', DishCtrl);
 
-function PortionCtrl (StorageModel) {
+function DishCtrl (StorageModel) {
     this.copyItem = (name, content) => {
         StorageModel.addFoodToStored(name, content);
     };
