@@ -1,11 +1,11 @@
 Mealpler.controller('MealCtrl', MealController);
 
-function MealController ($scope, MealModel, StorageModel, openModal, $document) {
+function MealController ($scope, MealModel, StorageModel, openModal, $document, MealService) {
     const parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
 
     this.addNewItems = (type, newItems, forMeal, forDay) => {
         const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
-        let oldMealList = angular.copy(MealModel.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
+        let oldMealList = angular.copy(MealService.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
         if (type === 'list') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
         } else if (type === 'recipe') {
@@ -13,7 +13,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
         } else if (type === 'stored') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.mealList);
         }
-        MealModel.saveMealInfo(oldMealList,formattedDay);
+        MealService.saveMealInfo(oldMealList,formattedDay);
     };
 
     this.pasteFood = (name, forMeal, forDay) => {
@@ -22,7 +22,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     };
 
     this.addNewMeal = (mealName, date) => {
-        const templatePath = 'scripts/tmpl/modals/meal/add/modal.tmpl.html';
+        const templatePath = 'scripts/components/modals/meal/add/modal.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
             this.date = date.dateObj.format("YYYY-M-D");
@@ -37,7 +37,7 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     };
 
     this.deleteOldMeal = (mealName, date) => {
-        const templatePath = 'scripts/tmpl/modals/meal/delete/modal.tmpl.html';
+        const templatePath = 'scripts/components/modals/meal/delete/modal.tmpl.html';
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
             this.date = date.dateObj.format("YYYY-M-D");
@@ -52,6 +52,6 @@ function MealController ($scope, MealModel, StorageModel, openModal, $document) 
     };
 
     this.confirmMealDelete = (meal, date) => {
-        MealModel.deleteAllMeal(meal, date);
+        MealService.deleteMeal(meal, date);
     };
 }
