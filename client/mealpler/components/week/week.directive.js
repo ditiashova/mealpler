@@ -3,7 +3,7 @@ Mealpler.directive('weekManager', function () {
         const dashboardCtrl = controller;
         const weekCtrl = scope.week;
 
-        dashboardCtrl.setMealDataForWeekActions((start) => weekCtrl.init(start));
+        dashboardCtrl.setWeekMealDataHandlers((start) => weekCtrl.init(start));
 
         weekCtrl.switchWeek = (time) => {
             let newStartDate = {};
@@ -19,8 +19,8 @@ Mealpler.directive('weekManager', function () {
         };
 
         function callShopListAndDatePickerEvents(date) {
-            dashboardCtrl.refreshShopList(date);
-            dashboardCtrl.callDatePickerEvents(date);
+            dashboardCtrl.runShopListHandlers(date);
+            dashboardCtrl.runDatePickerHandlers(date);
         }
     };
 
@@ -31,7 +31,7 @@ Mealpler.directive('weekManager', function () {
         controller: 'WeekCtrl',
         controllerAs: 'week',
         scope: {},
-        templateUrl: 'scripts/dashboard/week/week.tmpl.html',
+        templateUrl: 'scripts/components/week/week.tmpl.html',
         link: link
     };
 });

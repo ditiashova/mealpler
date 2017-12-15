@@ -3,8 +3,8 @@
 //todo flatten directory structure
 //todo use es6 classes
 class WeekController {
-    constructor(MealModel, DayModel) {
-        Object.assign(this, {MealModel, DayModel});
+    constructor(MealModel, DayModel, MealService) {
+        Object.assign(this, {MealModel, DayModel, MealService});
 
         this.todayFullDate = moment().format('YYYY-M-D');
         this.weekDuration = 7;
@@ -43,7 +43,7 @@ class WeekController {
     }
 
     _loadMealsDataForWeekRange() {
-        const storedMeals = this.MealModel.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
+        const storedMeals = this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
         this.weekDaysFoodInfo.map(day => {
             day.mealsList = angular.copy(storedMeals.filter(a => a.fullDate === day.fullDate)[0].list);
             day.mealsList.map(a => a.hasMeals = a.mealList.length > 0);
