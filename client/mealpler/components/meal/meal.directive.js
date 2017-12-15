@@ -22,7 +22,7 @@ Mealpler.directive('mealManager', function () {
         controller: 'MealCtrl',
         controllerAs: 'meal',
         require: ['^^dayManager', '^^weekManager'],
-        templateUrl: 'scripts/dashboard/week/day//meal/meal.tmpl.html',
+        templateUrl: 'scripts/components/meal/meal.tmpl.html',
         link: link
     };
 });

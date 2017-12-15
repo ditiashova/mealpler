@@ -1,5 +1,5 @@
-<div ng-repeat="item in food.mealList" class="item" ng-class="item.hasIngredients ? 'dropdown' : null">
-    <portion-block item="item" meal-name="food.mealName" date="date" class="meal-portion"></portion-block>
+<div ng-repeat="dish in food.mealList" class="item" ng-class="dish.hasIngredients ? 'dropdown' : null">
+    <dish-block dish="dish" meal-name="food.mealName" date="date" class="meal-portion"></dish-block>
 </div>
 <div class="text-center plus-hidden" ng-class="food.hasMeals ? 'plus-perm' : 'plus-temp'">
     <i class="fa fa-plus" ng-click="meal.addNewMeal(food.mealName, date)"></i>
