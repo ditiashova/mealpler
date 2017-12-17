@@ -1,6 +1,6 @@
 class ShoplistCtrl {
-    constructor(StorageModel, MealModel, ShopListService) {
-        Object.assign(this, {StorageModel, MealModel, ShopListService});
+    constructor(StorageModel, MealModel, ShopListService, MealService) {
+        Object.assign(this, {StorageModel, MealModel, ShopListService, MealService});
 
         const today = moment();
         this.title = Mealpler.titles.shopList;
@@ -33,7 +33,7 @@ class ShoplistCtrl {
     init(start, duration) {
         const newStart = start || this.rangeStart;
         const newDuration = duration || this.rangeLength;
-        const storedItems = this.MealModel.findDateRangeMealList(newStart, newDuration);
+        const storedItems = this.MealService.findDateRangeMealList(newStart, newDuration);
         this.list = this.ShopListService.extractAndSortProducts(storedItems);
     }
 }
