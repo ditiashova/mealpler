@@ -1,6 +1,6 @@
 class ShoplistCtrl {
-    constructor(StorageModel, MealModel, ShopListService, MealService) {
-        Object.assign(this, {StorageModel, MealModel, ShopListService, MealService});
+    constructor(StorageService, MealModel, ShopListService, MealService) {
+        Object.assign(this, {StorageService, MealModel, ShopListService, MealService});
 
         const today = moment();
         this.title = Mealpler.titles.shopList;
@@ -9,24 +9,24 @@ class ShoplistCtrl {
         this.init();
     }
     addItem(newItem) {
-        this.StorageModel.addItemToGroceryList(newItem);
+        this.StorageService.addItemToGroceryList(newItem);
         this.init();
     }
 
     addItems(listOfMeals) {
         let newItems = [];
         listOfMeals.map(a => a.mealList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
-        this.StorageModel.addItemToGroceryList(newItems);
+        this.StorageService.addItemToGroceryList(newItems);
         this.grocery.init();
     }
 
     deleteItem(item) {
-        this.StorageModel.deleteGroceryItem(item);
+        this.StorageService.deleteGroceryItem(item);
         this.grocery.init();
     }
 
     deleteAll() {
-        this.StorageModel.deleteGrocery();
+        this.StorageService.deleteGrocery();
         this.grocery.init();
     }
 

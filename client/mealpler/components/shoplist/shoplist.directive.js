@@ -9,7 +9,7 @@ Mealpler.directive('shopList', function () {
             //controller.showSideBar();
         };
 
-        dashboardCtrl.setShopListActions((date, duration) => listCtrl.init(date, duration));
+        dashboardCtrl.setShopListHandlers((date, duration) => listCtrl.init(date, duration));
     };
 
     return {
