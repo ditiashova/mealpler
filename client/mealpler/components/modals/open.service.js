@@ -1,8 +1,10 @@
-Mealpler.service('openModal', OpenModalService);
+class OpenModalService {
+    constructor ($uibModal) {
+        Object.assign(this, {$uibModal});
+    }
 
-function OpenModalService ($uibModal) {
-    this.open = (template, appendTo, scope, controller) => {
-        $uibModal.open({
+    open(template, appendTo, scope, controller) {
+        this.$uibModal.open({
             appendTo: appendTo,
             templateUrl: template,
             scope: scope,
@@ -18,3 +20,5 @@ function OpenModalService ($uibModal) {
         });
     }
 }
+
+Mealpler.service('openModal', OpenModalService);
