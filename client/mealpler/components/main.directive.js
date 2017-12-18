@@ -5,7 +5,7 @@ Mealpler.directive( 'mainBlock', function () {
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: 'scripts/tmpl/mainBlock.tmpl.html',
+        templateUrl: 'scripts/components/main.tmpl.html',
         controller: 'MainCtrl',
         controllerAs: 'main',
         link: link
