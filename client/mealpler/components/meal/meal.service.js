@@ -64,7 +64,6 @@ class MealService {
                     let k = data.mealsList.filter(b => b.mealNo === this.meals[i].mealNo);
                     if (k.length === 0) {
                         data.mealsList.push(this.meals[i]);
-                        data.mealsList.push(this.meals[i]);
                     } else {
                         //just leave as it is
                     }
