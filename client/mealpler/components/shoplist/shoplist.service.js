@@ -9,13 +9,17 @@ class ShopListService {
 
     extractProducts(list) {
         const extracted = [];
-        list.map(ingestion => ingestion.list.map(meal => meal.dishesList.map(food => {
-            if (!food.hasIngredients) {
-                extracted.push(food)
-            } else if (food.hasIngredients) {
-                food.list.map(product => extracted.push(product));
+        list.map(ingestion => ingestion.mealsList.map(meal => {
+            if (meal.dishesList.length > 0) {
+                meal.dishesList.map(food => {
+                    if (!food.hasIngredients) {
+                        extracted.push(food)
+                    } else if (food.hasIngredients) {
+                        food.list.map(product => extracted.push(product));
+                    }
+                })
             }
-        })));
+        }));
         extracted.forEach(a => {
             a.name = a.name.trim();
         });
