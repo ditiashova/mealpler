@@ -6,7 +6,7 @@ class MealController {
 
     addNewItems(type, newItems, forMeal, forDay) {
         const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
-        let oldMealList = angular.copy(this.MealService.findMealList(formattedDay).filter(a => a.mealName === forMeal)[0]);
+        let oldMealList = angular.copy(this.MealService.findMealList(formattedDay).find(a => a.mealName === forMeal));
         if (type === 'list') {
             oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
         } else if (type === 'recipe') {
