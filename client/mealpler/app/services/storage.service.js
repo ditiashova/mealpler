@@ -10,7 +10,7 @@ class StorageService {
 
     updateGroceryItem(oldItem) {
         let list = this.getStoredItem("grocery");
-        list.filter(a => a.name === oldItem.name)[0].quantity = oldItem.quantity;
+        list.find(a => a.name === oldItem.name).quantity = oldItem.quantity;
         this.addFoodToStored("grocery", list);
     }
 

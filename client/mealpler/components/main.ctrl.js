@@ -16,7 +16,7 @@ class MainController {
         this.handlers.showShopListHandlers.forEach((handler) => handler());
     }
 
-    setIsShopListOpenedHandlers(handler) {
+    addIsShopListOpenedHandler(handler) {
         this.handlers.showShopListHandlers.push(handler);
     }
 }

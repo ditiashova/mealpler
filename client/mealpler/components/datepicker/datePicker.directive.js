@@ -5,7 +5,7 @@ Mealpler.directive('datePicker', function () {
         const startDate = dashboardCtrl.defaultWeekStartDate;
 
         dateCtrl.datePickerTarget = $('#' + attrs.name);
-        dashboardCtrl.setDatePickerHandlers((startDate, endDate) => setDatePickerSettingsAndCallBack(startDate, endDate));
+        dashboardCtrl.addDatePickerHandlers((startDate, endDate) => setDatePickerSettingsAndCallBack(startDate, endDate));
 
         setDatePickerSettingsAndCallBack(startDate);
 

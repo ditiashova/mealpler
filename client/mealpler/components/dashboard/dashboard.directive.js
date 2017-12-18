@@ -5,8 +5,7 @@ Mealpler.directive( 'dashboard', function () {
 
         setIsShopListOpened();
 
-        //todo rename setIsShoplistActive
-        mainCtrl.setIsShopListOpenedHandlers(() => setIsShopListOpened());
+        mainCtrl.addIsShopListOpenedHandler(() => setIsShopListOpened());
 
         function setIsShopListOpened() {
             dashboardCtrl.isShopListOpened = mainCtrl.isShopListOpened;

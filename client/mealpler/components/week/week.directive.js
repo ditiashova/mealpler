@@ -1,9 +1,8 @@
 Mealpler.directive('weekManager', function () {
-    const link = (scope, el, attrs, controller) => {
-        const dashboardCtrl = controller;
+    const link = (scope, el, attrs, dashboardCtrl) => {
         const weekCtrl = scope.week;
 
-        dashboardCtrl.setWeekMealDataHandlers((start) => weekCtrl.init(start));
+        dashboardCtrl.addWeekMealDataHandlers((start) => weekCtrl.init(start));
 
         weekCtrl.switchWeek = (time) => {
             let newStartDate = {};

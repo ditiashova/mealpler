@@ -1,7 +1,3 @@
-
-//todo unify naming of files
-//todo flatten directory structure
-//todo use es6 classes
 class WeekController {
     constructor(MealModel, DayModel, MealService) {
         Object.assign(this, {MealModel, DayModel, MealService});
@@ -32,7 +28,7 @@ class WeekController {
         this.weekDaysFoodInfo = [];
 
         for (let i = 0; i < this.weekDuration; i++) {
-            let newDay = this.DayModel.createNewDay(moment(firstDay).add(i, 'day'), i);
+            const newDay = this.DayModel.createNewDay(moment(firstDay).add(i, 'day'), i);
             this.weekDaysFoodInfo.push(newDay);
         }
     }
@@ -45,8 +41,8 @@ class WeekController {
     _loadMealsDataForWeekRange() {
         const storedMeals = this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
         this.weekDaysFoodInfo.map(day => {
-            day.mealsList = angular.copy(storedMeals.filter(a => a.fullDate === day.fullDate)[0].list);
-            day.mealsList.map(a => a.hasMeals = a.mealList.length > 0);
+            day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).list);
+            day.mealsList.forEach(a => a.hasMeals = a.mealList.length > 0);
         });
     }
 }

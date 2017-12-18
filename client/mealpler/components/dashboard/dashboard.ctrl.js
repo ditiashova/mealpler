@@ -10,15 +10,15 @@ class DashboardController {
         };
     }
 
-    setDatePickerHandlers(handler) {
+    addDatePickerHandlers(handler) {
         this.handlers.datePickerHandlers.push(handler);
     };
 
-    setShopListHandlers(handler) {
+    addShopListHandlers(handler) {
         this.handlers.shopListLoadingDataHandlers.push(handler);
     };
 
-    setWeekMealDataHandlers(handler) {
+    addWeekMealDataHandlers(handler) {
         this.handlers.weekMealsLoadingDataHandlers.push(handler);
     };
 
