@@ -5,7 +5,7 @@
       data-toggle="dropdown" class="meal-recipe">
     {{ dish.name }}
 </span>
-<div ng-if="dish.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/components/ingredient/ingredientDropdown.html'"></div>
+<div ng-if="dish.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/components/ingredient/dropdown.html'"></div>
 
 <span ng-if="!dish.hasIngredients" class="meal-simple" ng-dblclick="dishCtrl.copyDish('oneItem', dish)">
     {{ dish.name }}

@@ -1,10 +1,10 @@
 class DishCtrl {
-    constructor(StorageModel) {
-        Object.assign(this, {StorageModel});
+    constructor(StorageService) {
+        Object.assign(this, {StorageService});
     }
 
     copyDish(name, content) {
-        this.StorageModel.addFoodToStored(name, content);
+        this.StorageService.addFoodToStored(name, content);
     }
 }
 
