@@ -15,7 +15,7 @@ class ShopListService {
                     if (!food.hasIngredients) {
                         extracted.push(food)
                     } else if (food.hasIngredients) {
-                        food.list.map(product => extracted.push(product));
+                        food.productsList.map(product => extracted.push(product));
                     }
                 })
             }
