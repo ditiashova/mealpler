@@ -5,7 +5,7 @@ Mealpler.directive('datePicker', function () {
         const startDate = dashboardCtrl.defaultWeekStartDate;
 
         dateCtrl.datePickerTarget = $('#' + attrs.name);
-        dashboardCtrl.setDatePickerEvents((startDate, endDate) => setDatePickerSettingsAndCallBack(startDate, endDate));
+        dashboardCtrl.setDatePickerHandlers((startDate, endDate) => setDatePickerSettingsAndCallBack(startDate, endDate));
 
         setDatePickerSettingsAndCallBack(startDate);
 
@@ -26,7 +26,7 @@ Mealpler.directive('datePicker', function () {
         function datePickerCallback(start, end, label) {
             //refresh week only from directive placed in week tmpl
             if (!!attrs.refreshWeek) {
-                dashboardCtrl.refreshMealDataForWeek(start);
+                dashboardCtrl.runWeekMealsHandlers(start);
             }
 
             //fridge needs to be refreshed in both date pickers, but this check is still needed in case I'll decide to remove this logic etc.
@@ -34,12 +34,12 @@ Mealpler.directive('datePicker', function () {
                 if (!!attrs.single) {
                     //if one date is chosen
                     const startOfWeek = start.startOf('week');
-                    dashboardCtrl.refreshShopList(startOfWeek, dashboardCtrl.defaultWeekDuration);
-                    dashboardCtrl.callDatePickerEvents(start);
+                    dashboardCtrl.runShopListHandlers(startOfWeek, dashboardCtrl.defaultWeekDuration);
+                    dashboardCtrl.runDatePickerHandlers(start);
                 } else {
                     let duration = end.diff(start, 'days')+1;
-                    dashboardCtrl.refreshShopList(start, duration);
-                    dashboardCtrl.callDatePickerEvents(start, end);
+                    dashboardCtrl.runShopListHandlers(start, duration);
+                    dashboardCtrl.runDatePickerHandlers(start, end);
                 }
             }
 
