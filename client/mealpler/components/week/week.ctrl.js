@@ -41,7 +41,7 @@ class WeekController {
     _loadMealsDataForWeekRange() {
         const storedMeals = this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
         this.weekDaysFoodInfo.map(day => {
-            day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).list);
+            day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).mealsList);
             day.mealsList.forEach(a => a.hasMeals = a.dishesList.length > 0);
         });
     }

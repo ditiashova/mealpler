@@ -4,7 +4,7 @@
         <input ng-model="initItem.name" placeholder="Dish name" name="dishName" id="dishName" class="form-control"/>
     </div>
 </div>
-<div ng-repeat="item in initItem.list track by $index" class="row" ng-class="{'recipe-items' : initItem.hasIngredients}">
+<div ng-repeat="item in initItem.productsList track by $index" class="row" ng-class="{'recipe-items' : initItem.hasIngredients}">
     <div class="col-xs-12">
         <input ng-model="item.name" placeholder="new product" name="productName" class="form-control"/>
     </div>

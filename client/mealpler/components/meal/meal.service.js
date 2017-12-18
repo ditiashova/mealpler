@@ -46,7 +46,7 @@ class MealService {
         dayNames.forEach((a) => {
             results.push({
                 fullDate: a,
-                list: this.findMealList(a)
+                mealsList: this.findMealList(a)
             });
         });
 

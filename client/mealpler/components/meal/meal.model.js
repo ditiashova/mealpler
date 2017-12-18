@@ -24,7 +24,7 @@ class MealModel {
             "name": "",
             "type": "recipe",
             "hasIngredients": true,
-            "list": [],
+            "productsList": [],
             "deletable": false
         }}
 }

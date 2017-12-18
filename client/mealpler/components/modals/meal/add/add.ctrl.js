@@ -3,7 +3,7 @@ class AddMealModalController  {
         Object.assign(this, {$scope, MealModel});
         this.addProduct = true;
         this.newProducts = {};
-        this.newProducts.list = [];
+        this.newProducts.productsList = [];
         this.newRecipe = angular.copy(MealModel.createDefaultRecipe());
         [this.newProducts, this.newRecipe].forEach(a => this.createNewProduct(a));
     }
@@ -14,7 +14,7 @@ class AddMealModalController  {
 
     createNewProduct(forMeal) {
         let defaultProduct = angular.copy(this.MealModel.createDefaultProduct());
-        forMeal.list.push(defaultProduct);
+        forMeal.productsList.push(defaultProduct);
     }
 }
 
