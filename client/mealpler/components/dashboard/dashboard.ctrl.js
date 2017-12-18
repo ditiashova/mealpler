@@ -23,21 +23,15 @@ class DashboardController {
     };
 
     runDatePickerHandlers(startDate, endDate) {
-        this.handlers.datePickerHandlers.forEach(function (handler) {
-            handler(startDate, endDate);
-        })
+        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, endDate));
     };
 
     runShopListHandlers(date, duration) {
-        this.handlers.shopListLoadingDataHandlers.forEach(function (handler) {
-            handler(date, duration);
-        })
+        this.handlers.shopListLoadingDataHandlers.forEach((handler) => handler(date, duration));
     };
 
     runWeekMealsHandlers(startDate) {
-        this.handlers.weekMealsLoadingDataHandlers.forEach(function (handler) {
-            handler(startDate);
-        })
+        this.handlers.weekMealsLoadingDataHandlers.forEach((handler) => handler(startDate));
     };
 }
 
