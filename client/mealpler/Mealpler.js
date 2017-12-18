@@ -1,6 +1,6 @@
 let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'requestSrvc', 'ui.bootstrap', 'ui.bootstrap.tpls', 'firebase']);
 Mealpler.
-    config(function ($routeProvider) {
+    /*config(function ($routeProvider) {
         $routeProvider
             .when('/',
                 {
@@ -9,7 +9,7 @@ Mealpler.
                     controllerAs: 'dashboard'
                 })
             .otherwise({redirectTo: '/'});
-}).
+}).*/
     config(function() {
         moment.locale('dow', {
             week : {
