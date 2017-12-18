@@ -15,7 +15,7 @@ class ShoplistCtrl {
 
     addItems(listOfMeals) {
         let newItems = [];
-        listOfMeals.map(a => a.mealList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
+        listOfMeals.map(a => a.dishesList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
         this.StorageService.addItemToGroceryList(newItems);
         this.grocery.init();
     }

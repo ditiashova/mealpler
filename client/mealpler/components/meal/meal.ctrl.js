@@ -8,11 +8,11 @@ class MealController {
         const formattedDay = moment(forDay).format("YYYY-M-D"); //in case nonformatted day was passed
         let oldMealList = angular.copy(this.MealService.findMealList(formattedDay).find(a => a.mealName === forMeal));
         if (type === 'list') {
-            oldMealList.mealList = oldMealList.mealList.concat(newItems.list);
+            oldMealList.dishesList = oldMealList.dishesList.concat(newItems.list);
         } else if (type === 'recipe') {
-            oldMealList.mealList.push(newItems);
+            oldMealList.dishesList.push(newItems);
         } else if (type === 'stored') {
-            oldMealList.mealList = oldMealList.mealList.concat(newItems.mealList);
+            oldMealList.dishesList = oldMealList.dishesList.concat(newItems.dishesList);
         }
         this.MealService.saveMealInfo(oldMealList,formattedDay);
     };

@@ -9,7 +9,7 @@ class ShopListService {
 
     extractProducts(list) {
         const extracted = [];
-        list.map(ingestion => ingestion.list.map(meal => meal.mealList.map(food => {
+        list.map(ingestion => ingestion.list.map(meal => meal.dishesList.map(food => {
             if (!food.hasIngredients) {
                 extracted.push(food)
             } else if (food.hasIngredients) {

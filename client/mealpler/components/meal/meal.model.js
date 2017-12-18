@@ -3,11 +3,11 @@ class MealModel {
 
     emptyMealsList() {
         return [
-            {id: 1, mealNo: 1, mealName: 'breakfast', mealList: []},
-            {id: 2, mealNo: 2, mealName: 'lunch', mealList: []},
-            {id: 3, mealNo: 3, mealName: 'dinner', mealList: []},
-            {id: 4, mealNo: 4, mealName: 'supper', mealList: []},
-            {id: 5, mealNo: 5, mealName: 'snacks', mealList: []}
+            {id: 1, mealNo: 1, mealName: 'breakfast', dishesList: []},
+            {id: 2, mealNo: 2, mealName: 'lunch', dishesList: []},
+            {id: 3, mealNo: 3, mealName: 'dinner', dishesList: []},
+            {id: 4, mealNo: 4, mealName: 'supper', dishesList: []},
+            {id: 5, mealNo: 5, mealName: 'snacks', dishesList: []}
         ]}
 
     createDefaultProduct() {

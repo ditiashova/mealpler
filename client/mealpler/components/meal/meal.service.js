@@ -21,7 +21,7 @@ class MealService {
                 storedDay.mealsList.push(dayMeal);
                 this.updateMealsList(storedDayName,storedDay);
             } else {
-                storedDay.mealsList.find(old => old.mealNo === dayMeal.mealNo).mealList = dayMeal.mealList;
+                storedDay.mealsList.find(old => old.mealNo === dayMeal.mealNo).dishesList = dayMeal.dishesList;
                 this.updateMealsList(storedDayName,storedDay);
             }
         }
