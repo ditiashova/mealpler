@@ -29,4 +29,4 @@ class MealModel {
         }}
 }
 
-Mealpler.service('MealModel', MealModel); //todo split model and service
+Mealpler.service('MealModel', MealModel);
