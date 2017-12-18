@@ -1,10 +1,10 @@
 class DayCtrl {
-    constructor(StorageModel) {
-        Object.assign(this, {StorageModel});
+    constructor(StorageService) {
+        Object.assign(this, {StorageService});
     }
 
     copyFood(name, content) {
-        this.StorageModel.addFoodToStored(name, content);
+        this.StorageService.addFoodToStored(name, content);
     }
 }
 
