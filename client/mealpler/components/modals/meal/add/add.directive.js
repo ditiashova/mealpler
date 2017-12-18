@@ -25,7 +25,7 @@ Mealpler.directive('addModal', function () {
         require: ['^^weekManager', '^^mealManager'],
         controller: 'AddMealModalCtrl',
         controllerAs: 'addMeal',
-        templateUrl: 'scripts/tmpl/modals/meal/add/add.modal.html',
+        templateUrl: 'scripts/components/modals/meal/add/add.modal.html',
         link: link
     };
 });
