@@ -14,10 +14,10 @@ Mealpler.directive('weekManager', function () {
             }
 
             weekCtrl.init(newStartDate);
-            callShopListAndDatePickerEvents(weekCtrl.weekStartDate);
+            runShopListAndDatePickerEvents(weekCtrl.weekStartDate);
         };
 
-        function callShopListAndDatePickerEvents(date) {
+        function runShopListAndDatePickerEvents(date) {
             dashboardCtrl.runShopListHandlers(date);
             dashboardCtrl.runDatePickerHandlers(date);
         }

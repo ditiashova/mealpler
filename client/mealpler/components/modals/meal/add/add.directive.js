@@ -1,6 +1,5 @@
 Mealpler.directive('addModal', function () {
-    const link = (scope, el, attrs, controllers) => {
-        const WeekCtrl = controllers[0];
+    const link = (scope, el, attrs, [WeekCtrl, DashboardCtrl]) => {
         const MealCtrl = scope.meal;
         const AddMealCtrl = scope.addMeal;
         const date = MealCtrl.date;
@@ -11,6 +10,7 @@ Mealpler.directive('addModal', function () {
         AddMealCtrl.saveNew = (type, newItems) => {
             MealCtrl.save(type, newItems, meal, date);
             WeekCtrl._loadMealsDataForWeekRange();
+            DashboardCtrl.runShopListHandlers(moment(date).startOf('week'));
         };
         AddMealCtrl.cancelModal = scope.cancel;
     };
@@ -22,7 +22,7 @@ Mealpler.directive('addModal', function () {
             date: '=',
             meal: '='
         },
-        require: ['^^weekManager', '^^mealManager'],
+        require: ['^^weekManager', '^^dashboard', '^^mealManager'],
         controller: 'AddMealModalCtrl',
         controllerAs: 'addMeal',
         templateUrl: 'scripts/components/modals/meal/add/add.modal.html',
