@@ -21,7 +21,7 @@ Mealpler.directive('deleteModal', function () {
             meal: '='
         },
         require: ['^^weekManager', '^^mealManager'],
-        templateUrl: 'scripts/components/modals/meal/delete/delete.modal.html',
+        templateUrl: 'scripts/components/meal/delete/delete.modal.html',
         link: link
     };
 });

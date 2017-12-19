@@ -23,7 +23,7 @@ class MealController {
     };
 
     addNewMeal(mealName, date) {
-        const templatePath = 'scripts/components/modals/meal/add/add.tmpl.html';
+        const templatePath = 'scripts/components/meal/add/add.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
             this.date = date.dateObj.format("YYYY-M-D");
@@ -38,7 +38,7 @@ class MealController {
     };
 
     deleteOldMeal(mealName, date) {
-        const templatePath = 'scripts/components/modals/meal/delete/delete.tmpl.html';
+        const templatePath = 'scripts/components/meal/delete/delete.tmpl.html';
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
             this.date = date.dateObj.format("YYYY-M-D");

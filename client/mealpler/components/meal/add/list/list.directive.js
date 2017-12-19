@@ -20,7 +20,7 @@ Mealpler.directive('newProductList', function () {
             initItem: '='
         },
         require: '^^addModal',
-        templateUrl: 'scripts/components/modals/meal/add/list/list.tmpl.html',
+        templateUrl: 'scripts/components/meal/add/list/list.tmpl.html',
         link: link
     };
 });
