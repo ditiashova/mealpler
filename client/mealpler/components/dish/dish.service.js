@@ -9,7 +9,7 @@ class DishService {
         const currentMeals = availableItem.mealsList.find(b => b.mealName === mealName).dishesList;
         const i = currentMeals.findIndex(b => b.name === item.name);
         currentMeals.splice(i, 1);
-        this.MealService.updateMealsList(fullDate, availableItem);
+        this.MealService.updateCleanMealsList(fullDate, availableItem);
     };
 }
 Mealpler.service('DishService', DishService);

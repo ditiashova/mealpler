@@ -7,7 +7,7 @@ class DayService {
         const stored = this.StorageService.getStoredItem("menu");
         const day = this.DayModel.createNewDay(forDay);
         stored.forEach(a => day.mealsList.push(a));
-        this.MealService.updateMealsList(forDay.format("YYYY-M-D"), day);
+        this.MealService.updateCleanMealsList(forDay.format("YYYY-M-D"), day);
     }
 }
 Mealpler.service('DayService', DayService);

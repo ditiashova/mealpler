@@ -12,17 +12,17 @@ class MealService {
         if (storedDay === null) {
             const itemContent = this.DayModel.createNewDay(moment(date));
             itemContent.mealsList.push(angular.copy(dayMeal));
-            this.updateMealsList(storedDayName,itemContent);
+            this.updateCleanMealsList(storedDayName,itemContent);
         } else {
             //check if we already have smth. for this MEAL
             const oldItemContent = storedDay.mealsList.filter(old => old.mealNo === dayMeal.mealNo);
 
             if (oldItemContent.length === 0) {
                 storedDay.mealsList.push(dayMeal);
-                this.updateMealsList(storedDayName,storedDay);
+                this.updateCleanMealsList(storedDayName,storedDay);
             } else {
                 storedDay.mealsList.find(old => old.mealNo === dayMeal.mealNo).dishesList = dayMeal.dishesList;
-                this.updateMealsList(storedDayName,storedDay);
+                this.updateCleanMealsList(storedDayName, storedDay);
             }
         }
     }
@@ -32,7 +32,7 @@ class MealService {
         let availableItem = this.getMealsList(storedDayName);
         let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
         availableItem.mealsList.splice(i, 1);
-        this.updateMealsList(storedDayName,availableItem);
+        this.updateCleanMealsList(storedDayName,availableItem);
     };
 
     findDateRangeMealList(start, q) {
@@ -83,8 +83,19 @@ class MealService {
         return all;
     }
 
-    updateMealsList(date, newData) {
-        localStorage.setItem(date, JSON.stringify(newData));
+    cleanEmptyRecipes(data) {
+        data.mealsList.forEach(a => a.dishesList.map((b, i) => {
+            if (b.type === 'recipe' && b.productsList.length === 0) {
+                a.dishesList.splice(i, 1);
+            }
+        }));
+        return data;
+    }
+
+    updateCleanMealsList(date, rawData) {
+        //remove recipes that don't have ingredients
+        const cleanData = this.cleanEmptyRecipes(angular.copy(rawData));
+        localStorage.setItem(date, JSON.stringify(cleanData));
     }
 }
 
