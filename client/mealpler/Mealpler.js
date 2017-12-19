@@ -1,4 +1,4 @@
-let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'requestSrvc', 'ui.bootstrap', 'ui.bootstrap.tpls', 'firebase']);
+let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'ui.bootstrap', 'ui.bootstrap.tpls', 'firebase']);
 Mealpler.
     /*config(function ($routeProvider) {
         $routeProvider
