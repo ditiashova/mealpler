@@ -93,7 +93,6 @@ class MealService {
     }
 
     updateCleanMealsList(date, rawData) {
-        //remove recipes that don't have ingredients
         const cleanData = this.cleanEmptyRecipes(angular.copy(rawData));
         localStorage.setItem(date, JSON.stringify(cleanData));
     }
