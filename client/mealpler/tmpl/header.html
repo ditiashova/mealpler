@@ -1,24 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <a class="navbar-brand">
-        <img src="images/logo_s.png"  width="32" height="32" alt="logo-image" class="d-inline-block align-top"/>
-    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
+        <div id="user-photo" class="pull-right" style="height:50px;width:50px;background-size: 50px;background-position: center;border-radius: 50%;"></div>
+        <span id="user-name" class="pull-right" style="color: black; padding: 15px;    line-height: 20px;"></span>
+
+        <ul class="navbar-nav mr-auto pull-right">
             <li class="nav-item active">
                 <a class="nav-link" href="javascript:void(0);">{{ main.title['mealpler'] }} <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0);" ng-click="main.toggleShopListState()">{{ main.title['shopList'] }}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#authModal"><!---->
+            <li class="nav-item" id="login-link">
+                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#authModal">
                     Login
                 </a>
             </li>
+            <li class="nav-item" id="logout-link">
+                <a class="nav-link" href="javascript:void(0);" onClick="firebase.auth().signOut()">
+                    Sign Out
+                </a>
+            </li>
         </ul>
+        <a class="navbar-brand pull-right">
+            <img src="images/logo_s.png"  width="32" height="32" alt="logo-image" class="d-inline-block align-top"/>
+        </a>
+
     </div>
 </nav>

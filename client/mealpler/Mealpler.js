@@ -81,9 +81,13 @@ Mealpler.
                     var phoneNumber = user.phoneNumber;
                     var providerData = user.providerData;
                     user.getIdToken().then(function(accessToken) {
-                        document.getElementById('sign-in-status').textContent = 'Signed in';
-                        document.getElementById('sign-in').textContent = 'Sign out';
-                        document.getElementById('account-details').textContent = JSON.stringify({
+                        //document.getElementById('sign-in-status').textContent = 'Signed in';
+                        //document.getElementById('sign-in').textContent = 'Sign out';
+                        document.getElementById('user-photo').style.backgroundImage  = "url(" + photoURL +")";
+                        document.getElementById('user-name').textContent  = 'Hello, ' + displayName;
+                        document.getElementById('login-link').style.display  = 'none';
+                        document.getElementById('logout-link').style.display  = 'inline'
+                        /*document.getElementById('account-details').textContent = JSON.stringify({
                             displayName: displayName,
                             email: email,
                             emailVerified: emailVerified,
@@ -92,13 +96,17 @@ Mealpler.
                             uid: uid,
                             accessToken: accessToken,
                             providerData: providerData
-                        }, null, '  ');
+                        }, null, '  ')*/;
                     });
                 } else {
                     // User is signed out.
-                    document.getElementById('sign-in-status').textContent = 'Signed out';
-                    document.getElementById('sign-in').textContent = 'Sign in';
-                    document.getElementById('account-details').textContent = 'null';
+                    //document.getElementById('sign-in-status').textContent = 'Signed out';
+                    //document.getElementById('sign-in').textContent = 'Sign in';
+                    //document.getElementById('account-details').textContent = 'null';
+                    document.getElementById('user-photo').style.display  = 'none';
+                    document.getElementById('user-name').style.display  = 'none';
+                    document.getElementById('login-link').style.display  = 'inline';
+                    document.getElementById('logout-link').style.display  = 'none'
                 }
             }, function(error) {
                 console.log(error);
