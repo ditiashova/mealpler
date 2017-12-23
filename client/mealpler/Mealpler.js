@@ -74,11 +74,7 @@ Mealpler.
                 if (user) {
                     // User is signed in.
                     const displayName = user.displayName;
-                    //var email = user.email;
-                    //var emailVerified = user.emailVerified;
                     const photoURL = user.photoURL;
-                    //var uid = user.uid;
-                    //var phoneNumber = user.phoneNumber;
                     //var providerData = user.providerData;
                     user.getIdToken().then(function(accessToken) {
                         const userData = {
