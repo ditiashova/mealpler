@@ -75,7 +75,6 @@ Mealpler.
                     // User is signed in.
                     const displayName = user.displayName;
                     const photoURL = user.photoURL;
-                    //var providerData = user.providerData;
                     user.getIdToken().then(function(accessToken) {
                         const userData = {
                             isLogged: true,
