@@ -7,7 +7,6 @@ class MainController {
         };
         this.isShopListOpened = false;
         this.setUserData();
-
     }
 
     setUserData() {
