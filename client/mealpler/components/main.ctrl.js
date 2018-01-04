@@ -1,34 +1,36 @@
 class MainController {
-    constructor ($scope) {
-        Object.assign(this, {$scope});
+    constructor ($scope, Auth) {
+        Object.assign(this, {$scope, Auth});
         this.title = Mealpler.titles;
+
         this.handlers = {
             showShopListHandlers: []
         };
+
         this.isShopListOpened = false;
-        this.setUserData();
+
+        this.userName = null;
+        this.userPhoto = null;
+        this.userIsLogged = null;
+        this.Auth.$onAuthStateChanged((firebaseUserData) => {
+            this.userIsLogged = !!firebaseUserData;
+            if (!!firebaseUserData) this.setUserData(firebaseUserData);
+        });
     }
 
-    setUserData() {
-        this.userData = this.getUserData();
+    setUserData(data) {
+        this.userName = data.displayName;
+        this.userPhoto = data.photoURL;
     }
 
     signOut() {
-        firebase.auth().signOut().then(() => {
-            localStorage.removeItem('userData');
-            this.setUserData();
-            this.$scope.$apply();
-        }, null);
-    }
-
-    getUserData() {
-        let userData = null;
-        try {
-            userData = JSON.parse(localStorage.getItem('userData'));
-        } catch (error) {
+        this.Auth.$signOut().then(function() {
+            this.userName = null;
+            this.userPhoto = null;
+        }).catch(function(error) {
+            // An error happened.
             console.log(error);
-        }
-        return userData;
+        });
     }
 
     toggleShopListState() {

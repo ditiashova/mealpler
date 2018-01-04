@@ -73,18 +73,8 @@ Mealpler.
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     // User is signed in.
-                    const displayName = user.displayName;
-                    const photoURL = user.photoURL;
-                    user.getIdToken().then(function(accessToken) {
-                        const userData = {
-                            isLogged: true,
-                            photo: photoURL,
-                            name: displayName
-                        };
-                        localStorage.setItem('userData', JSON.stringify(userData));
-                    });
                 } else {
-                    localStorage.removeItem('userData');
+                    //
                 }
             }, function(error) {
                 console.log(error);

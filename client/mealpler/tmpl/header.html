@@ -4,12 +4,12 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div ng-show="main.userData.isLogged" id="user-photo" class="pull-right"
+        <div ng-show="main.userIsLogged" id="user-photo" class="pull-right"
              style="height: 50px; width: 50px; background-size: 50px; background-position: center; border-radius: 50%;"
-             ng-style="{'background-image': 'url(' + main.userData.photo + ')'}"></div>
-        <span ng-show="main.userData.isLogged" id="user-name" class="pull-right"
+             ng-style="{'background-image': 'url(' + main.userPhoto + ')'}"></div>
+        <span ng-show="main.userIsLogged" id="user-name" class="pull-right"
              style="color: black; padding: 15px; line-height: 20px;">
-             Hello, {{ main.userData.name }}
+             Hello, {{ main.userName }}
         </span>
 
         <ul class="navbar-nav mr-auto pull-right">
@@ -19,12 +19,12 @@
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0);" ng-click="main.toggleShopListState()">{{ main.title['shopList'] }}</a>
             </li>
-            <li class="nav-item" id="login-link" ng-show="!main.userData.isLogged">
+            <li class="nav-item" id="login-link" ng-show="!main.userIsLogged">
                 <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#authModal">
                     Login
                 </a>
             </li>
-            <li class="nav-item" id="logout-link" ng-show="main.userData.isLogged">
+            <li class="nav-item" id="logout-link" ng-show="main.userIsLogged">
                 <a class="nav-link" href="javascript:void(0);" ng-click="main.signOut()">
                     Sign Out
                 </a>
