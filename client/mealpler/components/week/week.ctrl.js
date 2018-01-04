@@ -1,6 +1,6 @@
 class WeekController {
-    constructor(MealModel, DayModel, MealService) {
-        Object.assign(this, {MealModel, DayModel, MealService});
+    constructor(MealModel, DayModel, MealService, $mdToast) {
+        Object.assign(this, {MealModel, DayModel, MealService, $mdToast});
 
         this.todayFullDate = moment().format('YYYY-M-D');
         this.weekDuration = 7;
@@ -44,6 +44,12 @@ class WeekController {
             day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).mealsList);
             day.mealsList.forEach(a => a.hasMeals = a.dishesList.length > 0);
         });
+        this.$mdToast.show(
+            this.$mdToast.simple()
+                .textContent('Simple Toast!')
+                .position('top right')
+                .hideDelay(999999999)
+        );
     }
 }
 
