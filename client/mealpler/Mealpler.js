@@ -20,6 +20,10 @@ Mealpler.
         moment.locale('dow');
 }).
     config(function () {
+        PNotify.prototype.options.delay = 3000;
+        PNotify.prototype.options.animate_speed = "slow";
+}).
+    config(function () {
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDNk1AEYY2DVSZ4aU2l-aF7tG_KkVg8oBE",
