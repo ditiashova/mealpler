@@ -1,10 +1,11 @@
-Mealpler.directive('dayManager', function (DayService) {
+Mealpler.directive('dayManager', function (DayService, notify) {
     const link = (scope, el, attrs, controller) => {
         const DayCtrl = scope.dayCtrl;
         const WeekCtrl = controller;
         DayCtrl.pasteMenu = (date) => {
             DayService.pasteMenuForDay(date);
             WeekCtrl._loadMealsDataForWeekRange();
+            notify.displayNotify('Food has been pasted successfully.', 'add');
         };
     };
 

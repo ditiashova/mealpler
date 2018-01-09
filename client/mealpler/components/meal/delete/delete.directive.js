@@ -1,4 +1,4 @@
-Mealpler.directive('deleteModal', function () {
+Mealpler.directive('deleteModal', function (notify) {
     const link = (scope, el, attrs, controllers) => {
         const WeekCtrl = controllers[0];
         const MealCtrl = scope.meal;
@@ -7,6 +7,7 @@ Mealpler.directive('deleteModal', function () {
         scope.confirmDelete = () => {
             MealCtrl.delete(meal, moment(date));
             WeekCtrl._loadMealsDataForWeekRange();
+            notify.displayNotify('Meal has been deleted.', 'delete');
         };
         scope.cancel = () => { //for cancel icon in modal
             MealCtrl.cancel();

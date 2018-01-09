@@ -1,4 +1,4 @@
-Mealpler.directive('addModal', function () {
+Mealpler.directive('addModal', function (notify) {
     const link = (scope, el, attrs, [WeekCtrl, DashboardCtrl]) => {
         const MealCtrl = scope.meal;
         const AddMealCtrl = scope.addMeal;
@@ -11,6 +11,7 @@ Mealpler.directive('addModal', function () {
             MealCtrl.save(type, newItems, meal, date);
             WeekCtrl._loadMealsDataForWeekRange();
             DashboardCtrl.runShopListHandlers(moment(date).startOf('week'));
+            notify.displayNotify('New food has been added.', 'add');
         };
         AddMealCtrl.cancelModal = scope.cancel;
     };

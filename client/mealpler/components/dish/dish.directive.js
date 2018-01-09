@@ -1,4 +1,4 @@
-Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientService) {
+Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientService, notify) {
     const link = (scope, el, attrs, controllers) => {
         const DayCtrl = controllers[1];
         const WeekCtrl = controllers[2];
@@ -6,6 +6,7 @@ Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientServ
         DishCtrl.deleteDish = (item, mealName, date) => {
             DishService.deleteDish(item, mealName, date);
             WeekCtrl._loadMealsDataForWeekRange();
+            notify.displayNotify('Food has been deleted.', 'delete');
         };
         DishCtrl.deleteIngredient = (ingredient, itemName, mealName, date) => {
             IngredientService.deleteIngredient(ingredient, itemName, mealName, date);

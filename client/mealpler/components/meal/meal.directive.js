@@ -1,4 +1,4 @@
-Mealpler.directive('mealManager', function () {
+Mealpler.directive('mealManager', function (notify) {
     const link = (scope, el, attrs, controllers) => {
         const MealCtrl = scope.meal;
         const DayCtrl = controllers[0];
@@ -9,6 +9,7 @@ Mealpler.directive('mealManager', function () {
         scope.pasteFood = (name, food, date) => {
             MealCtrl.pasteFood(name, food, date);
             WeekCtrl._loadMealsDataForWeekRange();
+            notify.displayNotify('Food has been pasted successfully.', 'add');
         };
     };
 
