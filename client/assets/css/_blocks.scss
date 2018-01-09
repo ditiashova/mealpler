@@ -113,6 +113,22 @@
   border-left: 5px solid #30B5A7;
 }
 
+div[class*="notify-"] {
+  color: white;
+}
+
+.notify-add {
+  background-color: #03C9A9;
+}
+
+.notify-copy {
+  background-color: #DB0A5B;
+}
+
+.notify-delete {
+  background-color: #F89406;
+}
+
 .edit-item {
   visibility: hidden;
   width: auto;
