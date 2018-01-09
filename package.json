@@ -41,6 +41,7 @@
     "angular-material": "^1.1.5",
     "angular-messages": "^1.6.8",
     "angular-route": "^1.6.5",
+    "angular-sanitize": "^1.6.8",
     "angular-ui-bootstrap": "^2.5.6",
     "angularfire": "^2.3.0",
     "bootstrap": "^4.0.0-beta.2",
@@ -49,7 +50,9 @@
     "components-font-awesome": "^4.6.3",
     "firebaseui": "^2.5.1",
     "moment": "^2.19.1",
+    "ng-toast": "^2.0.0",
     "npm": "^5.5.1",
+    "pnotify": "^3.2.1",
     "popper.js": "^1.12.5",
     "sass": "^1.0.0-beta.2"
   }

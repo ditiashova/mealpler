@@ -33,10 +33,12 @@ gulp.task('concatVendorJs', () => {
     'node_modules/angular-aria/angular-aria.min.js',
     'node_modules/angular-messages/angular-messages.min.js',
     'node_modules/angular-material/angular-material.min.js',
+    'node_modules/angular-sanitize/angular-sanitize.min.js',
     'node_modules/angularfire/dist/angularfire.min.js',
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
     'node_modules/moment/moment.js',
+    'node_modules/pnotify/dist/pnotify.js',
     'node_modules/bootstrap-daterangepicker/daterangepicker.js'
   ])
     .pipe(concat('vendor.js'))
@@ -47,7 +49,8 @@ gulp.task('concatVendorCss', () => {
   return gulp.src([
     'node_modules/firebaseui/dist/firebaseui.css',
     'node_modules/bootstrap/dist/css/bootstrap.css',
-    'node_modules/bootstrap-daterangepicker/daterangepicker.css'
+    'node_modules/bootstrap-daterangepicker/daterangepicker.css',
+    'node_modules/pnotify/dist/pnotify.css'
   ])
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest(distStylesDir))
