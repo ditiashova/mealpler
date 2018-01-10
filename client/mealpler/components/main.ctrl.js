@@ -7,20 +7,45 @@ class MainController {
             showShopListHandlers: []
         };
 
+        this.usersRef = firebase.database().ref('users');
+
         this.isShopListOpened = false;
 
         this.userName = null;
         this.userPhoto = null;
         this.userIsLogged = null;
         this.Auth.$onAuthStateChanged((firebaseUserData) => {
+            /*if (firebaseUserData.metadata.lastSignInTime === firebaseUserData.metadata.creationTime) {
+                this.createNewUserInDatabase(firebaseUserData);
+            }*/
+
             this.userIsLogged = !!firebaseUserData;
-            if (!!firebaseUserData) this.setUserData(firebaseUserData);
+            if (this.userIsLogged) {
+                this.setUserData(firebaseUserData);
+                firebase.database().ref('users/' + firebaseUserData.uid).on("value", (snapshot) => {
+                    if (!snapshot.val()) {
+                        this.createNewUserInDatabase(firebaseUserData);
+                    }
+                }, function (errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
+            }
         });
     }
 
+    createNewUserInDatabase(userData) {
+        const newUser = {
+            id: userData.uid,
+            email: userData.email,
+            name: userData.displayName
+        };
+
+        this.usersRef.child(userData.uid).set(newUser);
+    }
+
     setUserData(data) {
-        this.userName = data.displayName;
-        this.userPhoto = data.photoURL;
+        this.userName = data.displayName || 'Friend';
+        this.userPhoto = data.photoURL || '';
     }
 
     signOut() {
