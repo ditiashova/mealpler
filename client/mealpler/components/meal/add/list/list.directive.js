@@ -4,9 +4,11 @@ Mealpler.directive('newProductList', function () {
         scope.createNew = (forItems) => {
             AddModal.createNewProduct(forItems);
         };
-        scope.save = (newItems) => {
-            let type = newItems.hasIngredients ? 'recipe' : 'list';
-            AddModal.saveNew(type, newItems);
+        scope.save = (form, newItems) => {
+            if (form.$valid) {
+                let type = newItems.hasIngredients ? 'recipe' : 'list';
+                AddModal.saveNew(type, newItems);
+            }
         };
         scope.cancel = () => {
             AddModal.cancelModal();
