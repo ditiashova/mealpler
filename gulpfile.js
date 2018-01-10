@@ -24,6 +24,7 @@ gulp.task('concatVendorJs', () => {
     'node_modules/jquery/dist/jquery.min.js',
     'node_modules/firebase/firebase-app.js',
     'node_modules/firebase/firebase-auth.js',
+    'node_modules/firebase/firebase-database.js',
     'node_modules/firebaseui/dist/firebaseui.js',
     'node_modules/angular/angular.min.js',
     'node_modules/angular-animate/angular-animate.js',
