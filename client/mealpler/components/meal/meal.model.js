@@ -26,7 +26,11 @@ class MealModel {
             "hasIngredients": true,
             "productsList": [],
             "deletable": false
-        }}
+        }};
+
+    createNewMeal(mealNo) {
+        return this.emptyMealsList().find(meal => meal.mealNo === mealNo);
+    }
 }
 
 Mealpler.service('MealModel', MealModel);
