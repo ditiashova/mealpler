@@ -1,23 +1,23 @@
 class MealService {
     constructor(DayModel, MealModel, FirebaseStorageService) {
         Object.assign(this, {DayModel, MealModel, FirebaseStorageService});
-        this.meals = this.MealModel.emptyMealsList();
+        this.meals = this.MealModel.emptyMealsList(); //useless
     }
 
     updateMealInfo(mealContent, date, userId, mealType, mealNo) {
-        const fullDateName = moment(date).format("YYYY-M-D"); //in case nonformatted day were passed
+        const fullDateName = moment(date).format("YYYY-M-D"); //in case nonformatted date were passed
         this.FirebaseStorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
-            const newDayContent = this._resolveNewDayContentData(response, date, mealContent, mealType, mealNo);
+            const newDayContent = this._resolveNewDayData(response, date, mealContent, mealType, mealNo);
             this.cleanAndSetMealsList(fullDateName, newDayContent, userId);
         });
     }
 
     cleanAndSetMealsList(date, rawData, id) {
-        const cleanData = this._cleanEmptyRecipes(angular.copy(rawData));
+        const cleanData = MealService._cleanEmptyRecipes(angular.copy(rawData));
         this.FirebaseStorageService.setSingleDateMealsList(date, cleanData, id);
     }
 
-    _resolveNewDayContentData(oldDayContent, date, mealContent, mealType, mealNo)  {
+    _resolveNewDayData(oldDayContent, date, mealContent, mealType, mealNo)  {
         //check if there is smth. for this DAY
         if (oldDayContent === null) {
             return this._createNewDayWithNewContent(date, mealContent, mealType, mealNo);
@@ -26,42 +26,41 @@ class MealService {
             const oldMealContent = oldDayContent.mealsList.find(meal => meal.mealNo === mealNo);
 
             if (!!oldMealContent) {
-                const oldDishesList = oldMealContent.dishesList;
-                return this._editMeal(mealContent, oldDayContent, oldDishesList, mealType);
+                MealService._editMeal(oldMealContent, mealContent, mealType);
+                return oldDayContent;
             } else {
-                const meal = this._createNewMeal(mealContent, mealNo);
+                const meal = this._createNewMealWithNewContent(mealContent, mealNo, mealType);
                 oldDayContent.mealsList.push(meal);
                 return oldDayContent;
             }
         }
     }
 
-    _editMeal(mealContent, oldDay, dishesList, mealType) {
-        if (mealType === 'list') {
-            dishesList = dishesList.concat(mealContent.productsList);
-        } else if (mealType === 'recipe') {
-            dishesList.push(mealContent);
-        } else if (mealType === 'stored') {
-            dishesList = dishesList.concat(mealContent.dishesList);
-        }
-        oldDay.mealsList.find(meal => meal.mealNo === mealNo).dishesList = dishesList;
-        return oldDay;
-    }
-
-    _createNewMeal(mealContent, mealNo) {
+    _createNewMealWithNewContent(mealContent, mealNo, mealType) {
         const newMeal = this.MealModel.createNewMeal(mealNo);
-        newMeal.dishesList.push(mealContent);
-        return newMeal;
+        return MealService._editMeal(newMeal, mealContent, mealType);
     }
 
     _createNewDayWithNewContent(date, mealContent, mealType, mealNo) {
-        const newDay = this.DayModel.createNewDay(moment(date));
-        const newMeal = this._createNewMeal(mealContent, mealNo);
-        return this._editMeal(mealContent, newDay, newMeal.dishesList, mealType);;
+        const day = this.DayModel.createNewDay(moment(date));
+        const meal = this._createNewMealWithNewContent(mealContent, mealNo, mealType);
+        day.mealsList.push(meal);
+        return day;
     }
 
+    static _editMeal(meal, newContent, mealType) {
+        if (mealType === 'list') {
+            meal.dishesList = meal.dishesList.concat(newContent.productsList);
+        } else if (mealType === 'recipe') {
+            meal.dishesList.push(newContent);
+        } else if (mealType === 'stored') {
+            meal.dishesList = meal.dishesList.concat(newContent.dishesList);
+        }
 
-    _cleanEmptyRecipes(data) {
+        return meal;
+    }
+
+    static _cleanEmptyRecipes(data) {
         data.mealsList.forEach(a => a.dishesList.map((b, i) => {
             if (b.type === 'recipe' && b.productsList.length === 0) {
                 a.dishesList.splice(i, 1);
