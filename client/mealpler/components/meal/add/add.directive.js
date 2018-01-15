@@ -8,10 +8,11 @@ Mealpler.directive('addModal', function (notify) {
             MealCtrl.cancel();
         };
         AddMealCtrl.saveNew = (type, newItems) => {
-            MealCtrl.save(type, newItems, meal, date);
-            WeekCtrl._loadMealsDataForWeekRange();
-            DashboardCtrl.runShopListHandlers(moment(date).startOf('week'));
-            notify.displayNotify('New food has been added.', 'add');
+            MealCtrl.save(type, newItems, meal, date).then(() => {
+                WeekCtrl._loadMealsDataForWeekRange();
+                DashboardCtrl.runShopListHandlers(moment(date).startOf('week'));
+                notify.displayNotify('New food has been added.', 'add');
+            });
         };
         AddMealCtrl.cancelModal = scope.cancel;
     };
