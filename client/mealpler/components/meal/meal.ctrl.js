@@ -1,7 +1,13 @@
 class MealController {
-    constructor ($scope, StorageService, openModal, $document, MealService) {
-        Object.assign(this, {$scope, StorageService, openModal, $document, MealService});
+    constructor ($scope, StorageService, openModal, $document, MealService, Auth) {
+        Object.assign(this, {$scope, StorageService, openModal, $document, MealService, Auth});
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
+        this.Auth.$onAuthStateChanged((firebaseUserData) => {
+            const userIsLogged = !!firebaseUserData;
+            if (userIsLogged) {
+                this.userPlannerId = firebaseUserData.uid;
+            }
+        });
     }
 
     addNewItems(type, newItems, forMeal, forDay) {
@@ -18,18 +24,20 @@ class MealController {
     };
 
     pasteFood(name, forMeal, forDay) {
-        let storedOld = this.StorageService.getStoredItem(name);
+        let storedOld = this.StorageService.getLocalyStoredItem(name);
         this.addNewItems('stored', storedOld, forMeal, forDay);
     };
 
-    addNewMeal(mealName, date) {
+    addNewMeal(mealNo, date) {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
-            this.meal = mealName;
+            this.meal = mealNo;
             this.date = date.dateObj.format("YYYY-M-D");
             this.save = function (type, newItems, forMeal, forDay) {
-                this.addNewItems(type, newItems, forMeal, forDay);
-                $uibModalInstance.close();
+                return new Promise((resolve) => {
+                    resolve(this.MealService.updateMealInfo(newItems, forDay, this.userPlannerId, type, forMeal));
+                    $uibModalInstance.close();
+                });
             };
             this.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
