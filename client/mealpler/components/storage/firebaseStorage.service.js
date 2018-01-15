@@ -60,11 +60,9 @@ class FirebaseStorageService {
     }
 
     getSingleDateMealsList(date, id) {
-        let all = [];
         return new Promise((resolve, reject) => {
             firebase.database().ref('users/' + id + '/meals/' + date).on("value", (data) => {
-                all = data.val();
-                resolve(all);
+                resolve(data.val());
             }, function (errorObject) {
                 reject(errorObject);
                 console.log("The read failed: " + errorObject.code);
@@ -73,7 +71,9 @@ class FirebaseStorageService {
     }
 
     setSingleDateMealsList(date, data, id) {
-        firebase.database().ref('users/' + id + '/meals/' + date).set(data);
+        return new Promise(() => {
+            firebase.database().ref('users/' + id + '/meals/' + date).set(data);
+        });
     }
 
 
