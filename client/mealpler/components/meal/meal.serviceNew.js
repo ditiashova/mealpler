@@ -4,6 +4,19 @@ class MealService {
         this.meals = this.MealModel.emptyMealsList(); //useless
     }
 
+    findDateRangeMealList(start, q, userId) {
+        const dayNames = [];
+        //let results = [];
+
+        for (let i = 0; i < q; i++) {
+            dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
+        }
+
+        return this.FirebaseStorageService.getAllMealsForUser(userId).then((response) => {
+            return this._resolveExistingMealData(response, dayNames);
+        });
+    };
+
     updateMealInfo(mealContent, date, userId, mealType, mealNo) {
         const fullDateName = moment(date).format("YYYY-M-D"); //in case nonformatted date were passed
         this.FirebaseStorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
@@ -78,26 +91,54 @@ class MealService {
         this.updateCleanMealsList(storedDayName,availableItem);
     };
 
-    findDateRangeMealList(start, q) {
-        const dayNames = [];
-        const results = [];
 
-        for (let i = 0; i < q; i++) {
-            dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
+
+    _resolveExistingMealData(data, datesList) {
+        const resolved = [];
+        if (data === null) {
+            datesList.forEach((singleDate) => {
+                resolved.push(getEmptyDay.call(this, singleDate));
+            })
+        } else {
+            datesList.forEach((singleDate) => {
+                let existingDay = null;
+                for (const storedDay in data) {
+                    if (storedDay === singleDate) {
+                        existingDay = data[storedDay];
+                    }
+                }
+                if (existingDay === null) {
+                    resolved.push(getEmptyDay.call(this, singleDate));
+                } else {
+                    if (existingDay.mealsList === undefined) {
+                        existingDay.mealsList = this.MealModel.emptyMealsList();
+                    } else {
+                        for (let i = 0; i < this.meals.length; i++) {
+                            let k = existingDay.mealsList.filter(b => b.mealNo === this.meals[i].mealNo);
+                            if (k.length === 0) {
+                                existingDay.mealsList.push(this.meals[i]);
+                            } else {
+                                //just leave as it is if all meals are there
+                            }
+                        }
+                    }
+                    resolved.push(existingDay);
+                }
+            })
         }
 
-        dayNames.forEach((a) => {
-            results.push({
-                fullDate: a,
-                mealsList: this.findMealList(a)
-            });
-        });
+        return resolved;
 
-        return results;
-    };
+        function getEmptyDay(date) {
+            const newDay = this.DayModel.createNewDay(moment(date));
+            newDay.mealsList = this.MealModel.emptyMealsList();
+            return newDay;
+        }
+    }
 
-    findMealList(forDate) {
-        let data = this.getMealsList(forDate);
+
+    findMealList(data) {
+        //let data = this.getMealsList(forDate);
         if (data === null) return this.meals;
         if (data != null) {
             if (data.mealsList === undefined) {
