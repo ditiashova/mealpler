@@ -1,17 +1,25 @@
 class WeekController {
-    constructor(MealModel, DayModel, MealService) {
-        Object.assign(this, {MealModel, DayModel, MealService});
+    constructor($scope, MealModel, DayModel, MealService, Auth) {
+        Object.assign(this, {$scope, MealModel, DayModel, MealService, Auth});
         PNotify.prototype.options.delay = 2000;
         this.todayFullDate = moment().format('YYYY-M-D');
         this.weekDuration = 7;
 
         const today = moment();
-        this.init(today);
+        this.weekDaysFoodInfo = [];
+
+        this.Auth.$onAuthStateChanged((firebaseUserData) => {
+            const userIsLogged = !!firebaseUserData;
+            if (userIsLogged) {
+                this.userPlannerId = firebaseUserData.uid;
+                this.init(today);
+            }
+        });
     }
 
     init(forDate) {
         this._setNewWeekStart(forDate);
-        this._calculateWeekRange(this.weekStartDate);
+        //this._calculateWeekRange(this.weekStartDate);
         this._setWeekFirstAndLastDays(forDate);
         this._loadMealsDataForWeekRange();
     }
@@ -39,10 +47,15 @@ class WeekController {
     }
 
     _loadMealsDataForWeekRange() {
-        const storedMeals = this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration);
-        this.weekDaysFoodInfo.map(day => {
-            day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).mealsList);
-            day.mealsList.forEach(a => a.hasMeals = a.dishesList.length > 0);
+        this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration, this.userPlannerId).then((response) => {
+            this.weekDaysFoodInfo = angular.copy(response);
+            this.weekDaysFoodInfo.map(day => {
+                //day.mealsList = angular.copy(storedMeals.find(a => a.fullDate === day.fullDate).mealsList);
+                day.mealsList.forEach(a => a.hasMeals = a.dishesList.length > 0);
+            });
+            this.$scope.$apply();
+        }, (error) => {
+            console.log(error);
         });
     }
 }
