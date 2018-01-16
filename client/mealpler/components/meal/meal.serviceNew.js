@@ -12,9 +12,9 @@ class MealService {
             dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
         }
 
-        return this.FirebaseStorageService.getAllMealsForUser(userId).then((response) => {
-            return this._resolveExistingMealData(response, dayNames);
-        });
+        return this.FirebaseStorageService.getAllMealsForUser(userId).then((response) =>
+            this._resolveExistingMealData(response, dayNames)
+        );
     };
 
     updateMealInfo(mealContent, date, userId, mealType, mealNo) {
