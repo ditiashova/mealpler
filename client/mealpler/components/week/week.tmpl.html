@@ -13,13 +13,13 @@
     <div class="panel-subheading">
         <div class="week-switcher">
             <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.weekFirstDay)"></i>
-            You are planning for: {{ week.weekFirstDay | monthDayth }} - {{ week.weekLastDay | monthDayth }}
+            You are planning for: {{ week.weekFirstDay.dateMonthDate }} - {{ week.weekLastDay.dateMonthDate }}
             <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.weekLastDay)"></i>
         </div>
     </div>
     <div class="panel-body">
         <div class="row week-planner">
-            <div class="col-sm day-planner" ng-repeat="date in week.weekDaysFoodInfo track by date.id" ng-class="{'today' : (date.dateObj | fullDate) === week.todayFullDate}">
+            <div class="col-sm day-planner" ng-repeat="date in week.weekDaysFoodInfo track by date.id" ng-class="{'today' : (date.fullDate) === week.todayFullDate}">
                 <day-manager date="date"></day-manager>
             </div>
         </div>
