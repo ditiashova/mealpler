@@ -3,14 +3,16 @@ Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientServ
         const DayCtrl = controllers[1];
         const WeekCtrl = controllers[2];
         const DishCtrl = scope.dishCtrl;
-        DishCtrl.deleteDish = (item, mealName, date) => {
-            DishService.deleteDish(item, mealName, date);
-            WeekCtrl._loadMealsDataForWeekRange();
-            notify.displayNotify('Food has been deleted.', 'delete');
+        scope.deleteDish = (item, mealName, date) => {
+            DishCtrl.deleteDish(item, mealName, date.fullDate).then(() => {
+                WeekCtrl._loadMealsDataForWeekRange();
+                notify.displayNotify('Food has been deleted.', 'delete');
+            });
         };
-        DishCtrl.deleteIngredient = (ingredient, itemName, mealName, date) => {
-            IngredientService.deleteIngredient(ingredient, itemName, mealName, date);
-            WeekCtrl._loadMealsDataForWeekRange();
+        scope.deleteIngredient = (ingredient, itemName, mealName, date) => {
+            DishCtrl.deleteIngredient(ingredient, itemName, mealName, date.fullDate).then(() => {
+                WeekCtrl._loadMealsDataForWeekRange();
+            });
         };
         DishCtrl.copyDish = (name, food) => {
             DayCtrl.copyFood(name, food);
