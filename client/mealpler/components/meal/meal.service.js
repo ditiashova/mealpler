@@ -26,7 +26,7 @@ class MealService {
     }
 
     cleanAndSetMealsList(date, rawData, id) {
-        const cleanData = MealService._cleanEmptyRecipes(angular.copy(rawData));
+        const cleanData = MealService._cleanEmptyData(angular.copy(rawData));
         this.FirebaseStorageService.setSingleDateMealsList(date, cleanData, id);
     }
 
@@ -75,12 +75,19 @@ class MealService {
         return meal;
     }
 
-    static _cleanEmptyRecipes(data) {
-        data.mealsList.forEach(a => a.dishesList.map((b, i) => {
-            if (b.type === 'recipe' && b.productsList.length === 0) {
-                a.dishesList.splice(i, 1);
+    static _cleanEmptyData(data) {
+        data.mealsList.forEach((a, index, array) => {
+            if (!a.dishesList) {
+                //if dishes list is empty
+                array.splice(index, 1);
+            } else {
+                a.dishesList.map((b, i) => {
+                    if (b.type === 'recipe' && b.productsList.length === 0) {
+                        a.dishesList.splice(i, 1);
+                    }
+                })
             }
-        }));
+        });
         return data;
     }
 
