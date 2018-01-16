@@ -1,10 +1,10 @@
 class DayCtrl {
-    constructor(StorageService, notify) {
-        Object.assign(this, {StorageService, notify});
+    constructor(LocalStorageService, notify) {
+        Object.assign(this, {LocalStorageService, notify});
     }
 
     copyFood(name, content) {
-        this.StorageService.addFoodToStored(name, content);
+        this.LocalStorageService.setDataToLocalStorage(name, content);
         this.notify.displayNotify('Food has been copied successfully.', 'copy');
     }
 }
