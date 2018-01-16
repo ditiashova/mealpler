@@ -62,6 +62,8 @@ class MealService {
     }
 
     static _editMeal(meal, newContent, mealType) {
+        if (!meal.dishesList) meal.dishesList = [];
+
         if (mealType === 'list') {
             meal.dishesList = meal.dishesList.concat(newContent.productsList);
         } else if (mealType === 'recipe') {
@@ -110,13 +112,17 @@ class MealService {
                 if (existingDay === null) {
                     resolved.push(getEmptyDay.call(this, singleDate));
                 } else {
-                    if (existingDay.mealsList === undefined) {
+                    if (existingDay.mealsList === undefined || existingDay.mealsList.length === 0) {
                         existingDay.mealsList = this.MealModel.emptyMealsList();
                     } else {
                         for (let i = 0; i < this.meals.length; i++) {
                             let k = existingDay.mealsList.filter(b => b.mealNo === this.meals[i].mealNo);
                             if (k.length === 0) {
                                 existingDay.mealsList.push(this.meals[i]);
+                            } else if (k[0].dishesList === undefined ) {
+                                //findIndex because in Object *i could be differ from *j
+                                const j = existingDay.mealsList.findIndex(b => b.mealNo === this.meals[i].mealNo);
+                                existingDay.mealsList.splice(j, 1, this.meals[i]);
                             } else {
                                 //just leave as it is if all meals are there
                             }
@@ -126,6 +132,10 @@ class MealService {
                 }
             })
         }
+
+        resolved.map(day => {
+            day.mealsList.forEach(a => a.hasMeals = a.dishesList.length > 0);
+        });
 
         return resolved;
 
