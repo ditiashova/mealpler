@@ -4,11 +4,13 @@ class WeekService {
     }
 
     _getWeekStart(date) {
-        return this.DayModel.createNewDay(moment(date).startOf('week'), 0);
+        const startOfWeek = moment(date).startOf('week');
+        return this.DayModel.createNewDay(startOfWeek, 0);
     };
 
     _getWeekEnd(date, weekDuration) {
-        return this.DayModel.createNewDay(moment(date).startOf('week').add(weekDuration, 'day'), weekDuration);
+        const endOfWeek = moment(date).startOf('week').add(weekDuration, 'day');
+        return this.DayModel.createNewDay(endOfWeek, weekDuration);
     }
 }
 Mealpler.service('WeekService', WeekService);
