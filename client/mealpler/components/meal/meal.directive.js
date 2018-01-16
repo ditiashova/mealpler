@@ -6,10 +6,11 @@ Mealpler.directive('mealManager', function (notify) {
         scope.copyFood = (name, food) => {
             DayCtrl.copyFood(name, food);
         };
-        scope.pasteFood = (name, food, date) => {
-            MealCtrl.pasteFood(name, food, date);
-            WeekCtrl._loadMealsDataForWeekRange();
-            notify.displayNotify('Food has been pasted successfully.', 'add');
+        scope.pasteFood = (name, mealNo, date) => {
+            MealCtrl.pasteFood(name, mealNo, date).then(() => {
+                WeekCtrl._loadMealsDataForWeekRange();
+                notify.displayNotify('Food has been pasted successfully.', 'add');
+            });
         };
     };
 
