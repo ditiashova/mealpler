@@ -28,7 +28,7 @@ class MealController {
         this.addNewItems('stored', storedOld, forMeal, forDay);
     };
 
-    addNewMeal(mealNo, date) {
+    openModalAddNewMeal(mealNo, date) {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealNo;
@@ -61,10 +61,6 @@ class MealController {
             }};
         this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, deleteMealCtrl);
     };
-
-    /*confirmMealDelete(meal, date, id) {
-        this.MealService.deleteMeal(meal, date, id);
-    };*/
 }
 
 Mealpler.controller('MealCtrl', MealController);

@@ -2,7 +2,7 @@
     <dish-block dish="dish" meal-name="food.mealName" date="date" class="meal-portion"></dish-block>
 </div>
 <div class="text-center plus-hidden" ng-class="food.hasMeals ? 'plus-perm' : 'plus-temp'">
-    <i class="fa fa-plus" ng-click="meal.addNewMeal(food.mealNo, date)"></i>
+    <i class="fa fa-plus" ng-click="meal.openModalAddNewMeal(food.mealNo, date)"></i>
     <span ng-hide="food.hasMeals">&nbsp;|&nbsp;
         <i class="fa fa-arrow-down" ng-click="pasteFood('wholeMeal', food.mealName, date.fullDate)" style="font-size: 12px;"></i>
     </span>
