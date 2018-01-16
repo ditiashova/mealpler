@@ -5,9 +5,10 @@ Mealpler.directive('deleteModal', function (notify) {
         const date = MealCtrl.date;
         const meal = MealCtrl.meal;
         scope.confirmDelete = () => {
-            MealCtrl.delete(meal, moment(date));
-            WeekCtrl._loadMealsDataForWeekRange();
-            notify.displayNotify('Meal has been deleted.', 'delete');
+            MealCtrl.delete(meal, date).then(() => {
+                WeekCtrl._loadMealsDataForWeekRange();
+                notify.displayNotify('Meal has been deleted.', 'delete');
+            });
         };
         scope.cancel = () => { //for cancel icon in modal
             MealCtrl.cancel();
