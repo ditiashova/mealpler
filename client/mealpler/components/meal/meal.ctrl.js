@@ -32,7 +32,7 @@ class MealController {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealNo;
-            this.date = date.dateObj.format("YYYY-M-D");
+            this.date = date.fullDate;
             this.save = function (type, newItems, forMeal, forDay) {
                 return new Promise((resolve) => {
                     resolve(this.MealService.updateMealInfo(newItems, forDay, this.userPlannerId, type, forMeal));
@@ -49,10 +49,12 @@ class MealController {
         const templatePath = 'scripts/components/meal/delete/delete.tmpl.html';
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
-            this.date = date.dateObj.format("YYYY-M-D");
+            this.date = date.fullDate;
             this.delete = function (forMeal, forDay) {
-                this.confirmMealDelete(forMeal, forDay);
                 $uibModalInstance.close();
+                return new Promise((resolve, reject)=> {
+                    resolve(this.MealService.deleteMeal(forMeal, forDay, this.userPlannerId));
+                });
             };
             this.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
@@ -60,9 +62,9 @@ class MealController {
         this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, deleteMealCtrl);
     };
 
-    confirmMealDelete(meal, date) {
-        this.MealService.deleteMeal(meal, date);
-    };
+    /*confirmMealDelete(meal, date, id) {
+        this.MealService.deleteMeal(meal, date, id);
+    };*/
 }
 
 Mealpler.controller('MealCtrl', MealController);
