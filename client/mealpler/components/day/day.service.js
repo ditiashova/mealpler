@@ -3,11 +3,11 @@ class DayService {
         Object.assign(this, {MealService, StorageService, DayModel});
     }
 
-    pasteMenuForDay(forDay) {
-        const stored = this.StorageService.getStoredItem("menu");
-        const day = this.DayModel.createNewDay(forDay);
-        stored.forEach(a => day.mealsList.push(a));
-        this.MealService.updateCleanMealsList(forDay.format("YYYY-M-D"), day);
+    pasteMenuForDay(date, userId) {
+        const stored = this.StorageService.getLocalStorageData("menu");
+        const dayNewContent = this.DayModel.createNewDay(date);
+        stored.forEach(a => dayNewContent.mealsList.push(a));
+        this.MealService.cleanAndSetMealsList(date, dayNewContent, userId);
     }
 }
 Mealpler.service('DayService', DayService);
