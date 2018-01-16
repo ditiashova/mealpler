@@ -6,7 +6,8 @@ class DayModel {
         return {
             "id": i,
             "fullDate": moment(date).format("YYYY-M-D"),
-            "dateObj": date,
+            "dateName": moment(date).format("dddd"),
+            "dateMonthDate": moment(date).format("MMMM Do"),
             "mealsList": []
         }
     }
