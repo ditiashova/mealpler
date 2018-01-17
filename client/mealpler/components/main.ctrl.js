@@ -4,7 +4,9 @@ class MainController {
         this.title = Mealpler.titles;
 
         this.handlers = {
-            showShopListHandlers: []
+            showShopListHandlers: [],
+            databaseHandlers: [],
+            authHandlers: []
         };
 
         this.usersRef = firebase.database().ref('users');
@@ -15,10 +17,6 @@ class MainController {
         this.userPhoto = null;
         this.userIsLogged = null;
         this.Auth.$onAuthStateChanged((firebaseUserData) => {
-            /*if (firebaseUserData.metadata.lastSignInTime === firebaseUserData.metadata.creationTime) {
-                this.createNewUserInDatabase(firebaseUserData);
-            }*/
-
             this.userIsLogged = !!firebaseUserData;
             if (this.userIsLogged) {
                 this.setUserData(firebaseUserData);
@@ -26,12 +24,29 @@ class MainController {
                     if (!snapshot.val()) {
                         this.createNewUserInDatabase(firebaseUserData);
                     }
+                    this.runAuthHandlers(firebaseUserData.uid);
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
             }
         });
     }
+
+    addDatabaseHandlers(handler) {
+        this.handlers.databaseHandlers.push(handler);
+    }
+
+    addAuthHandlers(handler) {
+        this.handlers.authHandlers.push(handler);
+    }
+
+    runDatabaseHandlers(response) {
+        this.handlers.databaseHandlers.forEach((handler) => handler(response));
+    };
+
+    runAuthHandlers(uid) {
+        this.handlers.authHandlers.forEach((handler) => handler(uid));
+    };
 
     createNewUserInDatabase(userData) {
         const newUser = {

@@ -1,28 +1,20 @@
 class DishCtrl {
-    constructor(StorageService, Auth, DishService, IngredientService) {
-        Object.assign(this, {StorageService, Auth, DishService, IngredientService});
-        this.Auth.$onAuthStateChanged((firebaseUserData) => {
-            const userIsLogged = !!firebaseUserData;
-            if (userIsLogged) {
-                this.userPlannerId = firebaseUserData.uid;
-            }
-        });
+    constructor(StorageService, DishService, IngredientService) {
+        Object.assign(this, {StorageService, DishService, IngredientService});
     }
 
     copyDish(name, content) {
-        this.StorageService.addFoodToLocalStore(name, content);
+        this.StorageService.setDataToLocalStorage(name, content);
     }
 
+    /** @return Promise<void> */
     deleteDish(item, mealName, date) {
-        return new Promise((resolve, reject)=> {
-            resolve(this.DishService.deleteDish(item, mealName, date, this.userPlannerId));
-        });
+        return this.DishService.deleteDish(item, mealName, date, this.userId)
     }
 
+    /** @return Promise<void> */
     deleteIngredient(ingredient, itemName, mealName, date) {
-        return new Promise((resolve, reject)=> {
-            resolve(this.IngredientService.deleteIngredient(ingredient, itemName, mealName, date, this.userPlannerId));
-        });
+        return this.IngredientService.deleteIngredient(ingredient, itemName, mealName, date, this.userId)
     }
 }
 

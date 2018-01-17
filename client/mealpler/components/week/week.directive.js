@@ -1,8 +1,13 @@
 Mealpler.directive('weekManager', function () {
-    const link = (scope, el, attrs, dashboardCtrl) => {
+    const link = (scope, el, attrs, [dashboardCtrl, mainCtrl]) => {
         const weekCtrl = scope.week;
+        const today = moment();
 
         dashboardCtrl.addWeekMealDataHandlers((start) => weekCtrl.init(start));
+        mainCtrl.addAuthHandlers((uid) => {
+            weekCtrl.userId = uid;
+            weekCtrl.init(today);
+        });
 
         weekCtrl.switchWeek = (time) => {
             let newStartDate = {};
@@ -26,7 +31,7 @@ Mealpler.directive('weekManager', function () {
     return {
         restrict: 'E',
         transclude: true,
-        require: '^^dashboard',
+        require: ['^^dashboard', '^^mainBlock'],
         controller: 'WeekCtrl',
         controllerAs: 'week',
         scope: {},

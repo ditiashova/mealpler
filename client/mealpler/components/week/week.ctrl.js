@@ -1,19 +1,9 @@
 class WeekController {
-    constructor($scope, MealModel, DayModel, MealService, Auth, WeekService) {
-        Object.assign(this, {$scope, MealModel, DayModel, MealService, Auth, WeekService});
+    constructor($scope, MealModel, DayModel, MealService, WeekService) {
+        Object.assign(this, {$scope, MealModel, DayModel, MealService, WeekService});
         this.todayFullDate = moment().format('YYYY-M-D');
         this.weekDuration = 7;
-
-        const today = moment();
         this.weekDaysFoodInfo = [];
-
-        this.Auth.$onAuthStateChanged((firebaseUserData) => {
-            const userIsLogged = !!firebaseUserData;
-            if (userIsLogged) {
-                this.userPlannerId = firebaseUserData.uid;
-                this.init(today);
-            }
-        });
     }
 
     init(forDate) {
@@ -32,7 +22,7 @@ class WeekController {
     }
 
     _loadMealsDataForWeekRange() {
-        this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration, this.userPlannerId).then((response) => {
+        this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration, this.userId).then((response) => {
             this.weekDaysFoodInfo = angular.copy(response);
             this.$scope.$apply();
         }, (error) => {

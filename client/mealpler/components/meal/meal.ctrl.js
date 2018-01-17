@@ -1,19 +1,13 @@
 class MealController {
-    constructor ($scope, LocalStorageService, openModal, $document, MealService, Auth) {
-        Object.assign(this, {$scope, LocalStorageService, openModal, $document, MealService, Auth});
+    constructor ($scope, LocalStorageService, openModal, $document, MealService) {
+        Object.assign(this, {$scope, LocalStorageService, openModal, $document, MealService});
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
-        this.Auth.$onAuthStateChanged((firebaseUserData) => {
-            const userIsLogged = !!firebaseUserData;
-            if (userIsLogged) {
-                this.userPlannerId = firebaseUserData.uid;
-            }
-        });
     }
 
     pasteFood(name, mealNo, forDay) {
         let storedOld = this.LocalStorageService.getLocalStorageData(name);
         return new Promise((resolve) => {
-            resolve(this.MealService.updateMealInfo(storedOld, forDay, this.userPlannerId, 'stored', mealNo));
+            resolve(this.MealService.updateMealInfo(storedOld, forDay, this.userId, 'stored', mealNo));
         })
     };
 
@@ -24,7 +18,7 @@ class MealController {
             this.date = date.fullDate;
             this.save = function (type, newItems, forMeal, forDay) {
                 return new Promise((resolve) => {
-                    resolve(this.MealService.updateMealInfo(newItems, forDay, this.userPlannerId, type, forMeal));
+                    resolve(this.MealService.updateMealInfo(newItems, forDay, this.userId, type, forMeal));
                     $uibModalInstance.close();
                 });
             };
@@ -42,7 +36,7 @@ class MealController {
             this.delete = function (forMeal, forDay) {
                 $uibModalInstance.close();
                 return new Promise((resolve, reject)=> {
-                    resolve(this.MealService.deleteMeal(forMeal, forDay, this.userPlannerId));
+                    resolve(this.MealService.deleteMeal(forMeal, forDay, this.userId));
                 });
             };
             this.cancel = function () {
