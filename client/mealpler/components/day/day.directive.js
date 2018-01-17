@@ -3,14 +3,15 @@ Mealpler.directive('dayManager', function (DayService, notify) {
         const DayCtrl = scope.dayCtrl;
         //const WeekCtrl = controller;
         scope.pasteMenu = (date) => {
-            DayCtrl.pasteMenu(date).then(() => {
+            const id = MainCtrl.uid;
+            DayCtrl.pasteMenu(date, id).then(() => {
                 //WeekCtrl._loadMealsDataForWeekRange();
                 notify.displayNotify('Food has been pasted successfully.', 'add');
             });
         };
-        MainCtrl.addAuthHandlers((uid) => {
+        /*MainCtrl.addAuthHandlers((uid) => {
             DayCtrl.userId = uid;
-        });
+        });*/
     };
 
     return {

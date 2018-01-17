@@ -8,8 +8,8 @@ class DayCtrl {
         this.notify.displayNotify('Food has been copied successfully.', 'copy');
     }
 
-    pasteMenu(date) {
-        return this.DayService.pasteMenuForDay(date, this.userId)
+    pasteMenu(date, id) {
+        return this.DayService.pasteMenuForDay(date, id)
     }
 }
 
