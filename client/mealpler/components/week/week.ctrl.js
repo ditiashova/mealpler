@@ -1,33 +1,42 @@
 class WeekController {
     constructor($scope, MealModel, DayModel, MealService, WeekService) {
         Object.assign(this, {$scope, MealModel, DayModel, MealService, WeekService});
+        this.today = moment();
+
         this.todayFullDate = moment().format('YYYY-M-D');
         this.weekDuration = 7;
         this.weekDaysFoodInfo = [];
     }
 
-    init(forDate) {
-        this._setNewWeekStart(forDate);
-        this._setWeekFirstAndLastDays(forDate);
-        this._loadMealsDataForWeekRange();
+    init(data, forDate, id) {
+        //this._setNewWeekStart(forDate);
+        this._setWeekStartAndLastDays(forDate);
+        this.setWeekDaysFoodInfo(data, id);
     }
 
     _setNewWeekStart(date) {
-        this.weekStartDate = this.WeekService._getWeekStart(date);
+        const newDate = date ? date : this.today;
+        this.weekStartDate = this.WeekService._getWeekStart(newDate);
     }
 
-    _setWeekFirstAndLastDays(date) {
-        this.weekFirstDay = this.WeekService._getWeekStart(date);
-        this.weekLastDay = this.WeekService._getWeekEnd(date, this.weekDuration);
+    _setWeekStartAndLastDays(date) {
+        const newDate = date ? date : this.today;
+        this.weekStartDate = this.WeekService._getWeekStart(newDate);
+        this.weekLastDay = this.WeekService._getWeekEnd(newDate, this.weekDuration);
     }
 
-    _loadMealsDataForWeekRange() {
-        this.MealService.findDateRangeMealList(this.weekFirstDay, this.weekDuration, this.userId).then((response) => {
-            this.weekDaysFoodInfo = angular.copy(response);
-            this.$scope.$apply();
-        }, (error) => {
-            console.log(error);
-        });
+    setWeekDaysFoodInfo(data, id) {
+        if (data) {
+            this.weekDaysFoodInfo = this.MealService.organizeDataForWeek(this.weekStartDate.fullDate, this.weekDuration, data);
+        } else if (id) {
+            this.MealService.findDateRangeMealList(this.weekStartDate.fullDate, this.weekDuration, id).then((response) => {
+                this.weekDaysFoodInfo = angular.copy(response);
+                this.$scope.$apply();
+            }, (error) => {
+                console.log(error);
+            });
+        }
+        this.$scope.$apply();
     }
 }
 
