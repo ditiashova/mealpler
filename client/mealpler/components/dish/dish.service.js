@@ -4,12 +4,12 @@ class DishService {
     }
 
     deleteDish(item, mealName, date, userId) {
-        this.FirebaseStorageService.getSingleDateMealsList(date, userId).then((response) => {
+        return this.FirebaseStorageService.getSingleDateMealsList(date, userId).then((response) => {
             const availableItem = response;
             const currentMeals = availableItem.mealsList.find(b => b.mealName === mealName).dishesList;
             const i = currentMeals.findIndex(b => b.name === item.name);
             currentMeals.splice(i, 1);
-            this.MealService.cleanAndSetMealsList(date, availableItem, userId);
+            return this.MealService.cleanAndSetMealsList(date, availableItem, userId);
         });
 
     };

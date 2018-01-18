@@ -1,22 +1,19 @@
 Mealpler.directive('mealManager', function (notify) {
     const link = (scope, el, attrs, [DayCtrl, WeekCtrl, MainCtrl]) => {
         const MealCtrl = scope.meal;
-        //const DayCtrl = controllers[0];
-        //const WeekCtrl = controllers[1];
-        //const MainCtrl = controllers[2];
         scope.copyFood = (name, food) => {
             DayCtrl.copyFood(name, food);
         };
         scope.pasteFood = (name, mealNo, date) => {
-            MealCtrl.pasteFood(name, mealNo, date).then(() => {
-                WeekCtrl._loadMealsDataForWeekRange();
+            const id = MainCtrl.uid;
+            MealCtrl.pasteFood(name, mealNo, date, id).then(() => {
                 notify.displayNotify('Food has been pasted successfully.', 'add');
             });
         };
 
-        MainCtrl.addAuthHandlers((uid) => {
+        /*MainCtrl.addAuthHandlers((uid) => {
             MealCtrl.userId = uid;
-        });
+        });*/
     };
 
     return {

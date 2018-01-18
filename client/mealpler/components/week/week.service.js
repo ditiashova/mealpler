@@ -9,7 +9,7 @@ class WeekService {
     };
 
     _getWeekEnd(date, weekDuration) {
-        const endOfWeek = moment(date).startOf('week').add(weekDuration, 'day');
+        const endOfWeek = moment(date).startOf('week').add(weekDuration - 1, 'day');
         return this.DayModel.createNewDay(endOfWeek, weekDuration);
     }
 

@@ -1,12 +1,12 @@
 Mealpler.directive('deleteModal', function (notify) {
-    const link = (scope, el, attrs, controllers) => {
-        const WeekCtrl = controllers[0];
+    const link = (scope, el, attrs, [WeekCtrl, MainCtrl]) => {
+        //const WeekCtrl = controllers[0];
         const MealCtrl = scope.meal;
         const date = MealCtrl.date;
         const meal = MealCtrl.meal;
         scope.confirmDelete = () => {
-            MealCtrl.delete(meal, date).then(() => {
-                WeekCtrl._loadMealsDataForWeekRange();
+            const id = MainCtrl.uid;
+            MealCtrl.delete(meal, date, id).then(() => {
                 notify.displayNotify('Meal has been deleted.', 'delete');
             });
         };
@@ -22,7 +22,7 @@ Mealpler.directive('deleteModal', function (notify) {
             date: '=',
             meal: '='
         },
-        require: ['^^weekManager', '^^mealManager'],
+        require: ['^^weekManager', '^^mainBlock'],
         templateUrl: 'scripts/components/meal/delete/delete.modal.html',
         link: link
     };
