@@ -236,10 +236,14 @@ div[class*="notify-"] {
   align-items: baseline;
 }
 
-.new-product {
+.new-product-block {
   display: flex;
-  align-items: baseline;
-  > .remove-product {
+  flex-direction: column;
+  .new-product {
+    display: flex;
+    align-items: baseline;
+  }
+  .remove-product {
     padding-right: 5px;
     color: $dark-gray;
   }

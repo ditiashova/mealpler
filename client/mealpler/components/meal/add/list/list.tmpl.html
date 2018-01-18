@@ -8,11 +8,13 @@
     </div>
 
     <div ng-repeat="item in initItem.productsList track by $index" class="row" ng-class="{'recipe-items' : initItem.hasIngredients}">
-        <div class="col-xs-12 new-product">
-            <span class="remove-product">
-                <i class="fa fa-times"></i>
+        <div class="col-xs-12 new-product-block">
+            <div class="new-product">
+                <span class="remove-product">
+                <i class="fa fa-times" ng-click="removeItem($index, initItem)"></i>
             </span>
-            <input ng-model="item.name" placeholder="new product" name="{{ $index }}" class="form-control" required="" minlength="3" type="text"/>
+                <input ng-model="item.name" placeholder="new product" name="{{ $index }}" class="form-control" required="" minlength="3" type="text"/>
+            </div>
             <form-validation inputName="{{ $index }}"></form-validation>
         </div>
     </div>

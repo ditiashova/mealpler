@@ -12,7 +12,11 @@ Mealpler.directive('newProductList', function () {
         };
         scope.cancel = () => {
             AddModal.cancelModal();
-        }
+        };
+        scope.removeItem = (index, obj) => {
+            [].slice.call(obj.productsList);
+            obj.productsList.splice(index, 1);
+        };
     };
 
     return {
