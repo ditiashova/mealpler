@@ -8,13 +8,13 @@ class DishCtrl {
     }
 
     /** @return Promise<void> */
-    deleteDish(item, mealName, date) {
-        return this.DishService.deleteDish(item, mealName, date, this.userId)
+    deleteDish(item, mealName, date, userId) {
+        return this.DishService.deleteDish(item, mealName, date, userId)
     }
 
     /** @return Promise<void> */
-    deleteIngredient(ingredient, itemName, mealName, date) {
-        return this.IngredientService.deleteIngredient(ingredient, itemName, mealName, date, this.userId)
+    deleteIngredient(ingredient, itemName, mealName, date, userId) {
+        this.IngredientService.deleteIngredient(ingredient, itemName, mealName, date, userId)
     }
 }
 
