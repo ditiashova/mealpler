@@ -227,11 +227,20 @@ div[class*="notify-"] {
   }
 }
 
-.recipe-items {
+/*.recipe-items {
   padding-left: 20px;
-}
+}*/
 
 .meal-portion {
   display: flex;
   align-items: baseline;
+}
+
+.new-product {
+  display: flex;
+  align-items: baseline;
+  > .remove-product {
+    padding-right: 5px;
+    color: $dark-gray;
+  }
 }

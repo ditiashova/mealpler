@@ -2,14 +2,17 @@
     <div class="row" ng-if="initItem.hasIngredients">
         <div class="col-xs-12">
             <label for="dishName">Dish name</label>
-            <input ng-model="initItem.name" placeholder="Dish name" name="dishName" id="dishName" class="form-control" required="" minlength="3"/>
+            <input ng-model="initItem.name" placeholder="Dish name" name="dishName" id="dishName" class="form-control" required="" minlength="3"  type="text"/>
             <form-validation inputName="dishName"></form-validation>
         </div>
     </div>
 
     <div ng-repeat="item in initItem.productsList track by $index" class="row" ng-class="{'recipe-items' : initItem.hasIngredients}">
-        <div class="col-xs-12">
-            <input ng-model="item.name" placeholder="new product" name="{{ $index }}" class="form-control" required="" minlength="3"/>
+        <div class="col-xs-12 new-product">
+            <span class="remove-product">
+                <i class="fa fa-times"></i>
+            </span>
+            <input ng-model="item.name" placeholder="new product" name="{{ $index }}" class="form-control" required="" minlength="3" type="text"/>
             <form-validation inputName="{{ $index }}"></form-validation>
         </div>
     </div>
