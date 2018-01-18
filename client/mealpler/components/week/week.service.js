@@ -12,5 +12,15 @@ class WeekService {
         const endOfWeek = moment(date).startOf('week').add(weekDuration, 'day');
         return this.DayModel.createNewDay(endOfWeek, weekDuration);
     }
+
+    getWeekList(start, duration) {
+        const weekList = [];
+
+        for (let i = 0; i < duration; i++) {
+            weekList.push(moment(start).add(i, 'days').format("YYYY-M-D"));
+        }
+
+        return weekList;
+    }
 }
 Mealpler.service('WeekService', WeekService);
