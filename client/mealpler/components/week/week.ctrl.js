@@ -1,6 +1,6 @@
 class WeekController {
-    constructor($scope, MealModel, DayModel, MealService, WeekService) {
-        Object.assign(this, {$scope, MealModel, DayModel, MealService, WeekService});
+    constructor($scope, MealModel, DayModel, MealService, WeekService, $timeout) {
+        Object.assign(this, {$scope, MealModel, DayModel, MealService, WeekService, $timeout});
         this.today = moment();
 
         this.todayFullDate = moment().format('YYYY-M-D');
@@ -26,17 +26,21 @@ class WeekController {
     }
 
     setWeekDaysFoodInfo(data, id) {
-        if (data) {
-            this.weekDaysFoodInfo = this.MealService.organizeDataForWeek(this.weekStartDate.fullDate, this.weekDuration, data);
-        } else if (id) {
+        if (id) {
             this.MealService.findDateRangeMealList(this.weekStartDate.fullDate, this.weekDuration, id).then((response) => {
-                this.weekDaysFoodInfo = angular.copy(response);
-                this.$scope.$apply();
+                this.$timeout(() => {
+                    this.weekDaysFoodInfo = angular.copy(response);
+                })
             }, (error) => {
                 console.log(error);
             });
+        } else {
+            //data could be null if there is no data for user
+            this.$timeout(() => {
+                this.weekDaysFoodInfo = this.MealService.organizeDataForWeek(this.weekStartDate.fullDate, this.weekDuration, data);
+            });
         }
-        this.$scope.$apply();
+
     }
 }
 
