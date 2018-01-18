@@ -4,11 +4,9 @@ class MealController {
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
     }
 
-    pasteFood(name, mealNo, forDay) {
+    pasteFood(name, mealNo, forDay, userId) {
         let storedOld = this.LocalStorageService.getLocalStorageData(name);
-        return new Promise((resolve) => {
-            resolve(this.MealService.updateMealInfo(storedOld, forDay, this.userId, 'stored', mealNo));
-        })
+        return this.MealService.updateMealInfo(storedOld, forDay, userId, 'stored', mealNo);
     };
 
     openModalAddNewMeal(mealNo, date) {
@@ -16,9 +14,9 @@ class MealController {
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealNo;
             this.date = date.fullDate;
-            this.save = function (type, newItems, forMeal, forDay) {
-                return new Promise((resolve) => {
-                    resolve(this.MealService.updateMealInfo(newItems, forDay, this.userId, type, forMeal));
+            this.save = function (type, newItems, forMeal, forDay, userId) {
+                //$uibModalInstance.close();
+                return this.MealService.updateMealInfo(newItems, forDay, userId, type, forMeal).then(() => {
                     $uibModalInstance.close();
                 });
             };
@@ -33,11 +31,10 @@ class MealController {
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
             this.meal = mealName;
             this.date = date.fullDate;
-            this.delete = function (forMeal, forDay) {
-                $uibModalInstance.close();
-                return new Promise((resolve, reject)=> {
-                    resolve(this.MealService.deleteMeal(forMeal, forDay, this.userId));
-                });
+            this.delete = function (forMeal, forDay, userId) {
+                return this.MealService.deleteMeal(forMeal, forDay, userId).then(() => {
+                    $uibModalInstance.close();
+                })
             };
             this.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
