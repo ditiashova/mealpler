@@ -1,29 +1,36 @@
 Mealpler.directive('weekManager', function () {
     const link = (scope, el, attrs, [dashboardCtrl, mainCtrl]) => {
         const weekCtrl = scope.week;
-        const today = moment();
 
         dashboardCtrl.addWeekMealDataHandlers((start) => weekCtrl.init(start));
-        mainCtrl.addAuthHandlers((uid) => {
+
+        /*mainCtrl.addAuthHandlers((uid) => {
             weekCtrl.userId = uid;
-            weekCtrl.init(today);
+            //weekCtrl.preprocessDataForWeek(today);
+        });*/
+
+        mainCtrl.addDatabaseHandlers((data, date) => {
+            weekCtrl.init(data, date);
         });
 
         weekCtrl.switchWeek = (time) => {
+            const id = mainCtrl.uid;
             let newStartDate = {};
 
             if (time === 'past') {
-                newStartDate = weekCtrl.weekStartDate.subtract(1, 'day');
+                newStartDate = moment(weekCtrl.weekStartDate.fullDate).subtract(1, 'day').startOf('week');
             } else if (time === 'future') {
-                newStartDate = weekCtrl.weekStartDate.add(weekCtrl.weekDuration + 1, 'day');
+                newStartDate = moment(weekCtrl.weekStartDate.fullDate).add(weekCtrl.weekDuration + 1, 'day');
             }
 
-            weekCtrl.init(newStartDate);
-            runShopListAndDatePickerEvents(weekCtrl.weekStartDate);
+            weekCtrl.init(null, newStartDate, id);
+
+            mainCtrl.newWeekStartDate = newStartDate;
+            runShopListAndDatePickerEvents(newStartDate);
         };
 
         function runShopListAndDatePickerEvents(date) {
-            dashboardCtrl.runShopListHandlers(date);
+            //dashboardCtrl.runShopListHandlers(date);
             dashboardCtrl.runDatePickerHandlers(date);
         }
     };
