@@ -16,6 +16,7 @@ class MainController {
         this.userName = null;
         this.userPhoto = null;
         this.userIsLogged = null;
+
         this.Auth.$onAuthStateChanged((firebaseUserData) => {
             this.userIsLogged = !!firebaseUserData;
             if (this.userIsLogged) {
@@ -24,7 +25,12 @@ class MainController {
                     if (!snapshot.val()) {
                         this.createNewUserInDatabase(firebaseUserData);
                     }
-                    this.runAuthHandlers(firebaseUserData.uid);
+                    this.uid = firebaseUserData.uid;
+                }, function (errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
+                firebase.database().ref('users/' + firebaseUserData.uid + '/meals').on("value", (data) => {
+                    this.runDatabaseHandlers(data.val());
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
@@ -36,16 +42,8 @@ class MainController {
         this.handlers.databaseHandlers.push(handler);
     }
 
-    addAuthHandlers(handler) {
-        this.handlers.authHandlers.push(handler);
-    }
-
-    runDatabaseHandlers(response) {
-        this.handlers.databaseHandlers.forEach((handler) => handler(response));
-    };
-
-    runAuthHandlers(uid) {
-        this.handlers.authHandlers.forEach((handler) => handler(uid));
+    runDatabaseHandlers(response, id) {
+        this.handlers.databaseHandlers.forEach((handler) => handler(response, id));
     };
 
     createNewUserInDatabase(userData) {
