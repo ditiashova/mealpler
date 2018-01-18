@@ -1,6 +1,6 @@
 Mealpler.directive('datePicker', function () {
-    const link = (scope, el, attrs, controller) => {
-        const dashboardCtrl = controller;
+    const link = (scope, el, attrs, [dashboardCtrl, mainCtrl]) => {
+        //const dashboardCtrl = controller;
         const dateCtrl = scope.dateCtrl;
         const startDate = dashboardCtrl.defaultWeekStartDate;
 
@@ -14,19 +14,21 @@ Mealpler.directive('datePicker', function () {
         }
 
         function setDatePickerSettings(start, end) {
+            const endDate = end ? end : !!attrs.single ? null : angular.copy(start).add(dashboardCtrl.defaultWeekDuration-1, 'day');
             return {
                 "locale": dateCtrl.getLocalization(),
                 "singleDatePicker": !!attrs.single,
                 "showDropdowns": true,
                 "startDate": start,
-                "endDate": end ? end : !!attrs.single ? null : angular.copy(start).add(dashboardCtrl.defaultWeekDuration-1, 'day')
+                "endDate": endDate
             }
         }
 
         function datePickerCallback(start, end, label) {
             //refresh week only from directive placed in week tmpl
             if (!!attrs.refreshWeek) {
-                dashboardCtrl.runWeekMealsHandlers(start);
+                const id = mainCtrl.uid;
+                dashboardCtrl.runWeekMealsHandlers(null, start, id);
             }
 
             //fridge needs to be refreshed in both date pickers, but this check is still needed in case I'll decide to remove this logic etc.
@@ -57,7 +59,7 @@ Mealpler.directive('datePicker', function () {
             name: '=',
             refreshWeek: '='
         },
-        require: '^^dashboard',
+        require: ['^^dashboard', '^^mainBlock'],
         controller: 'DatePickerCtrl',
         controllerAs: 'dateCtrl',
         link: link

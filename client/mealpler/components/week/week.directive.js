@@ -2,7 +2,7 @@ Mealpler.directive('weekManager', function () {
     const link = (scope, el, attrs, [dashboardCtrl, mainCtrl]) => {
         const weekCtrl = scope.week;
 
-        dashboardCtrl.addWeekMealDataHandlers((start) => weekCtrl.init(start));
+        dashboardCtrl.addWeekMealDataHandlers((data, start, id) => weekCtrl.init(data, start, id));
 
         /*mainCtrl.addAuthHandlers((uid) => {
             weekCtrl.userId = uid;
