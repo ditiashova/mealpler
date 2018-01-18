@@ -26,11 +26,11 @@ Mealpler.directive('weekManager', function () {
             weekCtrl.init(null, newStartDate, id);
 
             mainCtrl.newWeekStartDate = newStartDate;
-            runShopListAndDatePickerEvents(newStartDate);
+            runShopListAndDatePickerEvents(newStartDate, id);
         };
 
-        function runShopListAndDatePickerEvents(date) {
-            //dashboardCtrl.runShopListHandlers(date);
+        function runShopListAndDatePickerEvents(date, id) {
+            dashboardCtrl.runShopListHandlers(date, null, id);
             dashboardCtrl.runDatePickerHandlers(date);
         }
     };

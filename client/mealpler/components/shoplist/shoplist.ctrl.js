@@ -1,40 +1,38 @@
 class ShoplistCtrl {
-    constructor(StorageService, MealModel, ShopListService, MealService) {
-        Object.assign(this, {StorageService, MealModel, ShopListService, MealService});
+    constructor(StorageService, MealModel, ShopListService, MealService, $timeout) {
+        Object.assign(this, {StorageService, MealModel, ShopListService, MealService, $timeout});
 
         const today = moment();
         this.title = Mealpler.titles.shopList;
         this.rangeStart = today.startOf('week');
         this.rangeLength = 7;
-        this.init();
-    }
-    addItem(newItem) {
-        this.StorageService.addItemToGroceryList(newItem);
-        this.init();
+        //this.init();
     }
 
-    addItems(listOfMeals) {
-        let newItems = [];
-        listOfMeals.map(a => a.dishesList.forEach(b => b.type === 'product' ? newItems.push(b) : b.list.forEach(c => newItems.push(c))));
-        this.StorageService.addItemToGroceryList(newItems);
-        this.grocery.init();
-    }
-
-    deleteItem(item) {
-        this.StorageService.deleteGroceryItem(item);
-        this.grocery.init();
-    }
-
-    deleteAll() {
-        this.StorageService.deleteGrocery();
-        this.grocery.init();
-    }
-
-    init(start, duration) {
+    init(start, duration, userId, data) {
         const newStart = start || this.rangeStart;
         const newDuration = duration || this.rangeLength;
-        const storedItems = this.MealService.findDateRangeMealList(newStart, newDuration);
-        this.list = this.ShopListService.extractAndSortProducts(storedItems);
+        if (userId) {
+            this.MealService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
+                const storedItems = angular.copy(response);
+                this.$timeout(() => {
+                    this.list = this.ShopListService.extractAndSortProducts(storedItems);
+                })
+            });
+        } else {
+            const storedItems = this.MealService.organizeDataForWeek(newStart, newDuration, data);
+            this.$timeout(() => {
+                this.list = this.ShopListService.extractAndSortProducts(storedItems);
+            });
+        }
+
+
+        /*this.MealService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
+            const storedItems = angular.copy(response);
+            this.$timeout(() => {
+                this.list = this.ShopListService.extractAndSortProducts(storedItems);
+            })
+        });   */
     }
 }
 

@@ -26,8 +26,9 @@ Mealpler.directive('datePicker', function () {
 
         function datePickerCallback(start, end, label) {
             //refresh week only from directive placed in week tmpl
+
+            const id = mainCtrl.uid;
             if (!!attrs.refreshWeek) {
-                const id = mainCtrl.uid;
                 dashboardCtrl.runWeekMealsHandlers(null, start, id);
             }
 
@@ -36,11 +37,11 @@ Mealpler.directive('datePicker', function () {
                 if (!!attrs.single) {
                     //if one date is chosen
                     const startOfWeek = start.startOf('week');
-                    dashboardCtrl.runShopListHandlers(startOfWeek, dashboardCtrl.defaultWeekDuration);
+                    dashboardCtrl.runShopListHandlers(startOfWeek, dashboardCtrl.defaultWeekDuration, id);
                     dashboardCtrl.runDatePickerHandlers(start);
                 } else {
                     let duration = end.diff(start, 'days')+1;
-                    dashboardCtrl.runShopListHandlers(start, duration);
+                    dashboardCtrl.runShopListHandlers(start, duration, id);
                     dashboardCtrl.runDatePickerHandlers(start, end);
                 }
             }
