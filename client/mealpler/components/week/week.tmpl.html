@@ -12,8 +12,8 @@
     </div>
     <div class="panel-subheading">
         <div class="week-switcher">
-            <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.weekFirstDay)"></i>
-            You are planning for: {{ week.weekFirstDay.dateMonthDate }} - {{ week.weekLastDay.dateMonthDate }}
+            <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.weekStartDate)"></i>
+            You are planning for: {{ week.weekStartDate.dateMonthDate }} - {{ week.weekLastDay.dateMonthDate }}
             <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.weekLastDay)"></i>
         </div>
     </div>
