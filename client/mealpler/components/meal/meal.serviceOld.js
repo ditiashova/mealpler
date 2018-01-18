@@ -45,7 +45,7 @@ class MealServiceX {
             dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
         }
         let allUserMeals;
-        this.FirebaseStorageService.getAllDatesMealsList(id).then((response) => {
+        //this.FirebaseStorageService.getAllDatesMealsList(id).then((response) => {
             allUserMeals = response;
             dayNames.forEach((a) => {
                 results.push({
@@ -56,7 +56,7 @@ class MealServiceX {
             });
 
             return results;
-        });
+        //});
     };
 
     fillMealList(data) {

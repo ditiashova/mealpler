@@ -3,33 +3,43 @@ class StorageService {
 
     }
 
-    addItemToGroceryList(item) {
-        let list = this.getStoredItem("grocery").concat(item);
-        this.addFoodToStored("grocery", list);
+
+    saveUserPlannerData(date, data, id) {
+        if (id) {
+            firebase.database().ref('users/' + id + '/meals/' + date).set(data);
+        }  else {
+            localStorage.setItem(date, JSON.stringify(data));
+        }
     }
 
-    updateGroceryItem(oldItem) {
-        let list = this.getStoredItem("grocery");
-        list.find(a => a.name === oldItem.name).quantity = oldItem.quantity;
-        this.addFoodToStored("grocery", list);
+    getMealsList(forDate, id) {
+        let all = [];
+        if (id) {
+            return new Promise((resolve, reject) => {
+                firebase.database().ref('users/' + id + '/meals/' + forDate).on("value", (data) => {
+                    all = data.val();
+                    resolve(all);
+                }, function (errorObject) {
+                    reject(errorObject);
+                    console.log("The read failed: " + errorObject.code);
+                });
+            })
+        } else {
+            try {
+                all = JSON.parse(localStorage.getItem(forDate));
+            } catch (error) {
+                console.log(error);
+            }
+            return all;
+        }
     }
 
-    deleteGroceryItem(itemToDelete) {
-        let list = this.getStoredItem("grocery");
-        let i = list.findIndex(a => a.name === itemToDelete.name && a.quantity === itemToDelete.quantity);
-        list.splice(i, 1);
-        this.addFoodToStored("grocery", list);
-    }
 
-    deleteGrocery() {
-        localStorage.removeItem("grocery");
-    };
-
-    addFoodToStored(name, content) {
+    setDataToLocalStorage(name, content) {
         localStorage.setItem(name, JSON.stringify(content));
     };
 
-    getStoredItem(name) {
+    getLocalStorageData(name) {
         let storedItem = [];
         try {
             storedItem = JSON.parse(localStorage.getItem(name));

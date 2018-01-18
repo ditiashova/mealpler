@@ -1,33 +1,37 @@
 class MealService {
-    constructor(DayModel, MealModel, FirebaseStorageService) {
-        Object.assign(this, {DayModel, MealModel, FirebaseStorageService});
-        this.meals = this.MealModel.emptyMealsList(); //useless
+    constructor(DayModel, MealModel, FirebaseStorageService, WeekService) {
+        Object.assign(this, {DayModel, MealModel, FirebaseStorageService, WeekService});
+        this.meals = this.MealModel.emptyMealsList();
     }
-
-    findDateRangeMealList(start, q, userId) {
-        const dayNames = [];
-        //let results = [];
-
-        for (let i = 0; i < q; i++) {
-            dayNames.push(moment(start).add(i, 'days').format("YYYY-M-D"));
-        }
-
-        return this.FirebaseStorageService.getAllMealsForUser(userId).then((response) =>
-            this._resolveExistingMealData(response, dayNames)
-        );
-    };
 
     updateMealInfo(mealContent, date, userId, mealType, mealNo) {
         const fullDateName = moment(date).format("YYYY-M-D"); //in case nonformatted date were passed
-        this.FirebaseStorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
+        return this.FirebaseStorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
             const newDayContent = this._resolveNewDayData(response, date, mealContent, mealType, mealNo);
             this.cleanAndSetMealsList(fullDateName, newDayContent, userId);
         });
     }
 
+    //used for modifying data when we already have data
+    organizeDataForWeek(start, q, data) {
+        const weekList = this.WeekService.getWeekList(start, q);
+
+        return this._resolveExistingMealData(data, weekList);
+    }
+
+    //used for modifying data when we have an id and can get user's data by id
+    findDateRangeMealList(start, q, userId) {
+        const weekList = this.WeekService.getWeekList(start, q);
+
+        return this.FirebaseStorageService.getAllMealsForUser(userId).then((response) =>
+            this._resolveExistingMealData(response, weekList)
+        );
+    }
+
+    /** @return Promise<void> */
     cleanAndSetMealsList(date, rawData, id) {
         const cleanData = MealService._cleanEmptyData(angular.copy(rawData));
-        this.FirebaseStorageService.setSingleDateMealsList(date, cleanData, id);
+        return this.FirebaseStorageService.setSingleDateMealsList(date, cleanData, id);
     }
 
     _resolveNewDayData(oldDayContent, date, mealContent, mealType, mealNo)  {
@@ -76,24 +80,28 @@ class MealService {
     }
 
     static _cleanEmptyData(data) {
-        data.mealsList.forEach((a, index, array) => {
-            if (!a.dishesList) {
-                //if dishes list is empty
-                array.splice(index, 1);
-            } else {
-                a.dishesList.map((b, i) => {
-                    if (b.type === 'recipe' && b.productsList.length === 0) {
-                        a.dishesList.splice(i, 1);
-                    }
-                })
-            }
-        });
-        return data;
+        if (!data.mealsList) {
+            return null;
+        } else {
+            data.mealsList.forEach((a, index, array) => {
+                if (!a.dishesList) {
+                    //if dishes list is empty
+                    array.splice(index, 1);
+                } else {
+                    a.dishesList.map((b, i) => {
+                        if (b.type === 'recipe' && b.productsList.length === 0) {
+                            a.dishesList.splice(i, 1);
+                        }
+                    })
+                }
+            });
+            return data;
+        }
     }
 
 
     deleteMeal(mealName, date, id) {
-        this.FirebaseStorageService.getSingleDateMealsList(date, id).then((response) => {
+        return this.FirebaseStorageService.getSingleDateMealsList(date, id).then((response) => {
             const availableItem = response;
             let i = availableItem.mealsList.findIndex(b => b.mealName === mealName);
             availableItem.mealsList.splice(i, 1);
@@ -101,13 +109,11 @@ class MealService {
         });
     };
 
-
-
     _resolveExistingMealData(data, datesList) {
         const resolved = [];
         if (data === null) {
             datesList.forEach((singleDate) => {
-                resolved.push(getEmptyDay.call(this, singleDate));
+                resolved.push(this.getEmptyDay(singleDate));
             })
         } else {
             datesList.forEach((singleDate) => {
@@ -118,7 +124,7 @@ class MealService {
                     }
                 }
                 if (existingDay === null) {
-                    resolved.push(getEmptyDay.call(this, singleDate));
+                    resolved.push(this.getEmptyDay(singleDate));
                 } else {
                     if (existingDay.mealsList === undefined || existingDay.mealsList.length === 0) {
                         existingDay.mealsList = this.MealModel.emptyMealsList();
@@ -146,16 +152,16 @@ class MealService {
         });
 
         return resolved;
+    }
 
-        function getEmptyDay(date) {
-            const newDay = this.DayModel.createNewDay(moment(date));
-            newDay.mealsList = this.MealModel.emptyMealsList();
-            return newDay;
-        }
+    getEmptyDay(date) {
+        const newDay = this.DayModel.createNewDay(moment(date));
+        newDay.mealsList = this.MealModel.emptyMealsList();
+        return newDay;
     }
 
 
-    findMealList(data) {
+    /*findMealList(data) {
         //let data = this.getMealsList(forDate);
         if (data === null) return this.meals;
         if (data != null) {
@@ -173,9 +179,9 @@ class MealService {
                 return data.mealsList;
             }
         }
-    };
+    };*/
 
-    getMealsList(forDate) {
+    /*getMealsList(forDate) {
         let all = [];
         try {
             all = JSON.parse(localStorage.getItem(forDate));
@@ -183,7 +189,7 @@ class MealService {
             console.log(error);
         }
         return all;
-    }
+    }*/
 
 }
 
