@@ -30,7 +30,11 @@ class MainController {
                     console.log("The read failed: " + errorObject.code);
                 });
                 firebase.database().ref('users/' + firebaseUserData.uid + '/meals').on("value", (data) => {
-                    this.runDatabaseHandlers(data.val());
+                    if (this.newWeekStartDate) {
+                        this.runDatabaseHandlers(data.val(), this.newWeekStartDate);
+                    } else {
+                        this.runDatabaseHandlers(data.val());
+                    }
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
@@ -42,8 +46,8 @@ class MainController {
         this.handlers.databaseHandlers.push(handler);
     }
 
-    runDatabaseHandlers(response, id) {
-        this.handlers.databaseHandlers.forEach((handler) => handler(response, id));
+    runDatabaseHandlers(response, date, id) {
+        this.handlers.databaseHandlers.forEach((handler) => handler(response, date, id));
     };
 
     createNewUserInDatabase(userData) {
