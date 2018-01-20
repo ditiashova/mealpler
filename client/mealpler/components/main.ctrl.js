@@ -29,7 +29,7 @@ class MainController {
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
-                firebase.database().ref('users/' + firebaseUserData.uid + '/meals').on("value", (data) => {
+                firebase.database().ref('users/' + firebaseUserData.uid + '/food').on("value", (data) => {
                     if (this.newWeekStartDate) {
                         this.runDatabaseHandlers(data.val(), this.newWeekStartDate);
                     } else {
@@ -77,11 +77,15 @@ class MainController {
 
     toggleShopListState() {
         this.isShopListOpened = !this.isShopListOpened;
-        this.runIsShopListOpenedHandlers();
+        this.runIsShopListOpenedHandlers(this.isShopListOpened);
     }
 
-    runIsShopListOpenedHandlers() {
-        this.handlers.showShopListHandlers.forEach((handler) => handler());
+    /**
+     *
+     * @param {Boolean} state
+     */
+    runIsShopListOpenedHandlers(state) {
+        this.handlers.showShopListHandlers.forEach((handler) => handler(state));
     }
 
     addIsShopListOpenedHandler(handler) {

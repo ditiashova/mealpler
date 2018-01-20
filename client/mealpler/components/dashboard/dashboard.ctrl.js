@@ -10,6 +10,14 @@ class DashboardController {
         };
     }
 
+    /**
+     *
+     * @param {Boolean} state
+     */
+    setIsShopListOpened(state) {
+        this.isShopListOpened = state;
+    }
+
     addDatePickerHandlers(handler) {
         this.handlers.datePickerHandlers.push(handler);
     };
