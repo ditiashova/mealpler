@@ -14,7 +14,7 @@ class OpenModalService {
             //Success
         }, function(e) {
             //Error
-            if (!(e === 'cancel' || e === 'escape key press' || e === 'backdrop click')) {
+            if (!(e === 'cancel' || e === 'escape key press' || e === 'backdrop click' || e === '$uibUnscheduledDestruction')) {
                 throw e;
             }
         });
