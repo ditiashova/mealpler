@@ -1,5 +1,4 @@
 Mealpler.factory("Auth", ["$firebaseAuth",
-    function($firebaseAuth) {
-        return $firebaseAuth();
-    }
+    ($firebaseAuth) =>
+         $firebaseAuth()
 ]);
