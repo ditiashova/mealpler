@@ -4,9 +4,9 @@ Mealpler.directive('newComponents', function () {
 
         newComponentsCtrl.createNew = (form, forItems) => {
             form.$submitted = false;
-            if(forItems.type === DishType.RECIPE) {
+            if (forItems.type === DishType.RECIPE) {
                 AddModal.createNewIngredient(forItems)
-            } else if(forItems.type === DishType.PRODUCT) {
+            } else if (forItems.type === DishType.PRODUCT) {
                 AddModal.createNewDish(forItems);
             }
         };

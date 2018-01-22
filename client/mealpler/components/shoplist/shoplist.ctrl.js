@@ -1,26 +1,22 @@
 class ShoplistCtrl {
-    constructor(ShopListService, MealService, $timeout, WeekService) {
-        Object.assign(this, {ShopListService, MealService, $timeout, WeekService});
+    constructor(ShopListService, $timeout, WeekService) {
+        Object.assign(this, {ShopListService, $timeout, WeekService});
 
-        const today = moment();
         this.title = Mealpler.titles.shopList;
-        this.rangeStart = today.startOf('week');
+        this.rangeStart = moment().startOf('week');
         this.rangeLength = 7;
-        //this.init();
     }
 
-    init(start, duration, userId, data) {
-        const newStart = start || this.rangeStart;
-        const newDuration = duration || this.rangeLength;
+    init(start = this.rangeStart, duration = this.rangeLength, userId, data) {
         if (userId) {
-            this.WeekService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
+            this.WeekService.findDateRangeMealList(start, duration, userId).then((response) => {
                 const storedItems = angular.copy(response);
                 this.$timeout(() => {
                     this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);
                 })
             });
         } else {
-            const storedItems = this.WeekService.organizeDataForWeek(newStart, newDuration, data);
+            const storedItems = this.WeekService.organizeDataForWeek(start, duration, data);
             this.$timeout(() => {
                 this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);
             });

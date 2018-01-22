@@ -9,14 +9,8 @@ class WeekController {
     }
 
     init(data, forDate, id) {
-        //this._setNewWeekStart(forDate);
         this._setWeekStartAndLastDays(forDate);
         this.setWeekDaysFoodInfo(data, id);
-    }
-
-    _setNewWeekStart(date) {
-        const newDate = date ? date : this.today;
-        this.weekStartDate = this.WeekService._getWeekStart(newDate);
     }
 
     _setWeekStartAndLastDays(date) {

@@ -1,7 +1,5 @@
 class ShopListService {
-    constructor() {
-
-    }
+    constructor() {}
 
     extractAndSortProducts(list) {
         return this.sortProducts(this.extractProducts(list));
@@ -9,6 +7,7 @@ class ShopListService {
 
     extractProducts(list) {
         const extracted = [];
+
         list.map(ingestion => ingestion.meals.map(meal => {
             if (meal.dishes && meal.dishes.length > 0) {
                 meal.dishes.map(food => {
@@ -24,11 +23,13 @@ class ShopListService {
             a.name = a.name.trim();
             a.quantity = 1;
         });
+
         return extracted;
     }
 
     sortProducts(list) {
         const sorted = [];
+
         list.forEach((a) => {
             let thisNameIndex = sorted.findIndex(b => b.name === a.name);
             if (thisNameIndex > -1) {
@@ -37,6 +38,7 @@ class ShopListService {
                 sorted.push(angular.copy(a));
             }
         });
+
         return sorted;
     }
 }

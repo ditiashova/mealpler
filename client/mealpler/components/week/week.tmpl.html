@@ -19,7 +19,8 @@
     </div>
     <div class="panel-body">
         <div class="row week-planner">
-            <div class="col-sm day-planner" ng-repeat="day in week.weekDaysFoodInfo" ng-class="{'today' : (day.date | fullDate) === week.todayFullDate}">
+            <div class="col-sm day-planner" ng-repeat="day in week.weekDaysFoodInfo"
+                 ng-class="{'today' : (day.date | fullDate) === week.todayFullDate}">
                 <day-manager day="day"></day-manager>
             </div>
         </div>

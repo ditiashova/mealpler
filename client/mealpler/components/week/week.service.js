@@ -32,12 +32,8 @@ class WeekService {
             })
         } else {
             datesList.forEach((singleDate) => {
-                let currentDay = new Day(moment(singleDate));
-                /*for (const storedDay in data) {
-                    if (storedDay === singleDate) {
-                        currentDay = data[storedDay];
-                    }
-                }*/
+                const currentDay = new Day(moment(singleDate));
+
                 if (data[singleDate] && data[singleDate].meals) {
                     currentDay.meals = angular.copy(data[singleDate].meals);
                 }
@@ -63,7 +59,6 @@ class WeekService {
                 }
             })
         }
-
         return resolved;
     }
 

@@ -1,7 +1,5 @@
 class StorageService {
-    constructor () {
-
-    }
+    constructor () {}
 
     /** @return Promise<void> */
     getAllMealsForUser(id) {
@@ -20,7 +18,6 @@ class StorageService {
         return firebase.database().ref('users/' + id + '/food/' + date).set(data);
     }
 
-
     setDataToLocalStorage(name, content) {
         localStorage.setItem(name, JSON.stringify(content));
     };
@@ -35,7 +32,6 @@ class StorageService {
         }
         return storedItem != null ? storedItem : [];
     };
-
 }
 
 Mealpler.service('StorageService', StorageService);

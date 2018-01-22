@@ -74,7 +74,7 @@ Mealpler.
         ui.start('#firebaseui-auth-container', uiConfig);
 
 
-        initApp = function() {
+        const initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     // User is signed in.

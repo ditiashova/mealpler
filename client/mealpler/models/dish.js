@@ -13,9 +13,4 @@ class Dish {
     constructor(type = DishType.PRODUCT, name = '',  components = []) {
         Object.assign(this, {type, name, components});
     }
-
-    /** @return Dish */
-    static empty() {
-
-    }
 }

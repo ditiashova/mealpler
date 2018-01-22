@@ -1,21 +1,18 @@
 Mealpler.directive('shopList', function () {
-    const link = (scope, el, attrs, controllers) => {
-        const mainCtrl = controllers[0];
-        const dashboardCtrl = controllers[1];
-        const listCtrl = scope.listCtrl;
-        //controller.showSideBar();
-        listCtrl.closeShopList = () => {
-            mainCtrl.toggleShopListState();
-            //controller.showSideBar();
+    const link = (scope, el, attrs, [MainCtrl, DashboardCtrl]) => {
+        const ListCtrl = scope.listCtrl;
+
+        ListCtrl.closeShopList = () => {
+            MainCtrl.toggleShopListState();
         };
 
-        mainCtrl.addDatabaseHandlers((data, date, id, duration) => {
-            listCtrl.init(date, duration, id, data);
+        MainCtrl.addDatabaseHandlers((data, date, id, duration) => {
+            ListCtrl.init(date, duration, id, data);
         });
 
-        dashboardCtrl.addShopListHandlers((date, duration) => {
-            const id = mainCtrl.uid;
-            listCtrl.init(date, duration, id);
+        DashboardCtrl.addShopListHandlers((date, duration) => {
+            const id = MainCtrl.uid;
+            ListCtrl.init(date, duration, id);
         });
     };
 
