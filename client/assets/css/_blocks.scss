@@ -151,16 +151,21 @@ div[class*="notify-"] {
   min-height: 55px;
 }
 
-.meal:hover .plus-temp {
-  visibility: visible !important;
+.meal:hover {
+  .plus-temp {
+    visibility: visible !important;
+  }
+  .plus-perm {
+    visibility: visible !important;
+  }
 }
 
 .plus-hidden.plus-perm {
-  visibility: visible !important;
+  visibility: hidden !important;
 }
 
 .plus-perm {
-  visibility: visible !important;
+  visibility: hidden !important;
 }
 
 .item:hover .edit-item, .ingredient:hover .edit-item {
