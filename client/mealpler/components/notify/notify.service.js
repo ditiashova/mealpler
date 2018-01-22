@@ -1,7 +1,7 @@
 class NotifyService {
     constructor () {}
 
-    displayNotify(text, classColor) {
+    show(text, classColor) {
         return new PNotify({
             text: text,
             addclass: 'notify-' + classColor

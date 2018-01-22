@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-if="week.weekDaysFoodInfo">
     <div class="panel-heading">
         <div class="panel-title">
             Week Planner
@@ -13,14 +13,14 @@
     <div class="panel-subheading">
         <div class="week-switcher">
             <i class="fa fa-angle-double-left" ng-click="week.switchWeek('past', week.weekStartDate)"></i>
-            You are planning for: {{ week.weekStartDate.dateMonthDate }} - {{ week.weekLastDay.dateMonthDate }}
+            You are planning for: {{ week.weekStartDate.date | monthDay }} - {{ week.weekLastDay.date | monthDay }}
             <i class="fa fa-angle-double-right" ng-click="week.switchWeek('future', week.weekLastDay)"></i>
         </div>
     </div>
     <div class="panel-body">
         <div class="row week-planner">
-            <div class="col-sm day-planner" ng-repeat="date in week.weekDaysFoodInfo track by date.id" ng-class="{'today' : (date.fullDate) === week.todayFullDate}">
-                <day-manager date="date"></day-manager>
+            <div class="col-sm day-planner" ng-repeat="day in week.weekDaysFoodInfo" ng-class="{'today' : (day.date | fullDate) === week.todayFullDate}">
+                <day-manager day="day"></day-manager>
             </div>
         </div>
     </div>

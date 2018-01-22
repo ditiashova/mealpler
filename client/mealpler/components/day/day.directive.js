@@ -1,28 +1,23 @@
-Mealpler.directive('dayManager', function (DayService, notify) {
-    const link = (scope, el, attrs, [WeekCtrl, MainCtrl]) => {
+Mealpler.directive('dayManager', function (notify, paste) {
+    const link = (scope, el, attrs, [MainCtrl]) => {
         const DayCtrl = scope.dayCtrl;
-        //const WeekCtrl = controller;
-        scope.pasteMenu = (date) => {
+        DayCtrl.pasteMenu = (date) => {
             const id = MainCtrl.uid;
-            DayCtrl.pasteMenu(date, id).then(() => {
-                //WeekCtrl._loadMealsDataForWeekRange();
-                notify.displayNotify('Food has been pasted successfully.', 'add');
+            paste.pasteMenu(date, id).then(() => {
+                notify.show('Menu has been pasted successfully.', 'add');
             });
         };
-        /*MainCtrl.addAuthHandlers((uid) => {
-            DayCtrl.userId = uid;
-        });*/
     };
 
     return {
         restrict: 'E',
         transclude: true,
         scope: {
-            date: '='
+            day: '='
         },
         controller: 'DayCtrl',
         controllerAs: 'dayCtrl',
-        require: ['^^weekManager', '^^mainBlock'],
+        require: ['^^mainBlock'],
         templateUrl: 'scripts/components/day/day.tmpl.html',
         link: link
     };

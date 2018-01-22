@@ -1,6 +1,6 @@
 class ShoplistCtrl {
-    constructor(StorageService, MealModel, ShopListService, MealService, $timeout) {
-        Object.assign(this, {StorageService, MealModel, ShopListService, MealService, $timeout});
+    constructor(ShopListService, MealService, $timeout, WeekService) {
+        Object.assign(this, {ShopListService, MealService, $timeout, WeekService});
 
         const today = moment();
         this.title = Mealpler.titles.shopList;
@@ -13,26 +13,18 @@ class ShoplistCtrl {
         const newStart = start || this.rangeStart;
         const newDuration = duration || this.rangeLength;
         if (userId) {
-            this.MealService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
+            this.WeekService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
                 const storedItems = angular.copy(response);
                 this.$timeout(() => {
-                    this.list = this.ShopListService.extractAndSortProducts(storedItems);
+                    this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);
                 })
             });
         } else {
-            const storedItems = this.MealService.organizeDataForWeek(newStart, newDuration, data);
+            const storedItems = this.WeekService.organizeDataForWeek(newStart, newDuration, data);
             this.$timeout(() => {
-                this.list = this.ShopListService.extractAndSortProducts(storedItems);
+                this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);
             });
         }
-
-
-        /*this.MealService.findDateRangeMealList(newStart, newDuration, userId).then((response) => {
-            const storedItems = angular.copy(response);
-            this.$timeout(() => {
-                this.list = this.ShopListService.extractAndSortProducts(storedItems);
-            })
-        });   */
     }
 }
 

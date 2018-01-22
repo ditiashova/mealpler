@@ -1,19 +1,13 @@
-Mealpler.directive('mealManager', function (notify) {
-    const link = (scope, el, attrs, [DayCtrl, WeekCtrl, MainCtrl]) => {
+Mealpler.directive('mealManager', function (notify, MealService, paste) {
+    const link = (scope, el, attrs, [MainCtrl]) => {
         const MealCtrl = scope.meal;
-        scope.copyFood = (name, food) => {
-            DayCtrl.copyFood(name, food);
-        };
-        scope.pasteFood = (name, mealNo, date) => {
+
+        MealCtrl.pasteMeal = (name, mealNo, date) => {
             const id = MainCtrl.uid;
-            MealCtrl.pasteFood(name, mealNo, date, id).then(() => {
-                notify.displayNotify('Food has been pasted successfully.', 'add');
+            paste.pasteMeal(name, mealNo, date, id).then(() => {
+                notify.show('Food has been pasted successfully.', 'add');
             });
         };
-
-        /*MainCtrl.addAuthHandlers((uid) => {
-            MealCtrl.userId = uid;
-        });*/
     };
 
     return {
@@ -21,11 +15,11 @@ Mealpler.directive('mealManager', function (notify) {
         transclude: true,
         scope: {
             food: '=',
-            date: '='
+            day: '='
         },
         controller: 'MealCtrl',
         controllerAs: 'meal',
-        require: ['^^dayManager', '^^weekManager', '^^mainBlock'],
+        require: ['^^mainBlock'],
         templateUrl: 'scripts/components/meal/meal.tmpl.html',
         link: link
     };

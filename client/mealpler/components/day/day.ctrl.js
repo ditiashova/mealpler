@@ -1,16 +1,12 @@
 class DayCtrl {
-    constructor(LocalStorageService, notify, DayService) {
-        Object.assign(this, {LocalStorageService, notify, DayService});
+    constructor(copy) {
+        Object.assign(this, {copy});
     }
 
     copyFood(name, content) {
-        this.LocalStorageService.setDataToLocalStorage(name, content);
-        this.notify.displayNotify('Food has been copied successfully.', 'copy');
+        this.copy.copyFood(name, content);
     }
 
-    pasteMenu(date, id) {
-        return this.DayService.pasteMenuForDay(date, id)
-    }
 }
 
 Mealpler.controller('DayCtrl', DayCtrl);

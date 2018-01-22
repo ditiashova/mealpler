@@ -1,16 +1,20 @@
 class IngredientService {
-    constructor(MealService, FirebaseStorageService) {
-        Object.assign(this, {MealService, FirebaseStorageService})
+    constructor(DayService, StorageService) {
+        Object.assign(this, {DayService, StorageService})
     }
 
     /** @return Promise<void> */
-    deleteIngredient(item, recipeName, mealName, date, userId) {
-        return this.FirebaseStorageService.getSingleDateMealsList(date, userId).then((response) => {
-            const availableItem = response;
-            const currentRecipe = availableItem.mealsList.find(b => b.mealName === mealName).dishesList.find(b => b.name === recipeName && b.hasIngredients);
-            const i = currentRecipe.productsList.findIndex(a => a.name === item.name);
-            currentRecipe.productsList.splice(i, 1);
-            return this.MealService.cleanAndSetMealsList(date, availableItem, userId);
+    deleteIngredient(item, recipeName, mealNo, date, userId) {
+        const fullDateName = moment(date).format("YYYY-M-D");
+
+        return this.StorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
+            const currentRecipe = response.meals
+                .find(meal => meal.type === mealNo).dishes
+                .find(dish => dish.name === recipeName && dish.components && dish.components.length > 0);
+            const i = _.findIndex(currentRecipe.components, ingredient => ingredient.name === item.name);
+            currentRecipe.components.splice(i, 1);
+
+            return this.DayService.cleanAndSetDayMealsList(fullDateName, response, userId);
         });
     };
 }

@@ -18,9 +18,9 @@ Mealpler.directive('weekManager', function () {
             let newStartDate = {};
 
             if (time === 'past') {
-                newStartDate = moment(weekCtrl.weekStartDate.fullDate).subtract(1, 'day').startOf('week');
+                newStartDate = moment(weekCtrl.weekStartDate.date).subtract(1, 'day').startOf('week');
             } else if (time === 'future') {
-                newStartDate = moment(weekCtrl.weekStartDate.fullDate).add(weekCtrl.weekDuration + 1, 'day');
+                newStartDate = moment(weekCtrl.weekStartDate.date).add(weekCtrl.weekDuration + 1, 'day');
             }
 
             weekCtrl.init(null, newStartDate, id);
@@ -29,9 +29,9 @@ Mealpler.directive('weekManager', function () {
             runShopListAndDatePickerEvents(newStartDate, id);
         };
 
-        function runShopListAndDatePickerEvents(date, id) {
-            dashboardCtrl.runShopListHandlers(date, null, id);
-            dashboardCtrl.runDatePickerHandlers(date);
+        function runShopListAndDatePickerEvents(start, id) {
+            dashboardCtrl.runShopListHandlers(start, null, id);
+            dashboardCtrl.runDatePickerHandlers(start);
         }
     };
 

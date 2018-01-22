@@ -8,13 +8,12 @@
             <input class="date-picker" data-refresh-fridge="true" data-name="dateRangePicker"
                    id="dateRangePicker" title="dateRangePicker">
         </label>
-        <!--<input name="daterangepicker" id="dateRangePicker" title="dateRangePicker"/>-->
     </div>
     <div class="panel-body">
         <div ng-if="listCtrl.list.length === 0">
             You haven't planned any food for this range yet.
         </div>
-        <div ng-repeat="item in listCtrl.list track by $index" ng-if="listCtrl.list.length > 0" class="row shop-item">
+        <div ng-repeat="item in listCtrl.componentsList track by $index" ng-if="listCtrl.componentsList.length > 0" class="row shop-item">
             <div class="col-xs-12">
                 <span>{{ item.name }}</span>
                 <div class="badge badge-success">{{ item.quantity }}</div>

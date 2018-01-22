@@ -1,7 +1,7 @@
 class DashboardController {
     constructor () {
-        this.defaultWeekDuration = 7;
-        this.defaultWeekStartDate = moment().startOf('week');
+        /*this.defaultWeekDuration = 7;
+        this.defaultWeekStartDate = moment().startOf('week');*/
 
         this.handlers = {
             shopListLoadingDataHandlers: [],
@@ -30,14 +30,27 @@ class DashboardController {
         this.handlers.weekMealsLoadingDataHandlers.push(handler);
     };
 
-    runDatePickerHandlers(startDate, endDate) {
-        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, endDate));
+    runDatePickerHandlers(startDate, isSingle,  endDate) {
+        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, isSingle,  endDate));
     };
+
+    /**
+     *
+     * @param {Moment} date
+     * @param {number} duration
+     * @param {string} id
+     */
 
     runShopListHandlers(date, duration, id) {
         this.handlers.shopListLoadingDataHandlers.forEach((handler) => handler(date, duration, id));
     };
 
+    /**
+     *
+     * @param {null || {}} data
+     * @param {Moment} startDate
+     * @param {string} id
+     */
     runWeekMealsHandlers(data, startDate, id) {
         /*in WeekCtrl.init we expect data, date and id. if we don't have any data, we expect null to be passed*/
         this.handlers.weekMealsLoadingDataHandlers.forEach((handler) => handler(data, startDate, id));

@@ -1,29 +1,32 @@
-Mealpler.directive('deleteModal', function (notify) {
-    const link = (scope, el, attrs, [WeekCtrl, MainCtrl]) => {
-        //const WeekCtrl = controllers[0];
-        const MealCtrl = scope.meal;
-        const date = MealCtrl.date;
-        const meal = MealCtrl.meal;
-        scope.confirmDelete = () => {
-            const id = MainCtrl.uid;
-            MealCtrl.delete(meal, date, id).then(() => {
-                notify.displayNotify('Meal has been deleted.', 'delete');
-            });
+Mealpler.directive('deleteModal', function (notify, DayService) {
+    const link = (scope, el, attrs, [MainCtrl]) => {
+        const MealCtrl = scope.mealCtrl;
+        const DeleteMealCtrl = scope.deleteMealCtrl;
+        const date = attrs.date;
+        const mealNo = attrs.mealNo;
+
+        DeleteMealCtrl.confirmDelete = () => {
+            const userId = MainCtrl.uid;
+            DayService.deleteMealFromDay(mealNo, date, userId)
+                .then(() => MealCtrl.modalInstance.close())
+                .then(() => notify.show('Meal has been deleted.', 'delete'));
         };
-        scope.cancel = () => { //for cancel icon in modal
-            MealCtrl.cancel();
-        };
+
+        DeleteMealCtrl.cancel = () => MealCtrl.modalInstance.dismiss('cancel');
     };
 
     return {
         restrict: 'E',
         transclude: true,
         scope: {
-            date: '=',
-            meal: '='
+            date: '@',
+            mealNo: '@',
+            mealCtrl: '='
         },
-        require: ['^^weekManager', '^^mainBlock'],
+        require: ['^^mainBlock'],
         templateUrl: 'scripts/components/meal/delete/delete.modal.html',
+        controller: () => {},
+        controllerAs: 'deleteMealCtrl',
         link: link
     };
 });

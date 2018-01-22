@@ -1,32 +1,27 @@
-Mealpler.directive('addModal', function (notify) {
+Mealpler.directive('addModal', function (notify, DayService) {
     const link = (scope, el, attrs, [WeekCtrl, DashboardCtrl, MainCtrl]) => {
-        const MealCtrl = scope.meal;
+        const MealCtrl = scope.mealCtrl;
         const AddMealCtrl = scope.addMeal;
-        const date = MealCtrl.date;
-        const meal = MealCtrl.meal;
-        scope.cancel = () => { //for cancel icon in modal
-            MealCtrl.cancel();
-        };
+        const date = attrs.date;
+        const mealNo = +attrs.mealNo;
+
         AddMealCtrl.saveNew = (type, newItems) => {
-            const id = MainCtrl.uid;
-            MealCtrl.save(type, newItems, meal, date, id).then(() => {
-                notify.displayNotify('New food has been added.', 'add');
-            });
+            const userId = MainCtrl.uid;
+            DayService.updateDayInfo(newItems, date, userId, type, mealNo)
+                .then(() => MealCtrl.modalInstance.close())
+                .then(() => notify.show('New food has been added.', 'add'));
         };
 
-        AddMealCtrl.cancelModal = scope.cancel;
-
-        /*MainCtrl.addAuthHandlers((uid) => {
-            AddMealCtrl.userId = uid;
-        });*/
+        AddMealCtrl.cancel = () => MealCtrl.modalInstance.dismiss('cancel');
     };
 
     return {
         restrict: 'E',
         transclude: true,
         scope: {
-            date: '=',
-            meal: '='
+            date: '@',
+            mealNo: '@',
+            mealCtrl: '='
         },
         require: ['^^weekManager', '^^dashboard', '^^mainBlock'],
         controller: 'AddMealModalCtrl',

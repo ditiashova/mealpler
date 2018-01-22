@@ -1,13 +1,13 @@
 <span class="edit-item">
-    <i class="fa fa-times" ng-click="deleteDish(dish, mealName, date)"></i>
+    <i class="fa fa-times" ng-click="dishCtrl.deleteDish(dish, mealNo, day)"></i>
 </span>
-<span ng-if="dish.hasIngredients" ng-dblclick="dishCtrl.copyDish('oneItem', dish)"
+<span ng-if="dish.type === 2"
       data-toggle="dropdown" class="meal-recipe">
     {{ dish.name }}
 </span>
-<div ng-if="dish.hasIngredients" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/components/ingredient/dropdown.html'"></div>
+<div ng-if="dish.type === 2" class="dropdown-menu" aria-labelledby="itemName" ng-include="'scripts/components/ingredient/dropdown.html'"></div>
 
-<span ng-if="!dish.hasIngredients" class="meal-simple" ng-dblclick="dishCtrl.copyDish('oneItem', dish)">
+<span ng-if="dish.type === 1" class="meal-simple">
     {{ dish.name }}
 </span>
 

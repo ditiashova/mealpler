@@ -1,27 +1,19 @@
-Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientService, notify) {
+Mealpler.directive('dishBlock', function (DishService, IngredientService, notify) {
     const link = (scope, el, attrs, [MealCtrl, DayCtrl, WeekCtrl, MainCtrl]) => {
         const DishCtrl = scope.dishCtrl;
-        //const DayCtrl = controllers[1];
-        //const WeekCtrl = controllers[2];
-        scope.deleteDish = (item, mealName, date) => {
+
+        DishCtrl.deleteDish = (item, mealNo, day) => {
             const id = MainCtrl.uid;
-            DishCtrl.deleteDish(item, mealName, date.fullDate, id).then(() => {
-                //WeekCtrl._loadMealsDataForWeekRange();
-                notify.displayNotify('Food has been deleted.', 'delete');
-            });
-        };
-        scope.deleteIngredient = (ingredient, itemName, mealName, date) => {
-            const id = MainCtrl.uid;
-            DishCtrl.deleteIngredient(ingredient, itemName, mealName, date.fullDate, id);
+            DishService.deleteDish(item, mealNo, day.date, id)
+                .then(() => notify.show('Food has been deleted.', 'delete'))
+                .catch(console.log);
         };
 
-        DishCtrl.copyDish = (name, food) => {
-            DayCtrl.copyFood(name, food);
+        DishCtrl.deleteIngredient = (ingredient, itemName, mealNo, day) => {
+            const id = MainCtrl.uid;
+            IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date, id)
+                .catch(console.log);
         };
-
-        /*MainCtrl.addAuthHandlers((uid) => {
-            DishCtrl.userId = uid;
-        });*/
     };
 
     return {
@@ -29,8 +21,8 @@ Mealpler.directive('dishBlock', function (MealModel, DishService, IngredientServ
         transclude: true,
         scope: {
             dish: '=',
-            mealName: '=',
-            date: '='
+            mealNo: '=',
+            day: '='
         },
         controller: 'DishCtrl',
         controllerAs: 'dishCtrl',

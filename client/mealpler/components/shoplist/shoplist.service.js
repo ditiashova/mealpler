@@ -9,19 +9,20 @@ class ShopListService {
 
     extractProducts(list) {
         const extracted = [];
-        list.map(ingestion => ingestion.mealsList.map(meal => {
-            if (meal.dishesList.length > 0) {
-                meal.dishesList.map(food => {
-                    if (!food.hasIngredients) {
+        list.map(ingestion => ingestion.meals.map(meal => {
+            if (meal.dishes && meal.dishes.length > 0) {
+                meal.dishes.map(food => {
+                    if (!food.components) {
                         extracted.push(food)
-                    } else if (food.hasIngredients) {
-                        food.productsList.map(product => extracted.push(product));
+                    } else if (food.components && food.components.length > 0) {
+                        food.components.map(product => extracted.push(product));
                     }
                 })
             }
         }));
         extracted.forEach(a => {
             a.name = a.name.trim();
+            a.quantity = 1;
         });
         return extracted;
     }

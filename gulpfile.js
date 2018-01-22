@@ -39,6 +39,7 @@ gulp.task('concatVendorJs', () => {
     'node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
     'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
     'node_modules/moment/moment.js',
+    'node_modules/lodash/lodash.min.js',
     'node_modules/pnotify/dist/pnotify.js',
     'node_modules/bootstrap-daterangepicker/daterangepicker.js'
   ])
@@ -63,7 +64,7 @@ gulp.task('copy', () => {
     gulp.src(`${srcDir}/index.html`)
       .pipe(gulp.dest(distDir)),
 
-    /* JS */
+    /* code */
     gulp.src(`${srcDir}/mealpler/**/*.{js,html,htm}`)
       .pipe(gulp.dest(distScriptsDir)),
 
@@ -86,7 +87,10 @@ gulp.task('sass', () => {
 gulp.task('index', () => {
   return gulp.src(`${distDir}/index.html`)
     .pipe(inject(
-      gulp.src([ `${distScriptsDir}/**/*.js`, `!${distScriptsDir}/vendor.js` ]).pipe(angularFilesort()).pipe(angularFilesort()), { relative: true }
+      gulp.src([ `${distScriptsDir}/models/*.js`]), { relative: true,  starttag: '<!-- inject:models:{{ext}} -->' }
+    ))
+    .pipe(inject(
+      gulp.src([ `${distScriptsDir}/**/*.js`, `!${distScriptsDir}/vendor.js`, `!${distScriptsDir}/models/*` ]).pipe(angularFilesort()).pipe(angularFilesort()), { relative: true }
     ))
     .pipe(inject(
       gulp.src(`${distScriptsDir}/vendor.js`), { relative: true, starttag: '<!-- inject:vendor:{{ext}} -->' }

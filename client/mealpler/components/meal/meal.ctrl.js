@@ -1,44 +1,46 @@
 class MealController {
-    constructor ($scope, LocalStorageService, openModal, $document, MealService) {
-        Object.assign(this, {$scope, LocalStorageService, openModal, $document, MealService});
+    constructor ($scope, StorageService, openModal, $document, copy, DayService) {
+        Object.assign(this, {$scope, StorageService, openModal, $document, copy, DayService});
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
     }
 
-    pasteFood(name, mealNo, forDay, userId) {
-        let storedOld = this.LocalStorageService.getLocalStorageData(name);
-        return this.MealService.updateMealInfo(storedOld, forDay, userId, 'stored', mealNo);
-    };
+    copyFood(name, content) {
+        this.copy.copyFood(name, content);
+    }
 
-    openModalAddNewMeal(mealNo, date) {
+    openModalAddNewMeal(mealType, day) {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
+        this.mealNo = mealType;
+        this.date = day.date.format("YYYY-M-D");
         const newMealCtrl = ($scope, $uibModalInstance) => {
-            this.meal = mealNo;
-            this.date = date.fullDate;
-            this.save = function (type, newItems, forMeal, forDay, userId) {
-                //$uibModalInstance.close();
-                return this.MealService.updateMealInfo(newItems, forDay, userId, type, forMeal).then(() => {
+            this.modalInstance = $uibModalInstance;
+            /*this.save = function (type, newItems, forMeal, forDate, userId) {
+                return this.DayService.updateDayInfo(newItems, forDate, userId, type, forMeal).then(() => {
                     $uibModalInstance.close();
                 });
             };
             this.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
-            }};
+            };*/
+        };
         this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, newMealCtrl);
     };
 
-    deleteOldMeal(mealName, date) {
+    openModalDeleteOldMeal(mealType, day) {
         const templatePath = 'scripts/components/meal/delete/delete.tmpl.html';
+        this.mealNo = mealType;
+        this.date = day.date.format("YYYY-M-D");
         const deleteMealCtrl = ($scope, $uibModalInstance) => {
-            this.meal = mealName;
-            this.date = date.fullDate;
-            this.delete = function (forMeal, forDay, userId) {
-                return this.MealService.deleteMeal(forMeal, forDay, userId).then(() => {
+            this.modalInstance = $uibModalInstance;
+            /*this.delete = function (forMeal, forDay, userId) {
+                return this.DayService.deleteMealFromDay(forMeal, forDay, userId).then(() => {
                     $uibModalInstance.close();
                 })
             };
             this.cancel = function () {
                 $uibModalInstance.dismiss('cancel');
-            }};
+            }*/
+        };
         this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, deleteMealCtrl);
     };
 }

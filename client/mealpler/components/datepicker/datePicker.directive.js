@@ -1,33 +1,27 @@
 Mealpler.directive('datePicker', function () {
     const link = (scope, el, attrs, [dashboardCtrl, mainCtrl]) => {
-        //const dashboardCtrl = controller;
-        const dateCtrl = scope.dateCtrl;
-        const startDate = dashboardCtrl.defaultWeekStartDate;
+        const datePickerCtrl = scope.datePickerCtrl;
+        const targetInput = $('#' + attrs.name);
 
-        dateCtrl.datePickerTarget = $('#' + attrs.name);
-        dashboardCtrl.addDatePickerHandlers((startDate, endDate) => setDatePickerSettingsAndCallBack(startDate, endDate));
+        dashboardCtrl.addDatePickerHandlers((startDate, isSingle, endDate) => {
+                targetInput.daterangepicker(
+                    datePickerCtrl.setDatePickerSettings(startDate, isSingle, endDate), datePickerCallback
+                );
+        });
 
-        setDatePickerSettingsAndCallBack(startDate);
+        targetInput.daterangepicker(
+            datePickerCtrl.setDatePickerSettings(datePickerCtrl.defaultWeekStartDate, attrs.single), datePickerCallback
+        );
 
-        function setDatePickerSettingsAndCallBack(start, end) {
-            dateCtrl.datePickerTarget.daterangepicker(setDatePickerSettings(start), datePickerCallback);
-        }
-
-        function setDatePickerSettings(start, end) {
-            const endDate = end ? end : !!attrs.single ? null : angular.copy(start).add(dashboardCtrl.defaultWeekDuration-1, 'day');
-            return {
-                "locale": dateCtrl.getLocalization(),
-                "singleDatePicker": !!attrs.single,
-                "showDropdowns": true,
-                "startDate": start,
-                "endDate": endDate
-            }
-        }
-
-        function datePickerCallback(start, end, label) {
+        /**
+         *
+         * @param {Moment} start
+         * @param {Moment} end
+         */
+        function datePickerCallback (start, end) {
             //refresh week only from directive placed in week tmpl
-
             const id = mainCtrl.uid;
+
             if (!!attrs.refreshWeek) {
                 dashboardCtrl.runWeekMealsHandlers(null, start, id);
             }
@@ -35,14 +29,15 @@ Mealpler.directive('datePicker', function () {
             //fridge needs to be refreshed in both date pickers, but this check is still needed in case I'll decide to remove this logic etc.
             if (!!attrs.refreshFridge) {
                 if (!!attrs.single) {
-                    //if one date is chosen
+                    //if one date is chosen we need to find the start of week for this date to load data for specific week
                     const startOfWeek = start.startOf('week');
-                    dashboardCtrl.runShopListHandlers(startOfWeek, dashboardCtrl.defaultWeekDuration, id);
-                    dashboardCtrl.runDatePickerHandlers(start);
+                    dashboardCtrl.runDatePickerHandlers(start, attrs.single);
+                    dashboardCtrl.runShopListHandlers(startOfWeek, datePickerCtrl.defaultWeekDuration, id);
                 } else {
+                    //if dates' range is chosen we can leave start date as received
                     let duration = end.diff(start, 'days')+1;
+                    dashboardCtrl.runDatePickerHandlers(start, attrs.single, end);
                     dashboardCtrl.runShopListHandlers(start, duration, id);
-                    dashboardCtrl.runDatePickerHandlers(start, end);
                 }
             }
 
@@ -62,7 +57,7 @@ Mealpler.directive('datePicker', function () {
         },
         require: ['^^dashboard', '^^mainBlock'],
         controller: 'DatePickerCtrl',
-        controllerAs: 'dateCtrl',
+        controllerAs: 'datePickerCtrl',
         link: link
     };
 });

@@ -3,35 +3,21 @@ class StorageService {
 
     }
 
-
-    saveUserPlannerData(date, data, id) {
-        if (id) {
-            firebase.database().ref('users/' + id + '/meals/' + date).set(data);
-        }  else {
-            localStorage.setItem(date, JSON.stringify(data));
-        }
+    /** @return Promise<void> */
+    getAllMealsForUser(id) {
+        return firebase.database().ref(`users/${id}/food`).once('value').then(data => data.val());
     }
 
-    getMealsList(forDate, id) {
-        let all = [];
-        if (id) {
-            return new Promise((resolve, reject) => {
-                firebase.database().ref('users/' + id + '/meals/' + forDate).on("value", (data) => {
-                    all = data.val();
-                    resolve(all);
-                }, function (errorObject) {
-                    reject(errorObject);
-                    console.log("The read failed: " + errorObject.code);
-                });
-            })
-        } else {
-            try {
-                all = JSON.parse(localStorage.getItem(forDate));
-            } catch (error) {
-                console.log(error);
-            }
-            return all;
-        }
+    /** @return Promise<void> */
+    getSingleDateMealsList(date, id) {
+        return firebase.database().ref('users/' + id + '/food/' + date).once('value').then(function(data) {
+            return data.val();
+        });
+    }
+
+    /** @return Promise<void> */
+    setSingleDateMealsList(date, data, id) {
+        return firebase.database().ref('users/' + id + '/food/' + date).set(data);
     }
 
 
@@ -39,6 +25,7 @@ class StorageService {
         localStorage.setItem(name, JSON.stringify(content));
     };
 
+    /** @return [] || {Object} */
     getLocalStorageData(name) {
         let storedItem = [];
         try {
@@ -48,6 +35,7 @@ class StorageService {
         }
         return storedItem != null ? storedItem : [];
     };
+
 }
 
 Mealpler.service('StorageService', StorageService);

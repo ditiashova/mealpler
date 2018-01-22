@@ -1,20 +1,25 @@
 class AddMealModalController  {
-    constructor ($scope, MealModel) {
-        Object.assign(this, {$scope, MealModel});
+    constructor ($scope) {
+        Object.assign(this, {$scope});
         this.addProduct = true;
-        this.newProducts = {};
-        this.newProducts.productsList = [];
-        this.newRecipe = angular.copy(MealModel.createDefaultRecipe());
-        [this.newProducts, this.newRecipe].forEach(a => this.createNewProduct(a));
+        this.newProducts = angular.copy(new Dish(1));
+        this.newRecipe = angular.copy(new Dish(2));
+        this.createNewDish(this.newProducts);
+        this.createNewIngredient(this.newRecipe);
     }
 
     toggleMealModal() {
         this.addProduct = !this.addProduct;
     }
 
-    createNewProduct(forMeal) {
-        let defaultProduct = angular.copy(this.MealModel.createDefaultProduct());
-        forMeal.productsList.push(defaultProduct);
+    createNewDish(forMeal) {
+        let defaultProduct = angular.copy(new Dish());
+        forMeal.components.push(defaultProduct);
+    }
+
+    createNewIngredient(forMeal) {
+        let defaultIngredient = angular.copy(new Ingredient());
+        forMeal.components.push(defaultIngredient);
     }
 }
 
