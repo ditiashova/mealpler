@@ -7,7 +7,7 @@ Mealpler.directive('deleteModal', function (notify, DayService) {
 
         DeleteMealCtrl.confirmDelete = () => {
             const userId = MainCtrl.uid;
-            DayService.deleteMealFromDay(mealNo, date, userId)
+            DayService.deleteMealFromDay(+mealNo, date, userId)
                 .then(() => MealCtrl.modalInstance.close())
                 .then(() => notify.show('Meal has been deleted.', 'delete'));
         };
