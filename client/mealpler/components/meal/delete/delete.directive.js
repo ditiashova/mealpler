@@ -1,5 +1,5 @@
 Mealpler.directive('deleteModal', function (notify, DayService) {
-    const link = (scope, el, attrs, [MainCtrl, WeekCtrl]) => {
+    const link = (scope, el, attrs, [MainCtrl]) => {
         const MealCtrl = scope.mealCtrl;
         const DeleteMealCtrl = scope.deleteMealCtrl;
         const date = attrs.date;
@@ -10,7 +10,6 @@ Mealpler.directive('deleteModal', function (notify, DayService) {
             DayService.deleteMealFromDay(mealNo, date, userId)
                 .then(() => {
                     if (!userId) {
-                        //WeekCtrl.init();
                         MainCtrl.runDatabaseHandlers();
                     }
                     MealCtrl.modalInstance.close()
@@ -29,7 +28,7 @@ Mealpler.directive('deleteModal', function (notify, DayService) {
             mealNo: '@',
             mealCtrl: '='
         },
-        require: ['^^mainBlock', '^^weekManager'],
+        require: ['^^mainBlock'],
         templateUrl: 'scripts/components/meal/delete/delete.modal.html',
         controller: () => {},
         controllerAs: 'deleteMealCtrl',

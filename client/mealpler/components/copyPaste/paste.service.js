@@ -22,8 +22,8 @@ class PasteService {
      * @param {string} userId
      * @return {Promise<void>}
      */
-    pasteMenu(date, userId) {
-        const stored = this.StorageService.getLocalStorageData("menu");
+    pasteDay(date, userId) {
+        const stored = this.StorageService.getLocalStorageData("day");
         const fullDateName = date.format("YYYY-M-D");
         const dayNewContent = new Day(date);
         dayNewContent.meals = stored.slice();

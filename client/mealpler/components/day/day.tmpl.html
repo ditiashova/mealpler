@@ -1,6 +1,6 @@
 <div class="text-center day-manager">
     {{ day.date | dayName }}&nbsp;
-    <i class="fa fa-arrow-down" ng-click="dayCtrl.pasteMenu(day.date)" title="Paste menu"></i> <br/>
+    <i class="fa fa-arrow-down" ng-click="dayCtrl.pasteDay(day.date)" title="Paste menu"></i> <br/>
     <small>{{ day.date | fullDate }}</small>
 </div>
 
@@ -10,6 +10,10 @@
 
 <div class="day-control">
     <span class="day-manager">
-        <i class="fa fa-clone" ng-click="dayCtrl.copyMenu(day.meals)" title="Copy menu"></i>
+        <i class="fa fa-clone" ng-click="dayCtrl.copyDay(day.meals)" title="Copy menu"></i>
+    </span>&nbsp;|&nbsp;
+    <span class="day-manager">
+        <i class="fa fa-trash-o" ng-click="dayCtrl.deleteDay(day.date| fullDate)"
+           title="Clean meals for the whole day"></i>
     </span>
 </div>

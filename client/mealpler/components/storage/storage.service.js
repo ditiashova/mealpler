@@ -26,16 +26,22 @@ class StorageService {
             return firebase.database().ref('users/' + id + '/food/' + date).set(data);
         } else {
             let storedData = this.getLocalStorageData("Mealpler");
-            /*if (storedData && storedData[date]) {
-                storedData[date] = data;
-            }*/
-            if (!storedData) {
-                storedData = {};
-            }
+
+            if (!storedData) storedData = {};
             storedData[date] = data;
 
-            //const newData = this.getLocalStorageData("Mealpler")[date] = data;
             return Promise.resolve(this.setDataToLocalStorage("Mealpler", storedData));
+        }
+    }
+
+    removeSingleDateMealsList(date, id) {
+        if (id) {
+            return firebase.database().ref('users/' + id + '/food/' + date).remove();
+        } else {
+            const storedData = this.getLocalStorageData("Mealpler");
+            delete storedData[date];
+
+            return Promise.resolve(this.setDataToLocalStorage("Mealpler", storedData))
         }
     }
 
