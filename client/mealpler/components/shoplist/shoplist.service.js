@@ -11,8 +11,8 @@ class ShopListService {
         list.map(ingestion => ingestion.meals.map(meal => {
             if (meal.dishes && meal.dishes.length > 0) {
                 meal.dishes.map(food => {
-                    if (!food.components) {
-                        extracted.push(food)
+                    if (!food.components || food.components.length === 0 ) {
+                        extracted.push(food);
                     } else if (food.components && food.components.length > 0) {
                         food.components.map(product => extracted.push(product));
                     }

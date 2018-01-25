@@ -3,9 +3,15 @@ Mealpler.directive('weekManager', function () {
         const WeekCtrl = scope.week;
 
         DashboardCtrl.addWeekMealDataHandlers((data, start, id) => WeekCtrl.init(data, start, id));
+
+        if (!MainCtrl.uid) {
+            //manually initialize week ctrl if user is not signed in
+            WeekCtrl.init();
+        }
         
         MainCtrl.addDatabaseHandlers((data, date) => {
-            WeekCtrl.init(data, date);
+            const id = MainCtrl.uid;
+            return WeekCtrl.init(data, date, id);
         });
 
         WeekCtrl.switchWeek = (time) => {
@@ -17,15 +23,15 @@ Mealpler.directive('weekManager', function () {
             } else if (time === 'future') {
                 newStartDate = moment(WeekCtrl.weekStartDate.date).add(WeekCtrl.weekDuration + 1, 'day');
             }
-
-            WeekCtrl.init(null, newStartDate, id);
-
             MainCtrl.newWeekStartDate = newStartDate;
-            runShopListAndDatePickerEvents(newStartDate, id);
+
+            WeekCtrl.init(void 0, newStartDate, id).then(() => {
+                runShopListAndDatePickerEvents(newStartDate, WeekCtrl.weekDuration, id);
+            });
         };
 
-        function runShopListAndDatePickerEvents(start, id) {
-            DashboardCtrl.runShopListHandlers(start, null, id);
+        function runShopListAndDatePickerEvents(start, duration, id) {
+            DashboardCtrl.runShopListHandlers(start, duration, id);
             DashboardCtrl.runDatePickerHandlers(start);
         }
     };

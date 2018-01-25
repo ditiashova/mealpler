@@ -1,6 +1,6 @@
 class MainController {
-    constructor ($scope, Auth) {
-        Object.assign(this, {$scope, Auth});
+    constructor ($scope, Auth, UserService) {
+        Object.assign(this, {$scope, Auth, UserService});
         this.title = Mealpler.titles;
 
         this.handlers = {
@@ -8,8 +8,6 @@ class MainController {
             databaseHandlers: [],
             authHandlers: []
         };
-
-        this.usersRef = firebase.database().ref('users');
 
         this.isShopListOpened = false;
 
@@ -19,13 +17,17 @@ class MainController {
 
         this.Auth.$onAuthStateChanged((firebaseUserData) => {
             this.userIsLogged = !!firebaseUserData;
+            this.uid = this.userIsLogged ? firebaseUserData.uid : !!firebaseUserData;
             if (this.userIsLogged) {
                 this.setUserData(firebaseUserData);
-                firebase.database().ref('users/' + firebaseUserData.uid).on("value", (snapshot) => {
+                firebase.database().ref('users/' + firebaseUserData.uid).once("value", (snapshot) => {
                     if (!snapshot.val()) {
-                        this.createNewUserInDatabase(firebaseUserData);
+                        this.UserService.createNewUserInDatabase(firebaseUserData);
+                    } else {
+                        //if user is logged and it's not a new user, it's better to keep LS clean
+                        this.UserService.cleanLocalData();
                     }
-                    this.uid = firebaseUserData.uid;
+
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
@@ -38,19 +40,25 @@ class MainController {
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
+            } else {
+                this.runDatabaseHandlers();
             }
         });
+    }
+
+    init() {
+
     }
 
     addDatabaseHandlers(handler) {
         this.handlers.databaseHandlers.push(handler);
     }
 
-    runDatabaseHandlers(response, date, id) {
-        this.handlers.databaseHandlers.forEach((handler) => handler(response, date, id));
+    runDatabaseHandlers(response, date) {
+        this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
     };
 
-    createNewUserInDatabase(userData) {
+    /*createNewUserInDatabase(userData) {
         const newUser = {
             id: userData.uid,
             email: userData.email,
@@ -58,7 +66,7 @@ class MainController {
         };
 
         this.usersRef.child(userData.uid).set(newUser);
-    }
+    }*/
 
     setUserData(data) {
         this.userName = data.displayName || 'Friend';
@@ -66,13 +74,18 @@ class MainController {
     }
 
     signOut() {
-        this.Auth.$signOut().then(function() {
-            this.userName = null;
-            this.userPhoto = null;
-        }).catch(function(error) {
-            // An error happened.
-            console.log(error);
-        });
+        this.UserService.removeFirebaseEvent(this.uid);
+
+            this.Auth.$signOut().then(() => {
+                this.userName = null;
+                this.userPhoto = null;
+                this.uid = false;
+
+                this.runDatabaseHandlers();
+            }).catch(function(error) {
+                console.log(error);
+            });
+
     }
 
     toggleShopListState() {

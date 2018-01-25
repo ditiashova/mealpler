@@ -30,8 +30,8 @@ class DashboardController {
         this.handlers.weekMealsLoadingDataHandlers.push(handler);
     };
 
-    runDatePickerHandlers(startDate, isSingle,  endDate) {
-        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, isSingle,  endDate));
+    runDatePickerHandlers(startDate, endDate) {
+        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, endDate));
     };
 
     /**

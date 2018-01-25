@@ -11,7 +11,12 @@ class MealService {
         } else if (contentType === 'recipe') {
             meal.dishes.push(newContent);
         } else if (contentType === 'stored') {
-            meal.dishes = meal.dishes.concat(newContent.dishes);
+            if (!newContent.dishes) {
+                //means that one meal has been copied with dbl click
+                meal.dishes.push(newContent);
+            } else {
+                meal.dishes = meal.dishes.concat(newContent.dishes);
+            }
         }
 
         return meal;

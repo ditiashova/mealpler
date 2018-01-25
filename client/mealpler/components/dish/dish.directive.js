@@ -3,15 +3,21 @@ Mealpler.directive('dishBlock', function (DishService, IngredientService, notify
         const DishCtrl = scope.dishCtrl;
 
         DishCtrl.deleteDish = (item, mealNo, day) => {
-            const id = MainCtrl.uid;
-            DishService.deleteDish(item, mealNo, day.date, id)
+            const userId = MainCtrl.uid;
+            DishService.deleteDish(item, mealNo, day.date, userId)
+                .then(() => {
+                    if (!userId) MainCtrl.runDatabaseHandlers();
+                })
                 .then(() => notify.show('Food has been deleted.', 'delete'))
                 .catch(console.log);
         };
 
         DishCtrl.deleteIngredient = (ingredient, itemName, mealNo, day) => {
-            const id = MainCtrl.uid;
-            IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date, id)
+            const userId = MainCtrl.uid;
+            IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date, userId)
+                .then(() => {
+                    if (!userId) MainCtrl.runDatabaseHandlers();
+                })
                 .catch(console.log);
         };
     };

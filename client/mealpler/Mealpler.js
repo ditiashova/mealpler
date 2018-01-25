@@ -74,7 +74,7 @@ Mealpler.
         ui.start('#firebaseui-auth-container', uiConfig);
 
 
-        const initApp = function() {
+        /*const initApp = function() {
             firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     // User is signed in.
@@ -88,6 +88,6 @@ Mealpler.
 
         window.addEventListener('load', function() {
             initApp()
-        });
+        });*/
 });
 

@@ -5,6 +5,7 @@ Mealpler.directive('mealManager', function (notify, MealService, paste) {
         MealCtrl.pasteMeal = (name, mealNo, date) => {
             const id = MainCtrl.uid;
             paste.pasteMeal(name, mealNo, date, id).then(() => {
+                MainCtrl.runDatabaseHandlers();
                 notify.show('Food has been pasted successfully.', 'add');
             });
         };

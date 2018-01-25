@@ -10,7 +10,7 @@
         <div class="col-xs-12 new-product-block">
             <div class="new-product">
                 <span class="remove-product">
-                <i class="fa fa-times" ng-click="newComponentsCtrl.removeItem($index, initItem)"></i>
+                <i class="fa fa-times" ng-click="newComponentsCtrl.removeItem($index, initItem)" title="Remove item"></i>
             </span>
                 <input ng-model="item.name" placeholder="new product" name="{{ $index }}" class="form-control" required="" minlength="3" type="text"/>
             </div>

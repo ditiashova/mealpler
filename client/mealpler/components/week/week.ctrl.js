@@ -10,7 +10,7 @@ class WeekController {
 
     init(data, forDate, id) {
         this._setWeekStartAndLastDays(forDate);
-        this.setWeekDaysFoodInfo(data, id);
+        return this.setWeekDaysFoodInfo(data, id);
     }
 
     _setWeekStartAndLastDays(date) {
@@ -20,21 +20,19 @@ class WeekController {
     }
 
     setWeekDaysFoodInfo(data, id) {
-        if (id) {
-            this.WeekService.findDateRangeMealList(this.weekStartDate.date, this.weekDuration, id).then((response) => {
-                this.$timeout(() => {
-                    this.weekDaysFoodInfo = angular.copy(response);
-                })
-            }, (error) => {
-                console.log(error);
+        if (data || data === null) {
+            //data could be null if there is no data for user, but undefined data means no data from database
+            this.$timeout(() => {
+                return Promise.resolve(this.weekDaysFoodInfo = this.WeekService.organizeDataForWeek(this.weekStartDate.date, this.weekDuration, data));
             });
         } else {
-            //data could be null if there is no data for user
-            this.$timeout(() => {
-                this.weekDaysFoodInfo = this.WeekService.organizeDataForWeek(this.weekStartDate.date, this.weekDuration, data);
+            //in cases when we whether have id => we'll get data from database; if id = false, service will return value from LocalStorage
+            return this.WeekService.findDateRangeMealList(this.weekStartDate.date, this.weekDuration, id).then((response) => {
+                this.$timeout(() => {
+                     this.weekDaysFoodInfo = angular.copy(response);
+                })
             });
         }
-
     }
 }
 
