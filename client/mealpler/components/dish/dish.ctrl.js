@@ -3,8 +3,8 @@ class DishCtrl {
         Object.assign(this, {copy})
     }
 
-    copySingleDish(name, content) {
-        this.copy.copyFood(name, content);
+    copySingleDish(content) {
+        this.copy.copyFood('meal', content);
     }
 }
 

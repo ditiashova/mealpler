@@ -4,8 +4,8 @@ class MealController {
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
     }
 
-    copyFood(name, content) {
-        this.copy.copyFood(name, content);
+    copyMeal(content) {
+        this.copy.copyFood('meal', content);
     }
 
     openModalAddNewMeal(mealType, day) {

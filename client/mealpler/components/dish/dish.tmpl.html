@@ -7,6 +7,6 @@
 <div ng-if="dish.type === 2" class="dropdown-menu" aria-labelledby="itemName"
      ng-include="'scripts/components/ingredient/dropdown.html'"></div>
 
-<span ng-if="dish.type === 1" class="meal-simple" ng-dblclick="dishCtrl.copySingleDish('wholeMeal', dish)">
+<span ng-if="dish.type === 1" class="meal-simple" ng-dblclick="dishCtrl.copySingleDish(dish)">
     {{ dish.name }}
 </span>

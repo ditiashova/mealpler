@@ -2,9 +2,9 @@ Mealpler.directive('mealManager', function (notify, MealService, paste) {
     const link = (scope, el, attrs, [MainCtrl]) => {
         const MealCtrl = scope.meal;
 
-        MealCtrl.pasteMeal = (name, mealNo, date) => {
+        MealCtrl.pasteMeal = (mealNo, date) => {
             const id = MainCtrl.uid;
-            paste.pasteMeal(name, mealNo, date, id).then(() => {
+            paste.pasteMeal('meal', mealNo, date, id).then(() => {
                 MainCtrl.runDatabaseHandlers();
                 notify.show('Food has been pasted successfully.', 'add');
             });
