@@ -46,7 +46,7 @@ class StorageService {
     }
 
     setDataToLocalStorage(name, content) {
-        localStorage.setItem(name, JSON.stringify(content));
+        localStorage.setItem(name, angular.toJson(content));
     };
 
     /** @return [] || {Object} */
