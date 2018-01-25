@@ -9,12 +9,11 @@ Mealpler.directive('deleteModal', function (notify, DayService) {
             const userId = MainCtrl.uid;
             DayService.deleteMealFromDay(mealNo, date, userId)
                 .then(() => {
-                    if (!userId) {
-                        MainCtrl.runDatabaseHandlers();
-                    }
-                    MealCtrl.modalInstance.close()
+                    if (!userId) MainCtrl.runDatabaseHandlers();
+                    MealCtrl.modalInstance.close();
                 })
-                .then(() => notify.show('Meal has been deleted.', 'delete'));
+                .then(() => notify.show('Meal has been deleted.', 'delete'))
+                .catch((e) => console.log(e.message));
         };
 
         DeleteMealCtrl.cancel = () => MealCtrl.modalInstance.dismiss('cancel');

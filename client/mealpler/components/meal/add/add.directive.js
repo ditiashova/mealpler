@@ -8,11 +8,12 @@ Mealpler.directive('addModal', function (notify, DayService) {
         AddMealCtrl.saveNew = (type, newItems) => {
             const userId = MainCtrl.uid;
             DayService.updateDayInfo(newItems, date, userId, type, mealNo)
+                .then(() => MealCtrl.modalInstance.close())
                 .then(() => {
-                    if (!userId) MainCtrl.runDatabaseHandlers();
-                    MealCtrl.modalInstance.close()
+                    if (!userId) return MainCtrl.runDatabaseHandlers();
                 })
-                .then(() => notify.show('New food has been added.', 'add'));
+                .then(() => notify.show('New food has been added.', 'add'))
+                .catch((e) => console.log(e.message));
         };
 
         AddMealCtrl.cancel = () => MealCtrl.modalInstance.dismiss('cancel');
