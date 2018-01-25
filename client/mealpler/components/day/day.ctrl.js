@@ -3,8 +3,8 @@ class DayCtrl {
         Object.assign(this, {copy});
     }
 
-    copyFood(name, content) {
-        this.copy.copyFood(name, content);
+    copyMenu(content) {
+        this.copy.copyFood('menu', content);
     }
 
 }
