@@ -19,18 +19,6 @@ class MealController {
 
         this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, newMealCtrl);
     };
-
-    openModalDeleteOldMeal(mealType, day) {
-        const templatePath = 'scripts/components/meal/delete/delete.tmpl.html';
-
-        this.mealNo = mealType;
-        this.date = day.date.format("YYYY-M-D");
-        const deleteMealCtrl = ($scope, $uibModalInstance) => {
-            this.modalInstance = $uibModalInstance;
-        };
-
-        this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, deleteMealCtrl);
-    };
 }
 
 Mealpler.controller('MealCtrl', MealController);

@@ -10,6 +10,6 @@
 <div class="text-right ingestion-manager" ng-show="food.dishes.length > 0">
     <i class="fa fa-arrow-down" ng-click="meal.pasteMeal(food.type, day.date)" style="font-size: 12px;" title="Paste meal"></i>
     <i class="fa fa-clone" ng-click="meal.copyMeal(food)" style="font-size: 12px;" title="Copy meal"></i>
-    <i class="fa fa-trash-o" ng-click="meal.openModalDeleteOldMeal(food.type, day)" title="Delete meal"></i>
+    <i class="fa fa-trash-o" ng-click="meal.deleteMeal(food.type, day.date)" title="Delete meal"></i>
 </div>
 <div class="modal-parent"></div>

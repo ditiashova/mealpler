@@ -1,4 +1,4 @@
-Mealpler.directive('mealManager', function (notify, MealService, paste) {
+Mealpler.directive('mealManager', function (notify, MealService, paste, DayService) {
     const link = (scope, el, attrs, [MainCtrl]) => {
         const MealCtrl = scope.meal;
 
@@ -9,6 +9,16 @@ Mealpler.directive('mealManager', function (notify, MealService, paste) {
                     if (!userId) return MainCtrl.runDatabaseHandlers();
                 })
                 .then(() => notify.show('Food has been pasted successfully.', 'add'))
+                .catch((e) => console.log(e.message));
+        };
+
+        MealCtrl.deleteMeal = (mealNo, date) => {
+            const userId = MainCtrl.uid;
+            DayService.deleteMealFromDay(mealNo, date.format("YYYY-M-D"), userId)
+                .then(() => {
+                    if (!userId) return MainCtrl.runDatabaseHandlers();
+                })
+                .then(() => notify.show('Meal has been deleted.', 'delete'))
                 .catch((e) => console.log(e.message));
         };
     };
