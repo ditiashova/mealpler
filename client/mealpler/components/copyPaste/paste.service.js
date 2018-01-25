@@ -5,14 +5,13 @@ class PasteService {
 
     /**
      *
-     * @param {string} name
      * @param {number} mealNo
      * @param {Moment} date
      * @param {string} userId
      * @return {Promise<void>}
      */
-    pasteMeal(name, mealNo, date, userId) {
-        const stored = this.StorageService.getLocalStorageData(name);
+    pasteMeal(mealNo, date, userId) {
+        const stored = this.StorageService.getLocalStorageData('meal');
         if (stored === null) {
             return this.showPasteError();
         } else {

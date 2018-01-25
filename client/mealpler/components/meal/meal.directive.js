@@ -3,8 +3,8 @@ Mealpler.directive('mealManager', function (notify, MealService, paste, DayServi
         const MealCtrl = scope.meal;
 
         MealCtrl.pasteMeal = (mealNo, date) => {
-            const id = MainCtrl.uid;
-            paste.pasteMeal('meal', mealNo, date, id)
+            const userId = MainCtrl.uid;
+            paste.pasteMeal(mealNo, date, userId)
                 .then(() => {
                     if (!userId) return MainCtrl.runDatabaseHandlers();
                 })
