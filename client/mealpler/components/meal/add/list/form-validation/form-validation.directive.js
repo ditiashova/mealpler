@@ -1,17 +1,18 @@
 Mealpler.directive('formValidation', function () {
-    const link = (scope, el, attrs, controller) => {
-        scope.form = scope.$parent.itemListForm;
-        scope.currFormField = scope.form[attrs.inputName];
+    const link = (scope, el, attrs, ctrl) => {
+        ctrl.form = scope.$parent.itemListForm;
+        ctrl.currFormField = ctrl.form[ctrl.inputName];
     };
 
     return {
         restrict: 'E',
         transclude: true,
-        scope: {
+        scope: {},
+        controller: () => {},
+        controllerAs: '$ctrl',
+        bindToController: {
             inputName: '@'
         },
-        controller: () => {},
-        controllerAs: 'validationCtrl',
         templateUrl: 'scripts/components/meal/add/list/form-validation/form-validation.tmpl.html',
         link: link
     };
