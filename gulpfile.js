@@ -28,7 +28,7 @@ gulp.task('concatVendorJs', () => {
     'node_modules/firebaseui/dist/firebaseui.js',
     'node_modules/angular/angular.min.js',
     'node_modules/angular-animate/angular-animate.js',
-    'node_modules/angular-route/angular-route.min.js',
+    'node_modules/angular-ui-router/release/angular-ui-router.min.js',
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
     'node_modules/angular-aria/angular-aria.min.js',

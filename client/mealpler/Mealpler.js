@@ -1,29 +1,19 @@
-let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ngRoute', 'ui.bootstrap', 'ui.bootstrap.tpls', 'firebase',
+let Mealpler = angular.module('Mealpler', ['ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.bootstrap.tpls', 'firebase',
     'ngMaterial', 'ngMessages']);
-Mealpler.
-    /*config(function ($routeProvider) {
-        $routeProvider
-            .when('/',
-                {
-                    templateUrl: 'scripts/dashboard/dashboard.html',
-                    controller: 'DashboardCtrl',
-                    controllerAs: 'dashboard'
-                })
-            .otherwise({redirectTo: '/'});
-}).*/
-    config(function() {
+Mealpler
+    .config(function() {
         moment.locale('dow', {
             week : {
                 dow: 1,
             }
         });
         moment.locale('dow');
-}).
-    config(function () {
+    })
+    .config(function () {
         PNotify.prototype.options.delay = 3000;
         PNotify.prototype.options.animate_speed = "slow";
-}).
-    config(function () {
+    })
+    .config(function () {
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyDNk1AEYY2DVSZ4aU2l-aF7tG_KkVg8oBE",
@@ -89,5 +79,4 @@ Mealpler.
         window.addEventListener('load', function() {
             initApp()
         });*/
-});
-
+    });
