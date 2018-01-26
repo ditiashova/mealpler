@@ -9,9 +9,7 @@ Mealpler.directive('addModal', function (notify, DayService) {
             const userId = MainCtrl.uid;
             DayService.updateDayInfo(newItems, date, userId, type, mealNo)
                 .then(() => MealCtrl.modalInstance.close())
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('New food has been added.', 'add'))
                 .catch((e) => console.log(e.message));
         };

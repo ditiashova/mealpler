@@ -5,9 +5,7 @@ Mealpler.directive('dishBlock', function (DishService, IngredientService, notify
         DishCtrl.deleteDish = (item, mealNo, day) => {
             const userId = MainCtrl.uid;
             DishService.deleteDish(item, mealNo, day.date, userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('Food has been deleted.', 'delete'))
                 .catch(console.log);
         };
@@ -15,9 +13,7 @@ Mealpler.directive('dishBlock', function (DishService, IngredientService, notify
         DishCtrl.deleteIngredient = (ingredient, itemName, mealNo, day) => {
             const userId = MainCtrl.uid;
             IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date, userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .catch(console.log);
         };
     };

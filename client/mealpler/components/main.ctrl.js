@@ -33,9 +33,9 @@ class MainController {
                 });
                 firebase.database().ref('users/' + firebaseUserData.uid + '/food').on("value", (data) => {
                     if (this.newWeekStartDate) {
-                        this.runDatabaseHandlers(data.val(), this.newWeekStartDate);
+                        this.runDatabaseHandlers(void 0, data.val(), this.newWeekStartDate);
                     } else {
-                        this.runDatabaseHandlers(data.val());
+                        this.runDatabaseHandlers(void 0, data.val());
                     }
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
@@ -54,8 +54,8 @@ class MainController {
         this.handlers.databaseHandlers.push(handler);
     }
 
-    runDatabaseHandlers(response, date) {
-        this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
+    runDatabaseHandlers(id, response, date) {
+        if (!id) this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
     };
 
     /*createNewUserInDatabase(userData) {

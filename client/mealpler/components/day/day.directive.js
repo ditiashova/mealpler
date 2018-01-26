@@ -5,9 +5,7 @@ Mealpler.directive('dayManager', function (notify, paste, StorageService) {
         DayCtrl.pasteDay = (date) => {
             const userId = MainCtrl.uid;
             paste.pasteDay(date, userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('Menu has been pasted successfully.', 'add'))
                 .catch((e) => console.log(e.message));
         };
@@ -15,11 +13,9 @@ Mealpler.directive('dayManager', function (notify, paste, StorageService) {
         DayCtrl.deleteDay = (date) => {
             const userId = MainCtrl.uid;
             StorageService.removeSingleDateMealsList(date, userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('Day has been cleaned.', 'delete'))
-                .catch(console.log);
+                .catch((e) => console.log(e.message));
         }
     };
 

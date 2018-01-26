@@ -5,9 +5,7 @@ Mealpler.directive('mealManager', function (notify, MealService, paste, DayServi
         MealCtrl.pasteMeal = (mealNo, date) => {
             const userId = MainCtrl.uid;
             paste.pasteMeal(mealNo, date, userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('Food has been pasted successfully.', 'add'))
                 .catch((e) => console.log(e.message));
         };
@@ -15,9 +13,7 @@ Mealpler.directive('mealManager', function (notify, MealService, paste, DayServi
         MealCtrl.deleteMeal = (mealNo, date) => {
             const userId = MainCtrl.uid;
             DayService.deleteMealFromDay(mealNo, date.format("YYYY-M-D"), userId)
-                .then(() => {
-                    if (!userId) return MainCtrl.runDatabaseHandlers();
-                })
+                .then(() => MainCtrl.runDatabaseHandlers(userId))
                 .then(() => notify.show('Meal has been deleted.', 'delete'))
                 .catch((e) => console.log(e.message));
         };
