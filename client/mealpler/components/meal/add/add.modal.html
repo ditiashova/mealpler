@@ -6,11 +6,5 @@
         </div>
         <button type="button" class="close" ng-click="addMeal.cancel()"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
-    <div class="modal-body" ng-show="addMeal.addProduct">
-        <new-components init-item="addMeal.newProducts"></new-components>
-    </div>
-
-    <div class="modal-body" ng-show="!addMeal.addProduct">
-        <new-components init-item="addMeal.newRecipe"></new-components>
-    </div>
+    <new-components init-item="addMeal.addProduct ? addMeal.newProducts : addMeal.newRecipe"></new-components>
 </div>
