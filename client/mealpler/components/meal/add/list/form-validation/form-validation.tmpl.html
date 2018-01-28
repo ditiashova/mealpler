@@ -1,6 +1,6 @@
-<span ng-show="$ctrl.form.$submitted && $ctrl.currFormField.$error.required">
+<span ng-show="$ctrl.form.$submitted && $ctrl.form[$ctrl.input].$error.required">
     You cannot add empty field.
 </span>
-<span ng-show="$ctrl.form.$submitted && $ctrl.currFormField.$error.minlength && !$ctrl.currFormField.$error.required">
+<span ng-show="$ctrl.form.$submitted && $ctrl.form[$ctrl.input].$error.minlength && !$ctrl.form[$ctrl.input].$error.required">
     Food name cannot be less than 3 characters.
 </span>
