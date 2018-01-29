@@ -1,8 +1,24 @@
 class MealController {
-    constructor ($scope, StorageService, openModal, $document, copy, DayService) {
-        Object.assign(this, {$scope, StorageService, openModal, $document, copy, DayService});
+    constructor ($scope, openModal, $document, copy, paste, DayService) {
+        Object.assign(this, {$scope, openModal, $document, copy, paste, DayService});
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
     }
+
+    pasteMeal(mealNo, date) {
+        const userId = this.MainCtrl.uid;
+        this.paste.pasteMeal(mealNo, date, userId)
+            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+            .then(() => this.notify.show('Food has been pasted successfully.', 'add'))
+            .catch((e) => console.log(e.message));
+    };
+
+    deleteMeal(mealNo, date) {
+        const userId = this.MainCtrl.uid;
+        this.DayService.deleteMealFromDay(mealNo, date.format("YYYY-M-D"), userId)
+            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+            .then(() => this.notify.show('Meal has been deleted.', 'delete'))
+            .catch((e) => console.log(e.message));
+    };
 
     copyMeal(content) {
         this.copy.copyFood('meal', content);
