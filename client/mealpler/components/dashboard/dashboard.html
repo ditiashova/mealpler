@@ -1,11 +1,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="sidebar" ng-class="{'open': dashboardCtrl.isShopListOpened}">
-            <shop-list></shop-list>
+            <shop-list ></shop-list>
         </div>
 
         <div class="col pr-0 pl-0">
-            <week-manager></week-manager>
+            <week-manager start-date="dashboardCtrl.startDate"
+                          week-duration="dashboardCtrl.weekDuration"
+                          on-switch-week="dashboardCtrl.setStartDate"></week-manager>
         </div>
     </div>
 </div>

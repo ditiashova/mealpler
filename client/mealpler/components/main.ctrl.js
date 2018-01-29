@@ -24,7 +24,7 @@ class MainController {
                     if (!snapshot.val()) {
                         this.UserService.createNewUserInDatabase(firebaseUserData);
                     } else {
-                        //if user is logged and it's not a new user, it's better to keep LS clean
+                        //if user is logged and it's not a new user, it's better to keep localStorages clean
                         this.UserService.cleanLocalData();
                     }
 
@@ -32,11 +32,12 @@ class MainController {
                     console.log("The read failed: " + errorObject.code);
                 });
                 firebase.database().ref('users/' + firebaseUserData.uid + '/food').on("value", (data) => {
-                    if (this.newWeekStartDate) {
+                    /*if (this.newWeekStartDate) {
                         this.runDatabaseHandlers(void 0, data.val(), this.newWeekStartDate);
                     } else {
                         this.runDatabaseHandlers(void 0, data.val());
-                    }
+                    }*/
+                    this.runDatabaseHandlers(void 0, data.val());
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
                 });
@@ -55,6 +56,7 @@ class MainController {
     }
 
     runDatabaseHandlers(id, response, date) {
+        //if id is undefined, handlers will be run without any data = localStorage is used
         if (!id) this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
     };
 

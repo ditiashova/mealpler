@@ -1,5 +1,6 @@
 class DashboardController {
-    constructor () {
+    constructor ($scope) {
+        Object.assign(this, {$scope});
         /*this.defaultWeekDuration = 7;
         this.defaultWeekStartDate = moment().startOf('week');*/
 
@@ -8,6 +9,22 @@ class DashboardController {
             weekMealsLoadingDataHandlers: [],
             datePickerHandlers: []
         };
+
+        this.startDate = moment();
+        this.weekDuration = 7;
+        this.rangeDuration = 7;
+    }
+
+    setStartDate(trend, date) {
+        if (trend) {
+            if (trend === 'past') {
+                this.startDate = moment(this.startDate).subtract(1, 'day').startOf('week');
+            } else if (trend === 'future') {
+                this.startDate = moment(this.startDate).add(1, 'week').startOf('week');
+            }
+        } else if (date) {
+
+        }
     }
 
     /**
