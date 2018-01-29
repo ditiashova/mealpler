@@ -1,12 +1,12 @@
 <div class="modal-tabbed">
     <div class="modal-header">
         <div class="modal-tabs">
-            <h4 class="modal-title" ng-class="{'active': addMeal.addProduct}" ng-click="addMeal.toggleMealModal()">Add products</h4>
-            <h4 class="modal-title" ng-class="{'active': !addMeal.addProduct}" ng-click="addMeal.toggleMealModal()">Add dish</h4>
+            <h4 class="modal-title" ng-class="{'active': $ctrl.addProduct}" ng-click="$ctrl.toggleModal()">Add products</h4>
+            <h4 class="modal-title" ng-class="{'active': !$ctrl.addProduct}" ng-click="$ctrl.toggleModal()">Add dish</h4>
         </div>
-        <button type="button" class="close" ng-click="addMeal.cancel()"><i class="fa fa-times" aria-hidden="true"></i></button>
+        <button type="button" class="close" ng-click="$ctrl.dismissModal('cancel')"><i class="fa fa-times" aria-hidden="true"></i></button>
     </div>
-    <new-food food="addMeal.addProduct ? addMeal.newProducts : addMeal.newRecipe"
-              on-save="addMeal.saveNew" on-cancel="addMeal.cancel" on-create-new="addMeal.createNewItem">
+    <new-food food="$ctrl.addProduct ? $ctrl.newProducts : $ctrl.newRecipe"
+              on-save="$ctrl.save" on-create-new="$ctrl.createNewItem" on-cancel="$ctrl.dismissModal">
     </new-food>
 </div>

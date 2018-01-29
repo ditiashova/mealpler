@@ -25,6 +25,6 @@
 
         <button type="submit" class="btn btn-secondary pull-right" ng-click="$ctrl.save(itemListForm, $ctrl.food);"
                 ng-disabled="!itemListForm.$valid && itemListForm.$submitted">Save</button>
-        <button type="button" class="btn btn-default  pull-right" ng-click="$ctrl.onCancel()">Close</button>
+        <button type="button" class="btn btn-default  pull-right" ng-click="$ctrl.onCancel('cancel')">Close</button>
     </form>
 </div>

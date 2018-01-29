@@ -15,7 +15,7 @@ class NewFoodCtrl  {
         if (newItems.components.length === 0) form.$valid = false;
 
         if (form.$valid) {
-            let type = newItems.type === DishType.RECIPE ? 'recipe' : 'list';
+            const type = newItems.type === DishType.RECIPE ? 'recipe' : 'list';
             this.onSave(type, newItems);
         }
     };

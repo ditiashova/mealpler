@@ -11,7 +11,7 @@ class MealController {
     openModalAddNewMeal(mealType, day) {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
 
-        this.mealNo = mealType;
+        this.mealNo = +mealType;
         this.date = day.date.format("YYYY-M-D");
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.modalInstance = $uibModalInstance;
