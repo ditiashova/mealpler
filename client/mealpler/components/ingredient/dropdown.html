@@ -1,3 +1,4 @@
-<div ng-repeat="ingredient in dish.components" class="ingredient dropdown-item">
-    {{ ingredient.name }} <i class="fa fa-times" ng-click="dishCtrl.deleteIngredient(ingredient, dish.name, mealNo, day)"></i>
+<div ng-repeat="ingredient in $ctrl.dish.components" class="ingredient dropdown-item">
+    <i class="fa fa-times" ng-click="$ctrl.deleteIngredient(ingredient, $ctrl.dish.name, $ctrl.mealNo, $ctrl.day)"></i>
+    {{ ingredient.name }}
 </div>
