@@ -1,19 +1,19 @@
 <div class="text-center day-manager">
-    {{ day.date | dayName }}&nbsp;
-    <i class="fa fa-arrow-down" ng-click="dayCtrl.pasteDay(day.date)" title="Paste menu"></i> <br/>
-    <small>{{ day.date | fullDate }}</small>
+    {{ $ctrl.day.date | dayName }}&nbsp;
+    <i class="fa fa-arrow-down" ng-click="$ctrl.pasteDay($ctrl.day.date)" title="Paste menu"></i> <br/>
+    <small>{{ $ctrl.day.date | fullDate }}</small>
 </div>
 
-<div ng-repeat="meal in day.meals  | orderBy : 'type'" class="meal" ng-class="'meal-'+meal.type">
-    <meal-manager food="meal" day="day"></meal-manager>
+<div ng-repeat="meal in $ctrl.day.meals  | orderBy : 'type'" class="meal" ng-class="'meal-'+meal.type">
+    <meal-manager food="meal" day="$ctrl.day"></meal-manager>
 </div>
 
 <div class="day-control">
     <span class="day-manager">
-        <i class="fa fa-clone" ng-click="dayCtrl.copyDay(day.meals)" title="Copy menu"></i>
+        <i class="fa fa-clone" ng-click="$ctrl.copyDay($ctrl.day.meals)" title="Copy menu"></i>
     </span>&nbsp;|&nbsp;
     <span class="day-manager">
-        <i class="fa fa-trash-o" ng-click="dayCtrl.deleteDay(day.date| fullDate)"
+        <i class="fa fa-trash-o" ng-click="$ctrl.deleteDay($ctrl.day.date| fullDate)"
            title="Clean meals for the whole day"></i>
     </span>
 </div>
