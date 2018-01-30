@@ -6,7 +6,8 @@
     <div class="panel-subheading">
         <label>Choose a range of dates to display list for:
             <input class="date-picker btn btn-default p-0 ml-0" data-refresh-fridge="true" data-name="dateRangePicker"
-                   id="dateRangePicker" title="dateRangePicker" readonly>
+                   id="dateRangePicker" title="dateRangePicker" readonly data-on-refresh-fridge="$ctrl.init" data-start-date="$ctrl.startDate"
+                   data-on-change-range="$ctrl.onChangeRange" data-on-change-start-date="$ctrl.onChangeStartDate">
         </label>
     </div>
     <div class="panel-body">

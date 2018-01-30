@@ -15,6 +15,10 @@ class DashboardController {
         this.rangeDuration = 7;
     }
 
+    setRangeDuration(d) {
+        this.rangeDuration = d;
+    }
+
     setStartDate(trend, date) {
         if (trend) {
             if (trend === 'past') {

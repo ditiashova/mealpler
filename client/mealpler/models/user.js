@@ -3,7 +3,7 @@ class User {
     /**
      *
      */
-    constructor(id, email, name, food = []) {
-        Object.assign(this, {id, email, name, food})
+    constructor(id = void 0, email, name = 'Friend', photo = '', food = []) {
+        Object.assign(this, {id, email, name, photo, food})
     }
 }

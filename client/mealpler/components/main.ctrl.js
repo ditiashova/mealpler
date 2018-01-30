@@ -1,6 +1,6 @@
 class MainController {
-    constructor ($scope, Auth, UserService) {
-        Object.assign(this, {$scope, Auth, UserService});
+    constructor ($scope, UserService) {
+        Object.assign(this, {$scope, UserService});
         this.title = Mealpler.titles;
 
         this.handlers = {
@@ -11,11 +11,14 @@ class MainController {
 
         this.isShopListOpened = false;
 
-        this.userName = null;
-        this.userPhoto = null;
-        this.userIsLogged = null;
+        this.setUserProfileAndLoginStatus();
 
-        this.Auth.$onAuthStateChanged((firebaseUserData) => {
+
+        //this.userName = null;
+        //this.userPhoto = null;
+        //this.userIsLogged = null;
+
+        /*this.Auth.$onAuthStateChanged((firebaseUserData) => {
             this.userIsLogged = !!firebaseUserData;
             this.uid = this.userIsLogged ? firebaseUserData.uid : !!firebaseUserData;
             if (this.userIsLogged) {
@@ -32,11 +35,11 @@ class MainController {
                     console.log("The read failed: " + errorObject.code);
                 });
                 firebase.database().ref('users/' + firebaseUserData.uid + '/food').on("value", (data) => {
-                    /*if (this.newWeekStartDate) {
+                    /!*if (this.newWeekStartDate) {
                         this.runDatabaseHandlers(void 0, data.val(), this.newWeekStartDate);
                     } else {
                         this.runDatabaseHandlers(void 0, data.val());
-                    }*/
+                    }*!/
                     this.runDatabaseHandlers(void 0, data.val());
                 }, function (errorObject) {
                     console.log("The read failed: " + errorObject.code);
@@ -44,20 +47,23 @@ class MainController {
             } else {
                 this.runDatabaseHandlers();
             }
-        });
+        });*/
     }
 
-    init() {
-
+    setUserProfileAndLoginStatus() {
+        this.userIsLogged = this.UserService.getIsLogged();
+        this.user = this.UserService.getUserProfile();
     }
 
     addDatabaseHandlers(handler) {
         this.handlers.databaseHandlers.push(handler);
     }
 
-    runDatabaseHandlers(id, response, date) {
+    runDatabaseHandlers(response, date) {
         //if id is undefined, handlers will be run without any data = localStorage is used
-        if (!id) this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
+        //!undefined -> true
+        //if (!id)
+            this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
     };
 
     /*createNewUserInDatabase(userData) {
@@ -70,23 +76,21 @@ class MainController {
         this.usersRef.child(userData.uid).set(newUser);
     }*/
 
-    setUserData(data) {
+    /*setUserData(data) {
         this.userName = data.displayName || 'Friend';
         this.userPhoto = data.photoURL || '';
-    }
+    }*/
 
     signOut() {
-        this.UserService.removeFirebaseEvent(this.uid);
-
-            this.Auth.$signOut().then(() => {
-                this.userName = null;
-                this.userPhoto = null;
-                this.uid = false;
-
-                this.runDatabaseHandlers();
-            }).catch(function(error) {
-                console.log(error);
-            });
+        this.Auth.signOut().then(() => {
+            this.setUserProfileAndLoginStatus();
+        //this.userName = null;
+        //this.userPhoto = null;
+        //this.uid = false;
+            this.runDatabaseHandlers();
+        }).catch(function(error) {
+            console.log(error);
+        });
 
     }
 

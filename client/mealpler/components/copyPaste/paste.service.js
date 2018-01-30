@@ -1,6 +1,6 @@
 class PasteService {
-    constructor (DayService, StorageService, notify) {
-        Object.assign(this, {DayService, StorageService, notify});
+    constructor (DayService, StorageService, notify, Local) {
+        Object.assign(this, {DayService, StorageService, notify, Local});
     }
 
     /**
@@ -11,7 +11,7 @@ class PasteService {
      * @return {Promise<void>}
      */
     pasteMeal(mealNo, date, userId) {
-        const stored = this.StorageService.getLocalStorageData('meal');
+        const stored = this.Local.getLocalStorageData('meal');
         if (stored === null) {
             return this.showPasteError();
         } else {
@@ -26,7 +26,7 @@ class PasteService {
      * @return {Promise<void>}
      */
     pasteDay(date, userId) {
-        const stored = this.StorageService.getLocalStorageData("day");
+        const stored = this.Local.getLocalStorageData("day");
         if (stored === null) {
             return this.showPasteError();
         } else {

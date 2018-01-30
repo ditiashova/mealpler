@@ -7,10 +7,10 @@ class WeekService {
      * Used for modifying data when we have an id and can get user's data by id
      * @return {Promise<Meal[]>}
      */
-    findDateRangeMealList(start, q, userId) {
+    findDateRangeMealList(start, q) {
         const rangeList = this.getWeekList(start, q);
 
-        return this.StorageService.getAllMealsForUser(userId).then(response =>
+        return this.StorageService.getAllMealsForUser().then(response =>
             this._resolveExistingMealData(response, rangeList)
         );
     }

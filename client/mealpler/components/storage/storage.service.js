@@ -1,72 +1,54 @@
 class StorageService {
-    constructor () {}
+    constructor (UserService, Firebase, Local) {
+        Object.assign(this, {UserService, Firebase, Local});
+    }
 
     /** @return Promise<void> */
-    getAllMealsForUser(id) {
-        if (id) {
-            return firebase.database().ref(`users/${id}/food`).once('value').then(data => data.val());
+    getAllMealsForUser() {
+        if (this.UserService.getIsLogged()) {
+            const id = this.UserService.getUserId();
+            return this.Firebase.getAllMeals(id);
         } else {
-            return Promise.resolve(this.getLocalStorageData("Mealpler"));
+            return this.Local.getLocalStorageData("Mealpler");
         }
     }
 
     /** @return Promise<void> */
-    getSingleDateMealsList(date, id) {
-        if (id) {
-            return firebase.database().ref('users/' + id + '/food/' + date).once('value').then((data) => data.val())
+    getSingleDateMealsList(date) {
+        if (this.UserService.getIsLogged()) {
+            const id = this.UserService.getUserId();
+            return this.Firebase.getSingleDateMeals(date, id);
         } else {
-            const storedData = this.getLocalStorageData("Mealpler");
-            return Promise.resolve((storedData && storedData[date]) ? storedData[date] : null);
+            const storedData = this.Local.getLocalStorageData("Mealpler");
+            return (storedData && storedData[date]) ? storedData[date] : null;
         }
     }
 
     /** @return Promise<void> */
-    setSingleDateMealsList(date, data, id) {
-        if (id) {
-            return firebase.database().ref('users/' + id + '/food/' + date).set(data);
+    setSingleDateMealsList(date, data) {
+        if (this.UserService.getIsLogged()) {
+            const id = this.UserService.getUserId();
+            return this.Firebase.setSingleDateMeals(id, date, data);
         } else {
-            let storedData = this.getLocalStorageData("Mealpler");
+            let storedData = this.Local.getLocalStorageData("Mealpler");
 
             if (!storedData) storedData = {};
             storedData[date] = data;
 
-            return Promise.resolve(this.setDataToLocalStorage("Mealpler", storedData));
+            return this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
     }
 
-    removeSingleDateMealsList(date, id) {
-        if (id) {
-            return firebase.database().ref('users/' + id + '/food/' + date).remove();
+    removeSingleDateMealsList(date) {
+        if (this.UserService.getIsLogged()) {
+            const id = this.UserService.getUserId();
+            return this.Firebase.removeDate(id, date);
         } else {
-            const storedData = this.getLocalStorageData("Mealpler");
+            const storedData = this.Local.getLocalStorageData("Mealpler");
             delete storedData[date];
 
-            return Promise.resolve(this.setDataToLocalStorage("Mealpler", storedData))
+            return this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
-    }
-
-    setDataToLocalStorage(name, content) {
-        localStorage.setItem(name, angular.toJson(content));
-    };
-
-    /** @return [] || {Object} */
-    getLocalStorageData(name) {
-        let storedItem = [];
-        try {
-            storedItem = JSON.parse(localStorage.getItem(name));
-        } catch (error) {
-            console.log(error);
-        }
-        return storedItem/* != null ? storedItem : []*/;
-    };
-
-    /** @return Promise<void> */
-    setNewFirebaseUserData(data, id) {
-        return firebase.database().ref('users/' + id).set(data);
-    }
-
-    removeLocalStorageData(name) {
-        localStorage.removeItem(name);
     }
 }
 

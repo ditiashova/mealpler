@@ -1,25 +1,29 @@
 class UserService {
-    constructor(StorageService) {
-        Object.assign(this, {StorageService});
+    constructor(Auth) {
+        Object.assign(this, {Auth});
+        this._setIsLogged(this.Auth.getLoginStatus());
+        this._setUserProfile(this.Auth.getUserProfile());
     }
 
-    createNewUserInDatabase(userData) {
-        const newUser = new User(userData.uid, userData.email, userData.displayName);
-        const localStoredData = this.StorageService.getLocalStorageData("Mealpler");
-
-        if (localStoredData) newUser.food = angular.copy(localStoredData);
-
-        this.StorageService.setNewFirebaseUserData(newUser, userData.uid)
-            .then(() => this.cleanLocalData())
-            .catch(console.log);
+    _setIsLogged(status) {
+        this.isLogged = status;
     }
 
-    cleanLocalData() {
-        return Promise.resolve(this.StorageService.removeLocalStorageData("Mealpler"));
+    getIsLogged() {
+        return this.isLogged;
     }
 
-    removeFirebaseEvent(userId) {
-        return firebase.database().ref(`users/${userId}/food`).off("value");
+    _setUserProfile(profile) {
+        this.userProfile = profile;
     }
+
+    getUserProfile() {
+        return this.userProfile;
+    }
+
+    getUserId() {
+        return this.userProfile.id;
+    }
+
 }
 Mealpler.service('UserService', UserService);

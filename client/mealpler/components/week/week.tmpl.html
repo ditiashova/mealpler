@@ -4,8 +4,8 @@
             Week Planner
             <span class="date-picker-box pull-right">
                 <label>Choose a week:
-                    <input data-single="true" data-refresh-fridge="true" data-refresh-week="true" data-name="datePicker"
-                           id="datePicker" class="date-picker btn p-0" readonly>
+                    <input data-single="true" data-refresh-fridge="true" data-refresh-week="true" data-name="datePicker" data-on-refresh-week="$ctrl.init"
+                           id="datePicker" class="date-picker btn p-0" data-start-date="$ctrl.startDate" readonly>
                 </label>
             </span>
         </div>

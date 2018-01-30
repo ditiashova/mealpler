@@ -43,19 +43,4 @@ Mealpler.config(() => {
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
-
-
-    /*const initApp = function() {
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in.
-            } else {
-                //
-            }
-        }, (error) => console.log(error));
-    };
-
-    window.addEventListener('load', function() {
-        initApp()
-    });*/
 });
