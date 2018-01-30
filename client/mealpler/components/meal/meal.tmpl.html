@@ -1,15 +1,15 @@
-<div ng-repeat="dish in $ctrl.food.dishes" class="item" ng-class="{'dropdown' : dish.components.length > 0}">
-    <dish-block dish="dish" meal-no="$ctrl.food.type" day="$ctrl.day" class="meal-portion"></dish-block>
+<div ng-repeat="dish in $ctrl.meal.dishes" class="item" ng-class="{'dropdown' : dish.components.length > 0}">
+    <dish-block dish="dish" meal-no="$ctrl.meal.type" day="$ctrl.day" class="meal-portion"></dish-block>
 </div>
-<div class="text-center plus-hidden" ng-class="$ctrl.food.dishes.length > 0 ? 'plus-perm' : 'plus-temp'">
-    <i class="fa fa-plus" ng-click="$ctrl.openModalAddNewMeal($ctrl.food.type, $ctrl.day)" title="Add meal"></i>
-    <span ng-hide="$ctrl.food.dishes.length > 0">&nbsp;|&nbsp;
-        <i class="fa fa-arrow-down" ng-click="$ctrl.pasteMeal($ctrl.food.type, $ctrl.day.date)" style="font-size: 12px;" title="Paste meal"></i>
+<div class="text-center plus-hidden" ng-class="$ctrl.meal.dishes.length > 0 ? 'plus-perm' : 'plus-temp'">
+    <i class="fa fa-plus" ng-click="$ctrl.openModalAddNewMeal($ctrl.meal.type, $ctrl.day)" title="Add meal"></i>
+    <span ng-hide="$ctrl.meal.dishes.length > 0">&nbsp;|&nbsp;
+        <i class="fa fa-arrow-down" ng-click="$ctrl.pasteMeal($ctrl.meal.type, $ctrl.day.date)" style="font-size: 12px;" title="Paste meal"></i>
     </span>
 </div>
-<div class="text-right ingestion-manager" ng-show="$ctrl.food.dishes.length > 0">
-    <i class="fa fa-arrow-down" ng-click="$ctrl.pasteMeal($ctrl.food.type, $ctrl.day.date)" style="font-size: 12px;" title="Paste meal"></i>
-    <i class="fa fa-clone" ng-click="$ctrl.copyMeal($ctrl.food)" style="font-size: 12px;" title="Copy meal"></i>
-    <i class="fa fa-trash-o" ng-click="$ctrl.deleteMeal($ctrl.food.type, $ctrl.day.date)" title="Delete meal"></i>
+<div class="text-right ingestion-manager" ng-show="$ctrl.meal.dishes.length > 0">
+    <i class="fa fa-arrow-down" ng-click="$ctrl.pasteMeal($ctrl.meal.type, $ctrl.day.date)" style="font-size: 12px;" title="Paste meal"></i>
+    <i class="fa fa-clone" ng-click="$ctrl.copyMeal($ctrl.meal)" style="font-size: 12px;" title="Copy meal"></i>
+    <i class="fa fa-trash-o" ng-click="$ctrl.deleteMeal($ctrl.meal.type, $ctrl.day.date)" title="Delete meal"></i>
 </div>
 <div class="modal-parent"></div>

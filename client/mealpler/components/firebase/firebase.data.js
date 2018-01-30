@@ -1,9 +1,7 @@
-class FirebaseService {
+class FirebaseData {
     constructor (Local) {
         Object.assign(this, {Local});
     }
-
-
 
     getUserProfile(id) {
         return firebase.database().ref(`users/${id}`).once("value", (snapshot) => snapshot, (errorObject) => {
@@ -33,15 +31,15 @@ class FirebaseService {
         })
     }
 
-    createNewUserInDatabase(user) {
+    createNewUserInDatabase(user, localData) {
         const newUser = new User(user.uid, user.email, user.displayName, user.photoURL);
-        const localStoredData = this.Local.getLocalStorageData("Mealpler");
+        //const localStoredData = this.Local.getLocalStorageData("Mealpler");
 
-        if (localStoredData) newUser.food = angular.copy(localStoredData);
+        if (localData) newUser.food = angular.copy(localData);
 
-        this._setNewFirebaseUserData(newUser, user.uid)
-            .then(() => this.Local.removeLocalStorageData("Mealpler"))
-            .catch(console.log);
+        return this._setNewFirebaseUserData(newUser, user.uid);
+            //.then(() => this.Local.removeLocalStorageData("Mealpler"))
+            //.catch(console.log);
     }
 
     /** @return Promise<void> */
@@ -56,4 +54,4 @@ class FirebaseService {
 
 }
 
-Mealpler.service('Firebase', FirebaseService);
+Mealpler.service('Firebase', FirebaseData);

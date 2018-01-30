@@ -27,7 +27,7 @@ class DashboardController {
                 this.startDate = moment(this.startDate).add(1, 'week').startOf('week');
             }
         } else if (date) {
-
+            this.startDate = moment(this.startDate);
         }
     }
 
@@ -59,22 +59,20 @@ class DashboardController {
      *
      * @param {Moment} date
      * @param {number} duration
-     * @param {string} id
      */
 
-    runShopListHandlers(date, duration, id) {
-        this.handlers.shopListLoadingDataHandlers.forEach((handler) => handler(date, duration, id));
+    runShopListHandlers(date, duration) {
+        this.handlers.shopListLoadingDataHandlers.forEach((handler) => handler(date, duration));
     };
 
     /**
      *
      * @param {null || {}} data
      * @param {Moment} startDate
-     * @param {string} id
      */
-    runWeekMealsHandlers(data, startDate, id) {
+    runWeekMealsHandlers(data, startDate) {
         /*in WeekCtrl.init we expect data, date and id. if we don't have any data, we expect null to be passed*/
-        this.handlers.weekMealsLoadingDataHandlers.forEach((handler) => handler(data, startDate, id));
+        this.handlers.weekMealsLoadingDataHandlers.forEach((handler) => handler(data, startDate));
     };
 }
 

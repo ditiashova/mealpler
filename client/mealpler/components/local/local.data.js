@@ -1,4 +1,4 @@
-class LocalStorageService {
+class LocalStorageData {
     constructor () {}
 
     setDataToLocalStorage(name, content) {
@@ -22,4 +22,4 @@ class LocalStorageService {
 
 }
 
-Mealpler.service('Local', LocalStorageService);
+Mealpler.service('Local', LocalStorageData);

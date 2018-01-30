@@ -50,6 +50,10 @@ class MainController {
         });*/
     }
 
+    $onInit() {
+        
+    }
+
     setUserProfileAndLoginStatus() {
         this.userIsLogged = this.UserService.getIsLogged();
         this.user = this.UserService.getUserProfile();

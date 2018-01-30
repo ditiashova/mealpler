@@ -1,18 +1,18 @@
 class AuthService {
-    constructor ($firebaseAuth, Firebase, Local) {
-        Object.assign(this, {$firebaseAuth, Firebase, Local});
+    constructor (FirebaseAuth, Firebase, Local) {
+        Object.assign(this, {FirebaseAuth, Firebase, Local});
         window.addEventListener('load', () => this.init());
     }
 
     init() {
-        this.$firebaseAuth.$onAuthStateChanged((user) => {
+        this.FirebaseAuth.$onAuthStateChanged((user) => {
             this._setLoginStatus(!!user);
             if (user) {
                 // User is signed in.
                 this.Firebase.getUserProfile(user.uid)
                     .then(data => {
                         if (!data.val()) {
-                            this.Firebase.createNewUserInDatabase(user);
+                            this.registerNewUser(user);
                         } else {
                             //if user is logged and it's not a new user, it's better to keep localStorages clean
                             this.Local.removeLocalStorageData('Mealpler');
@@ -24,6 +24,13 @@ class AuthService {
                 //remove listeners from firebase
             }
         });
+    }
+
+    registerNewUser(user) {
+        const localData = this.Local.getLocalStorageData("Mealpler");
+        this.Firebase.createNewUserInDatabase(user, localData)
+            .then(() => this.Local.removeLocalStorageData("Mealpler"))
+            .catch(console.log);
     }
 
     getUserId() {
@@ -50,7 +57,7 @@ class AuthService {
 
     signOut() {
         this.Firebase.removeFirebaseEvents(this.User.id);
-        return this.$firebaseAuth.$signOut();
+        return this.FirebaseAuth.$signOut();
     }
 }
 
