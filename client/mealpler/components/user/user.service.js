@@ -1,8 +1,14 @@
 class UserService {
     constructor(Auth) {
         Object.assign(this, {Auth});
+        this.handlers = [];
+        this.Auth.addHandler(() => this.updateUser());
+    }
+
+    updateUser() {
         this._setIsLogged(this.Auth.getLoginStatus());
         this._setUserProfile(this.Auth.getUserProfile());
+        this._runHandlers();
     }
 
     _setIsLogged(status) {
@@ -24,6 +30,14 @@ class UserService {
     getUserId() {
         return this.userProfile.id;
     }
+
+    addHandler(handler) {
+        this.handlers.push(handler);
+    };
+
+    _runHandlers() {
+        return this.handlers.forEach((handler) => handler());
+    };
 
 }
 Mealpler.service('UserService', UserService);

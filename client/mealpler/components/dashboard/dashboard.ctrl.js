@@ -12,9 +12,8 @@ class DashboardController {
         this.weekDuration = 7;
         this.currentWeek = [];
 
-        this.StorageService.addHandler((date) => {
-            this.refresh(date);
-        });
+        this.StorageService.addHandler((date) => this.refresh(date)
+        );
 
         this.refresh = this._refreshDashboard.bind(this);
     }
@@ -22,15 +21,13 @@ class DashboardController {
     $onInit() {
         this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
-        this.MainCtrl.addIsShopListOpenedHandler((state) =>
-            this.setIsShopListOpened(state)
-        );
+        this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
     }
 
     _refreshDashboard(date) {
         this._setWeekStartAndWeekLastDates(date);
-        this._setCurrentWeek(date);
         this._runDatePickerHandlers(date);
+        return this._setCurrentWeek(date);
     }
 
     _setWeekStartAndWeekLastDates(date = this.firstDate) {

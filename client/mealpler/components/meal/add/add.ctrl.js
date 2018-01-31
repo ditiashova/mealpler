@@ -6,13 +6,14 @@ class AddMealController  {
         this.newRecipe = new Dish(2);
         [this.newProducts, this.newRecipe].forEach(a => this.createNewItem(a));
         this.save = this.saveNew.bind(this);
+        this.dismissModal = this.dismiss.bind(this);
     }
 
     toggleModal() {
         this.addProduct = !this.addProduct;
     };
 
-    dismissModal(reason) {
+    dismiss(reason) {
         this.modalInst.dismiss(reason);
     };
 

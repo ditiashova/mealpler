@@ -10,7 +10,7 @@ class StorageService {
             const id = this.UserService.getUserId();
             return this.Firebase.getAllMeals(id);
         } else {
-            return this.Local.getLocalStorageData("Mealpler");
+            return Promise.resolve(this.Local.getLocalStorageData("Mealpler"));
         }
     }
 
@@ -20,7 +20,7 @@ class StorageService {
             const id = this.UserService.getUserId();
             return this.Firebase.getSingleDateMeals(date, id);
         } else {
-            return this.Local.getSingleDateMeals("Mealpler", date);
+            return Promise.resolve(this.Local.getSingleDateMeals("Mealpler", date));
         }
     }
 
@@ -28,31 +28,31 @@ class StorageService {
     setSingleDateMealsList(date, data) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.setSingleDateMeals(id, date, data);
+            this.Firebase.setSingleDateMeals(id, date, data);
         } else {
             let storedData = this.Local.getLocalStorageData("Mealpler");
 
             if (!storedData) storedData = {};
             storedData[date] = data;
 
-            return this.Local.setDataToLocalStorage("Mealpler", storedData);
+            this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
 
-        this.runHandlers(date);
+        return this.runHandlers();
 
     }
 
     removeSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.removeDate(id, date);
+            this.Firebase.removeDate(id, date);
         } else {
             const storedData = this.Local.getLocalStorageData("Mealpler");
             delete storedData[date];
 
-            return this.Local.setDataToLocalStorage("Mealpler", storedData);
+            this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
-        this.runHandlers(date);
+        return this.runHandlers(date);
     }
 
     addHandler(handler) {
@@ -60,7 +60,7 @@ class StorageService {
     };
 
     runHandlers(startDate, endDate) {
-        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, endDate));
+        return this.handlers.forEach((handler) => handler(startDate, endDate));
     };
 }
 

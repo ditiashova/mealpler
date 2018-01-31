@@ -5,7 +5,7 @@ class LocalStorageData {
         return Promise.resolve(localStorage.setItem(name, angular.toJson(content)));
     };
 
-    /** @return Promise<void> */
+    /** @return {Object} */
     getLocalStorageData(name) {
         let storedItem = [];
         try {
@@ -13,7 +13,7 @@ class LocalStorageData {
         } catch (error) {
             console.log(error);
         }
-        return Promise.resolve(storedItem);
+        return storedItem;
     };
 
     removeLocalStorageData(name) {
@@ -21,8 +21,8 @@ class LocalStorageData {
     }
 
     getSingleDateMeals(name, date) {
-        const storedData = this.Local.getLocalStorageData(name);
-        return Promise.resolve((storedData && storedData[date]) ? storedData[date] : null);
+        const storedData = this.getLocalStorageData(name);
+        return (storedData && storedData[date]) ? storedData[date] : null;
     }
 
 }
