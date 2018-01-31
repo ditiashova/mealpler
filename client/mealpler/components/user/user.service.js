@@ -1,14 +1,14 @@
 class UserService {
-    constructor($rootScope, Auth) {
-        Object.assign(this, {$rootScope, Auth});
+    constructor($rootScope, AuthService) {
+        Object.assign(this, {$rootScope, AuthService});
         //this.handlers = [];
-        //this.Auth.addHandler(() => this.updateUser());
+        //this.AuthService.addHandler(() => this.updateUser());
         this.$rootScope.$on('authUpdated', () => this.updateUser());
     }
 
     updateUser() {
-        this._setIsLogged(this.Auth.getLoginStatus());
-        this._setUserProfile(this.Auth.getUserProfile());
+        this._setIsLogged(this.AuthService.getLoginStatus());
+        this._setUserProfile(this.AuthService.getUserProfile());
         this.$rootScope.$broadcast('userUpdated');
         //this._runHandlers();
     }

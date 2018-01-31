@@ -1,6 +1,6 @@
 class MainController {
-    constructor ($scope, Auth, UserService) {
-        Object.assign(this, {$scope, Auth, UserService});
+    constructor ($scope, AuthService, UserService) {
+        Object.assign(this, {$scope, AuthService, UserService});
         this.title = Mealpler.titles;
 
         this.handlers = {
@@ -54,7 +54,7 @@ class MainController {
     }*/
 
     signOut() {
-        this.Auth.signOut().then(() => {
+        this.AuthService.signOut().then(() => {
             this.setUserProfileAndLoginStatus();
         //this.userName = null;
         //this.userPhoto = null;

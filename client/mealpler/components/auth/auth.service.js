@@ -69,4 +69,4 @@ class AuthService {
     }
 }
 
-Mealpler.service('Auth', AuthService);
+Mealpler.service('AuthService', AuthService);
