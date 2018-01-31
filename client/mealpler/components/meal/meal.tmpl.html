@@ -1,5 +1,5 @@
 <div ng-repeat="dish in $ctrl.meal.dishes" class="item" ng-class="{'dropdown' : dish.components.length > 0}">
-    <dish-block dish="dish" meal-no="$ctrl.meal.type" day="$ctrl.day" class="meal-portion"></dish-block>
+    <dish-block dish="dish" meal-type="$ctrl.meal.type" day="$ctrl.day" class="meal-portion"></dish-block>
 </div>
 <div class="text-center plus-hidden" ng-class="$ctrl.meal.dishes.length > 0 ? 'plus-perm' : 'plus-temp'">
     <i class="fa fa-plus" ng-click="$ctrl.openModalAddNewMeal($ctrl.meal.type, $ctrl.day)" title="Add meal"></i>

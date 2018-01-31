@@ -3,12 +3,12 @@ class DishService {
         Object.assign(this, {DayService, StorageService});
     }
 
-    deleteDish(item, mealNo, date) {
+    deleteDish(item, mealType, date) {
         const fullDateName = moment(date).format("YYYY-M-D");
 
         return this.StorageService.getSingleDateMealsList(fullDateName).then((response) => {
             const currentMeals = response.meals
-                .find(b => b.type === mealNo).dishes;
+                .find(b => b.type === mealType).dishes;
             const i = _.findIndex(currentMeals, b => b.name === item.name);
             currentMeals.splice(i, 1);
 

@@ -7,17 +7,17 @@ class DishCtrl {
         this.CopyService.copyFood('meal', content);
     }
 
-    deleteDish(item, mealNo, day) {
+    deleteDish(item, mealType, day) {
         //const userId = this.MainCtrl.uid;
-        this.DishService.deleteDish(item, mealNo, day.date)
+        this.DishService.deleteDish(item, mealType, day.date)
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('Food has been deleted.', 'delete'))
             .catch((e) => console.log('Dish deleting failed due to: '+ e.message));
     }
 
-    deleteIngredient(ingredient, itemName, mealNo, day) {
+    deleteIngredient(ingredient, itemName, mealType, day) {
         //const userId = this.MainCtrl.uid;
-        this.IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date)
+        this.IngredientService.deleteIngredient(ingredient, itemName, mealType, day.date)
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .catch((e) => console.log('Ingredient deleting failed due to: '+ e.message));
     };
