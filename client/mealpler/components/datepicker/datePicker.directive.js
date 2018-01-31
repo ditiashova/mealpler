@@ -33,7 +33,7 @@ Mealpler.directive('datePicker', function () {
     };
 
     return {
-        restrict: 'C',
+        restrict: 'C', //E
         transclude: true,
         scope: {
             single: '=',

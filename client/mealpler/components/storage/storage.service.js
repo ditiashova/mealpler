@@ -45,14 +45,14 @@ class StorageService {
     removeSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            this.Firebase.removeDate(id, date).then(() => {
+            return this.Firebase.removeDate(id, date).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         } else {
             const storedData = this.Local.getLocalStorageData("Mealpler");
             delete storedData[date];
 
-            this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
+            return this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         }

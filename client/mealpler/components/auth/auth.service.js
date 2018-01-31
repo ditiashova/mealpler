@@ -64,7 +64,7 @@ class AuthService {
     }
 
     signOut() {
-        this.Firebase.removeFirebaseEvents(this.User.id);
+        //this.Firebase.removeFirebaseEvents(this.User.id);
         return this.FirebaseAuth.$signOut();
     }
 }

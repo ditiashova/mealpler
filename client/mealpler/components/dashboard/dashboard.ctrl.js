@@ -1,3 +1,5 @@
+//const WEEK_DURATION
+
 class DashboardController {
     constructor ($rootScope, $scope, WeekService, StorageService, $timeout) {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
@@ -9,13 +11,18 @@ class DashboardController {
         this.weekDuration = 7;
         this.currentWeek = [];
 
-        this.refresh = this._refreshDashboard.bind(this);
+        //this.refresh = this._refreshDashboard.bind(this);
     }
 
     init() {
         this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
         this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
+    }
+
+    //todo does it work?
+    refresh() {
+        return this._refreshDashboard.bind(this);
     }
 
     _refreshDashboard(date) {
@@ -40,7 +47,7 @@ class DashboardController {
     switchWeek(trend) {
         this._setFirstDay(trend);
         this._refreshDashboard();
-        this.$scope.$broadcast('newFirstDate', this.firstDate);
+        //this.$scope.$broadcast('newFirstDate', this.firstDate);
     }
 
     _setFirstDay(trend, date) {
