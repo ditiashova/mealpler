@@ -24,7 +24,7 @@ class AuthService {
                     });
                     //.then(() => this.Firebase.subscribeToUpdates(user.uid));
             } else {
-
+                this._setUserProfile();
                 //this._runHandlers();
                 //remove listeners from firebase
             }
@@ -67,14 +67,6 @@ class AuthService {
         this.Firebase.removeFirebaseEvents(this.User.id);
         return this.FirebaseAuth.$signOut();
     }
-
-    /*addHandler(handler) {
-        this.handlers.push(handler);
-    };
-
-    _runHandlers() {
-        return this.handlers.forEach((handler) => handler());
-    };*/
 }
 
 Mealpler.service('Auth', AuthService);
