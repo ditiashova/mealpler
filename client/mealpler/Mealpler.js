@@ -10,6 +10,6 @@ Mealpler
         moment.locale('dow');
     })
     .config(function () {
-        PNotify.prototype.options.delay = 300000;
+        PNotify.prototype.options.delay = 3000;
         PNotify.prototype.options.animate_speed = "slow";
     });
