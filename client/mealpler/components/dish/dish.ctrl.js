@@ -12,14 +12,14 @@ class DishCtrl {
         this.DishService.deleteDish(item, mealNo, day.date)
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('Food has been deleted.', 'delete'))
-            .catch(console.log);
+            .catch((e) => console.log('Dish deleting failed due to: '+ e.message));
     }
 
     deleteIngredient(ingredient, itemName, mealNo, day) {
         //const userId = this.MainCtrl.uid;
         this.IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date)
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
-            .catch(console.log);
+            .catch((e) => console.log('Ingredient deleting failed due to: '+ e.message));
     };
 }
 

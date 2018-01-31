@@ -10,8 +10,8 @@ class LocalStorageData {
         let storedItem = [];
         try {
             storedItem = JSON.parse(localStorage.getItem(name));
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log('Read from LocalStorage failed due to: ' + e.message);
         }
         return storedItem;
     };

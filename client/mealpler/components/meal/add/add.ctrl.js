@@ -23,7 +23,7 @@ class AddMealController  {
             .then(() => this.modalInst.close())
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('New food has been added.', 'add'))
-            .catch((e) => console.log(e.message));
+            .catch((e) => console.log('Saving new meal failed due to: '+ e.message));
     };
 
     createNewItem(forItems)  {

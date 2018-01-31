@@ -36,7 +36,7 @@ class AuthService {
         const localData = this.Local.getLocalStorageData("Mealpler");
         this.Firebase.createNewUserInDatabase(user, localData)
             .then(() => this.Local.removeLocalStorageData("Mealpler"))
-            .catch(console.log);
+            .catch((e) => console.log('Failed to register new user due to: '+ e.message));
     }
 
     getUserId() {
@@ -68,13 +68,13 @@ class AuthService {
         return this.FirebaseAuth.$signOut();
     }
 
-    addHandler(handler) {
+    /*addHandler(handler) {
         this.handlers.push(handler);
     };
 
     _runHandlers() {
         return this.handlers.forEach((handler) => handler());
-    };
+    };*/
 }
 
 Mealpler.service('Auth', AuthService);

@@ -60,9 +60,7 @@ class MainController {
         //this.userPhoto = null;
         //this.uid = false;
             this.runDatabaseHandlers();
-        }).catch(function(error) {
-            console.log(error);
-        });
+        }).catch((e) => console.log('Sign out failed due to: ' + e.message));
 
     }
 
