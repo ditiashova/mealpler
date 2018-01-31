@@ -1,6 +1,6 @@
 class AddMealController  {
-    constructor (notify, DayService) {
-        Object.assign(this, {notify, DayService});
+    constructor (NotifyService, DayService) {
+        Object.assign(this, {NotifyService, DayService});
         this.addProduct = true;
         this.newProducts = new Dish(1);
         this.newRecipe = new Dish(2);
@@ -22,7 +22,7 @@ class AddMealController  {
         this.DayService.updateDayInfo(newItems, this.date, type, this.mealNo)
             .then(() => this.modalInst.close())
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
-            .then(() => this.notify.show('New food has been added.', 'add'))
+            .then(() => this.NotifyService.show('New food has been added.', 'add'))
             .catch((e) => console.log(e.message));
     };
 

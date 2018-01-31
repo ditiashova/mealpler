@@ -9,4 +9,4 @@ class NotifyService {
     }
 }
 
-Mealpler.service('notify', NotifyService);
+Mealpler.service('NotifyService', NotifyService);

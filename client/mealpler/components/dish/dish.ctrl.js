@@ -1,17 +1,17 @@
 class DishCtrl {
-    constructor(copy, notify, DishService, IngredientService) {
-        Object.assign(this, {copy, notify, DishService, IngredientService})
+    constructor(CopyService, NotifyService, DishService, IngredientService) {
+        Object.assign(this, {CopyService, NotifyService, DishService, IngredientService})
     }
 
     copySingleDish(content) {
-        this.copy.copyFood('meal', content);
+        this.CopyService.copyFood('meal', content);
     }
 
     deleteDish(item, mealNo, day) {
         //const userId = this.MainCtrl.uid;
         this.DishService.deleteDish(item, mealNo, day.date)
             //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
-            .then(() => this.notify.show('Food has been deleted.', 'delete'))
+            .then(() => this.NotifyService.show('Food has been deleted.', 'delete'))
             .catch(console.log);
     }
 

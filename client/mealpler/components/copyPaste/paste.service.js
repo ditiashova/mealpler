@@ -1,6 +1,6 @@
 class PasteService {
-    constructor (DayService, StorageService, notify, Local) {
-        Object.assign(this, {DayService, StorageService, notify, Local});
+    constructor (DayService, StorageService, NotifyService, Local) {
+        Object.assign(this, {DayService, StorageService, NotifyService, Local});
     }
 
     /**
@@ -40,10 +40,10 @@ class PasteService {
      * @return {Promise<void>}
      */
     showPasteError() {
-        this.notify.show('Nothing to paste. Copy something.', 'error');
+        this.NotifyService.show('Nothing to paste. Copy something.', 'error');
         return Promise.reject(new Error('PasteError: Nothing to paste!'));
     }
 
 }
 
-Mealpler.service('paste', PasteService);
+Mealpler.service('PasteService', PasteService);
