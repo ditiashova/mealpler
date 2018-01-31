@@ -1,6 +1,6 @@
 class MealController {
-    constructor ($scope, openModal, $document, copy, paste, DayService) {
-        Object.assign(this, {$scope, openModal, $document, copy, paste, DayService});
+    constructor ($scope, openModal, $document, copy, paste, DayService, notify) {
+        Object.assign(this, {$scope, openModal, $document, copy, paste, DayService, notify});
         this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent'));
     }
 
