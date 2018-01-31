@@ -12,7 +12,7 @@
                         <span class="date-picker-box pull-right">
                             <label>Choose a week:
                                 <input data-name="datePicker" id="datePicker" class="date-picker btn p-0" readonly
-                                       data-start-date="$ctrl.startDate" data-on-update="$ctrl.refreshDashboard" >
+                                       data-single="true" data-start-date="$ctrl.firstDate" data-on-update="$ctrl.refresh">
                             </label>
                         </span>
                     </div>
@@ -20,18 +20,18 @@
                 <div class="panel-subheading">
                     <div class="week-switcher">
                         <i class="fa fa-angle-double-left" ng-click="$ctrl.switchWeek('past')"></i>
-                        You are planning for: {{ $ctrl.weekStartDate.date | monthDay }} - {{ $ctrl.weekLastDate.date | monthDay }}
+                        You are planning for: {{ $ctrl.weekStartDate | monthDay }} - {{ $ctrl.weekLastDate | monthDay }}
                         <i class="fa fa-angle-double-right" ng-click="$ctrl.switchWeek('future')"></i>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <week-manager class="row week-planner" week="dashboardCtrl.currentWeek"></week-manager>
+                <div class="panel-body" ng-if="$ctrl.currentWeek">
+                    <week-manager class="row week-planner" week="$ctrl.currentWeek"></week-manager>
                 </div>
             </div>
-            <!--<div ng-if="!$ctrl.weekDays">
+            <div ng-if="!$ctrl.currentWeek">
                 <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                 <span class="sr-only">Loading...</span>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>

@@ -3,12 +3,12 @@ Mealpler.directive('datePicker', function () {
         const datePickerCtrl = scope.datePickerCtrl;
         const targetInput = $('#' + attrs.name);
 
-        /*dashboardCtrl.addDatePickerHandlers((startDate, endDate) => {
+        dashboardCtrl.addDatePickerHandlers((startDate, endDate) => {
             const isSingle = attrs.single;
             targetInput.daterangepicker(
                 datePickerCtrl.setDatePickerSettings(startDate, isSingle, endDate), datePickerCallback
             );
-        });*/
+        });
 
         targetInput.daterangepicker(
             datePickerCtrl.setDatePickerSettings(scope.startDate, attrs.single), datePickerCallback
