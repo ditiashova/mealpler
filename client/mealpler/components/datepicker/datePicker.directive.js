@@ -3,12 +3,12 @@ Mealpler.directive('datePicker', function () {
         const datePickerCtrl = scope.datePickerCtrl;
         const targetInput = $('#' + attrs.name);
 
-        dashboardCtrl.addDatePickerHandlers((startDate, endDate) => {
+        /*dashboardCtrl.addDatePickerHandlers((startDate, endDate) => {
             const isSingle = attrs.single;
             targetInput.daterangepicker(
                 datePickerCtrl.setDatePickerSettings(startDate, isSingle, endDate), datePickerCallback
             );
-        });
+        });*/
 
         targetInput.daterangepicker(
             datePickerCtrl.setDatePickerSettings(scope.startDate, attrs.single), datePickerCallback
@@ -20,18 +20,19 @@ Mealpler.directive('datePicker', function () {
          * @param {Moment} end
          */
         function datePickerCallback (start, end) {
+            scope.onUpdate(start);
             //refresh week only from directive placed in week tmpl
 
 
 
-            if (!!attrs.refreshWeek) {
+            /*if (!!attrs.refreshWeek) {
                 dashboardCtrl.runWeekMealsHandlers(void 0, start);
                 //scope.onRefreshWeek(void 0, start);
                 //scope.onChangeStartDate(void 0, start);
-            }
+            }*/
 
             //fridge needs to be refreshed in both date pickers, but this check is still needed in case I'll decide to remove this logic etc.
-            if (!!attrs.refreshFridge) {
+            /*if (!!attrs.refreshFridge) {
                 if (!!attrs.single) {
                     //if one date is chosen we need to find the start of week for this date to load data for specific week
                     const startOfWeek = start.startOf('week');
@@ -51,7 +52,7 @@ Mealpler.directive('datePicker', function () {
                     dashboardCtrl.runShopListHandlers(start, duration);
                     //scope.onRefreshFridge(start, duration);
                 }
-            }
+            }*/
             scope.$apply();
         }
     };
@@ -61,11 +62,9 @@ Mealpler.directive('datePicker', function () {
         transclude: true,
         scope: {
             single: '=',
-            refreshFridge: '=',
             name: '=',
-            refreshWeek: '=',
             startDate: '=',
-            onRefreshWeek: '='
+            onUpdate: '='
         },
         require: ['^^dashboard', '^^mainBlock'],
         controller: 'DatePickerCtrl',

@@ -18,8 +18,8 @@ class AuthService {
                             this.Local.removeLocalStorageData('Mealpler');
                         }
                         this._setUserProfile(user);
-                    })
-                    .then(() => this.Firebase.subscribeToUpdates(user.uid));
+                    });
+                    //.then(() => this.Firebase.subscribeToUpdates(user.uid));
             } else {
                 //remove listeners from firebase
             }

@@ -62,12 +62,12 @@ class WeekService {
         return resolved;
     }
 
-    _getWeekStart(date) {
+    getWeekStart(date) {
         const startOfWeek = moment(date).startOf('week');
         return new Day(startOfWeek);
     };
 
-    _getWeekEnd(date, weekDuration) {
+    getWeekEnd(date, weekDuration) {
         const endOfWeek = moment(date).startOf('week').add(weekDuration - 1, 'day');
         return new Day(endOfWeek);
     }

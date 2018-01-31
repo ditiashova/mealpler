@@ -1,8 +1,6 @@
 Mealpler.component('weekManager', {
     bindings: {
-        startDate: '=',
-        weekDuration: '<',
-        onSwitchWeek: '<'
+        week: '<'
     },
     require: {
         MainCtrl: '^^mainBlock',
@@ -10,8 +8,10 @@ Mealpler.component('weekManager', {
     },
     transclude: true,
     controller: function ($scope, MealService, WeekService, $timeout) {
-        this.$onInit = () => {
-            this.today = moment();
+        this.today = moment();
+
+        /*this.$onInit = () => {
+
             this.weekDays = [];
             this.MainCtrl.addDatabaseHandlers((data, date) => this.init(data, date));
 
@@ -29,16 +29,16 @@ Mealpler.component('weekManager', {
 
         this.init = (data, forDate) => {
             this._setWeekStartAndLastDays(forDate);
-            return this.setweekDays(data);
+            return this.setWeekDays(data);
         };
 
         this._setWeekStartAndLastDays = (date) => {
             const newDate = date ? date : this.startDate;
-            this.weekStartDate = WeekService._getWeekStart(newDate);
-            this.weekLastDay = WeekService._getWeekEnd(newDate, this.weekDuration);
+            this.weekStartDate = WeekService.getWeekStart(newDate);
+            this.weekLastDay = WeekService.getWeekEnd(newDate, this.weekDuration);
         };
 
-        this.setweekDays = (data) => {
+        this.setWeekDays = (data) => {
             if (data || data === null) {
                 //data could be null if there is no data for user, but undefined data means no data from database
                 $timeout(() => {
@@ -52,7 +52,7 @@ Mealpler.component('weekManager', {
                     })
                 });
             }
-        };
+        };*/
     },
     templateUrl: 'scripts/components/week/week.tmpl.html',
 });

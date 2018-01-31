@@ -1,8 +1,6 @@
 class DashboardController {
-    constructor ($scope) {
-        Object.assign(this, {$scope});
-        /*this.defaultWeekDuration = 7;
-        this.defaultWeekStartDate = moment().startOf('week');*/
+    constructor ($scope, WeekService, StorageService) {
+        Object.assign(this, {$scope, WeekService, StorageService});
 
         this.handlers = {
             shopListLoadingDataHandlers: [],
@@ -12,12 +10,46 @@ class DashboardController {
 
         this.startDate = moment();
         this.weekDuration = 7;
-        this.rangeDuration = 7;
+        //this.rangeDuration = 7;
+        this.currentWeek = [];
+
+        this.StorageService.addHandler((date) => {
+            this.refreshDashboard(date);
+        })
     }
 
-    setRangeDuration(d) {
-        this.rangeDuration = d;
+    $onInit() {
+        this._setWeekStartAndWeekLastDates();
+        this._setCurrentWeek();
     }
+
+    refreshDashboard(date) {
+        this._setWeekStartAndWeekLastDates(date);
+        this._setCurrentWeek(date);
+    }
+
+    _setWeekStartAndWeekLastDates(date = this.startDate) {
+        this.weekStartDate = this.WeekService.getWeekStart(date);
+        this.weekLastDate = this.WeekService.getWeekEnd(date, this.weekDuration);
+    };
+
+    _setCurrentWeek(start = this.startDate.date) {
+        return this.WeekService.findDateRangeMealList(start, this.weekDuration).then((response) => {
+            $timeout(() => {
+                this.currentWeek = angular.copy(response);
+            })
+        });
+    }
+
+    switchWeek(trend) {
+        this.setStartDate(trend);
+        this._setWeekStartAndWeekLastDates();
+        this._setCurrentWeek();
+    }
+
+    /*setRangeDuration(d) {
+        this.rangeDuration = d;
+    }*/
 
     setStartDate(trend, date) {
         if (trend) {

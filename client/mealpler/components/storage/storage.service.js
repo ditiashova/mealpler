@@ -1,6 +1,7 @@
 class StorageService {
     constructor (UserService, Firebase, Local) {
         Object.assign(this, {UserService, Firebase, Local});
+        this.handlers = [];
     }
 
     /** @return Promise<void> */
@@ -19,8 +20,7 @@ class StorageService {
             const id = this.UserService.getUserId();
             return this.Firebase.getSingleDateMeals(date, id);
         } else {
-            const storedData = this.Local.getLocalStorageData("Mealpler");
-            return (storedData && storedData[date]) ? storedData[date] : null;
+            return this.Local.getSingleDateMeals("Mealpler", date);
         }
     }
 
@@ -50,6 +50,14 @@ class StorageService {
             return this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
     }
+
+    addHandler(handler) {
+        this.handlers.push(handler);
+    };
+
+    runHandlers(startDate, endDate) {
+        this.handlers.datePickerHandlers.forEach((handler) => handler(startDate, endDate));
+    };
 }
 
 Mealpler.service('StorageService', StorageService);

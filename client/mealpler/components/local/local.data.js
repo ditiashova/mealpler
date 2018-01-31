@@ -20,6 +20,11 @@ class LocalStorageData {
         return Promise.resolve(localStorage.removeItem(name));
     }
 
+    getSingleDateMeals(name, date) {
+        const storedData = this.Local.getLocalStorageData(name);
+        return Promise.resolve((storedData && storedData[date]) ? storedData[date] : null);
+    }
+
 }
 
 Mealpler.service('Local', LocalStorageData);

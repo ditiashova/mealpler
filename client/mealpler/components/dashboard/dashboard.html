@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="sidebar" ng-class="{'open': dashboardCtrl.isShopListOpened}">
-            <shop-list start-date="dashboardCtrl.startDate" range-duration="dashboardCtrl.rangeDuration"></shop-list>
+            <shop-list week="dashboardCtrl.currentWeek"></shop-list> <!--range-duration="dashboardCtrl.rangeDuration" start-date="dashboardCtrl.startDate"-->
         </div>
 
         <div class="col pr-0 pl-0">
@@ -11,8 +11,8 @@
                         Week Planner
                         <span class="date-picker-box pull-right">
                             <label>Choose a week:
-                                <input data-single="true" data-refresh-fridge="true" data-refresh-week="true" data-name="datePicker" data-on-refresh-week="$ctrl.init"
-                                       id="datePicker" class="date-picker btn p-0" data-start-date="$ctrl.startDate" readonly>
+                                <input data-name="datePicker" id="datePicker" class="date-picker btn p-0" readonly
+                                       data-start-date="$ctrl.startDate" data-on-update="$ctrl.refreshDashboard" >
                             </label>
                         </span>
                     </div>
@@ -20,14 +20,12 @@
                 <div class="panel-subheading">
                     <div class="week-switcher">
                         <i class="fa fa-angle-double-left" ng-click="$ctrl.switchWeek('past')"></i>
-                        You are planning for: {{ $ctrl.weekStartDate.date | monthDay }} - {{ $ctrl.weekLastDay.date | monthDay }}
+                        You are planning for: {{ $ctrl.weekStartDate.date | monthDay }} - {{ $ctrl.weekLastDate.date | monthDay }}
                         <i class="fa fa-angle-double-right" ng-click="$ctrl.switchWeek('future')"></i>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <week-manager class="row week-planner" start-date="dashboardCtrl.startDate"
-                        week-duration="dashboardCtrl.weekDuration"
-                        on-switch-week="dashboardCtrl.setStartDate"></week-manager>
+                    <week-manager class="row week-planner" week="dashboardCtrl.currentWeek"></week-manager>
                 </div>
             </div>
             <!--<div ng-if="!$ctrl.weekDays">

@@ -25,11 +25,11 @@ class FirebaseData {
         return firebase.database().ref(`users/${id}/food/${date}`).remove();
     }
 
-    subscribeToUpdates(id) {
+    /*subscribeToUpdates(id) {
         return firebase.database().ref(`users/${id}/food`).on("value", (data) => data.val(), (errorObject) => {
             console.log("The read failed: " + errorObject.code);
         })
-    }
+    }*/
 
     createNewUserInDatabase(user, localData) {
         const newUser = new User(user.uid, user.email, user.displayName, user.photoURL);
