@@ -1,71 +1,65 @@
 class AuthService {
     constructor ($rootScope, FirebaseAuth, FirebaseData, LocalStorageData) {
         Object.assign(this, {$rootScope, FirebaseAuth, FirebaseData, LocalStorageData});
-        //window.addEventListener('load', () => this.init());
         this.init();
         this.handlers = [];
     }
 
     init() {
         this.FirebaseAuth.$onAuthStateChanged((user) => {
-            this._setLoginStatus(!!user);
+            this._setIsLogged(!!user);
             if (user) {
                 // User is signed in.
                 this.FirebaseData.getUserProfile(user.uid)
                     .then(data => {
                         if (!data.val()) {
-                            this.registerNewUser(user);
+                            this._registerNewUser(user);
                         } else {
                             //if user is logged and it's not a new user, it's better to keep localStorages clean
                             this.LocalStorageData.removeLocalStorageData('Mealpler');
                         }
-                        this._setUserProfile(user);
-                        //this._runHandlers();
+                        this._setUser(user);
                     });
-                    //.then(() => this.FirebaseData.subscribeToUpdates(user.uid));
             } else {
-                this._setUserProfile();
-                //this._runHandlers();
-                //remove listeners from firebase
+                this._setUser();
             }
-
         });
     }
 
-    registerNewUser(user) {
+    _registerNewUser(user) {
         const localData = this.LocalStorageData.getLocalStorageData("Mealpler");
-        this.FirebaseData.createNewUserInDatabase(user, localData)
+        this.FirebaseData.registerNewUserInDatabase(user, localData)
             .then(() => this.LocalStorageData.removeLocalStorageData("Mealpler"))
             .catch((e) => console.log('Failed to register new user due to: '+ e.message));
     }
 
-    getUserId() {
-        return this.User.id;
-    }
-
-    getUserProfile() {
-        return this.User;
-    }
-
-    _setUserProfile(user) {
-        if (user) {
-            this.User = new User(user.uid, user.email, user.displayName, user.photoURL)
-        }
-        else this.User = new User();
-
-        this.$rootScope.$broadcast('authUpdated');
-    }
-    getLoginStatus() {
+    isLogged() {
         return this.isLogged;
     }
 
-    _setLoginStatus(status) {
-        this.isLogged = status;
+    getUser() {
+        return this.user;
+    }
+
+    getUserId() {
+        return this.user.id;
     }
 
     signOut() {
-        //this.FirebaseData.removeFirebaseEvents(this.User.id);
         return this.FirebaseAuth.$signOut();
+    }
+
+    _setUser(user) {
+        if (user) {
+            this.user = new User(user.uid, user.email, user.displayName, user.photoURL)
+        }
+        else this.user = new User();
+
+        this.$rootScope.$broadcast('authUpdated');
+    }
+
+    _setIsLogged(status) {
+        this.isLogged = status;
     }
 }
 

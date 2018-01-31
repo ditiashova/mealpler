@@ -1,12 +1,12 @@
 class StorageService {
-    constructor ($rootScope, UserService, FirebaseData, LocalStorageData) {
-        Object.assign(this, {$rootScope, UserService, FirebaseData, LocalStorageData});
+    constructor ($rootScope, FirebaseData, LocalStorageData, AuthService) {
+        Object.assign(this, {$rootScope, FirebaseData, LocalStorageData, AuthService});
     }
 
     /** @return Promise<void> */
     getAllMealsForUser() {
-        if (this.UserService.getIsLogged()) {
-            const id = this.UserService.getUserId();
+        if (this.AuthService.isLogged()) {
+            const id = this.AuthService.getUserId();
             return this.FirebaseData.getAllMeals(id);
         } else {
             return Promise.resolve(this.LocalStorageData.getLocalStorageData("Mealpler"));
@@ -15,8 +15,8 @@ class StorageService {
 
     /** @return Promise{Meals} */
     getSingleDateMealsList(date) {
-        if (this.UserService.getIsLogged()) {
-            const id = this.UserService.getUserId();
+        if (this.AuthService.isLogged()) {
+            const id = this.AuthService.getUserId();
             return this.FirebaseData.getSingleDateMeals(id, date);
         } else {
             return Promise.resolve(this.LocalStorageData.getSingleDateMeals("Mealpler", date));
@@ -25,8 +25,8 @@ class StorageService {
 
     /** @return Promise<void> */
     setSingleDateMealsList(date, data) {
-        if (this.UserService.getIsLogged()) {
-            const id = this.UserService.getUserId();
+        if (this.AuthService.isLogged()) {
+            const id = this.AuthService.getUserId();
             return this.FirebaseData.setSingleDateMeals(id, date, data).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
@@ -43,8 +43,8 @@ class StorageService {
     }
 
     removeSingleDateMealsList(date) {
-        if (this.UserService.getIsLogged()) {
-            const id = this.UserService.getUserId();
+        if (this.AuthService.isLogged()) {
+            const id = this.AuthService.getUserId();
             return this.FirebaseData.removeDate(id, date).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });

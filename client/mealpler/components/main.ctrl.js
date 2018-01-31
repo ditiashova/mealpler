@@ -1,6 +1,6 @@
 class MainController {
-    constructor ($scope, AuthService, UserService) {
-        Object.assign(this, {$scope, AuthService, UserService});
+    constructor ($scope, AuthService) {
+        Object.assign(this, {$scope, AuthService});
         this.title = Mealpler.titles;
 
         this.handlers = {
@@ -22,8 +22,8 @@ class MainController {
     }
 
     setUserProfileAndLoginStatus() {
-        this.userIsLogged = this.UserService.getIsLogged();
-        this.user = this.UserService.getUserProfile();
+        this.userIsLogged = this.AuthService.isLogged();
+        this.user = this.AuthService.getUser();
         this.$scope.$apply();
     }
 

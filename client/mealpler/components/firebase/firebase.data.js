@@ -31,7 +31,7 @@ class FirebaseData {
         })
     }*/
 
-    createNewUserInDatabase(user, localData) {
+    registerNewUserInDatabase(user, localData) {
         const newUser = new User(user.uid, user.email, user.displayName, user.photoURL);
         //const localStoredData = this.LocalStorageData.getLocalStorageData("Mealpler");
 
