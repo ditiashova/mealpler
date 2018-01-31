@@ -10,6 +10,7 @@ Mealpler.component('shopList', {
     controller: function (WeekService, ShopListService, $timeout) {
         this.title = Mealpler.titles.shopList;
         this.$onInit = () => {
+            this.shoplist = ShopListService.extractAndSortProducts(this.week);
             //this.MainCtrl.addDatabaseHandlers((data, date, duration) => this.init(date, duration, data));
 
             //this.Dashboard.addShopListHandlers((date, duration) => this.init(date, duration));

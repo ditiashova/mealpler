@@ -5,17 +5,17 @@ class MealController {
     }
 
     pasteMeal(mealNo, date) {
-        const userId = this.MainCtrl.uid;
-        this.paste.pasteMeal(mealNo, date, userId)
-            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+        //const userId = this.MainCtrl.uid;
+        this.paste.pasteMeal(mealNo, date)
+            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.notify.show('Food has been pasted successfully.', 'add'))
             .catch((e) => console.log(e.message));
     };
 
     deleteMeal(mealNo, date) {
-        const userId = this.MainCtrl.uid;
-        this.DayService.deleteMealFromDay(mealNo, date.format("YYYY-M-D"), userId)
-            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+        //const userId = this.MainCtrl.uid;
+        this.DayService.deleteMealFromDay(mealNo, date.format("YYYY-M-D"))
+            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.notify.show('Meal has been deleted.', 'delete'))
             .catch((e) => console.log(e.message));
     };

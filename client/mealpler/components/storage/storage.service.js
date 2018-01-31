@@ -37,6 +37,9 @@ class StorageService {
 
             return this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
+
+        this.runHandlers(date);
+
     }
 
     removeSingleDateMealsList(date) {
@@ -49,6 +52,7 @@ class StorageService {
 
             return this.Local.setDataToLocalStorage("Mealpler", storedData);
         }
+        this.runHandlers(date);
     }
 
     addHandler(handler) {

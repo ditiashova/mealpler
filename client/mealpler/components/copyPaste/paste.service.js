@@ -7,25 +7,23 @@ class PasteService {
      *
      * @param {number} mealNo
      * @param {Moment} date
-     * @param {string} userId
      * @return {Promise<void>}
      */
-    pasteMeal(mealNo, date, userId) {
+    pasteMeal(mealNo, date) {
         const stored = this.Local.getLocalStorageData('meal');
         if (stored === null) {
             return this.showPasteError();
         } else {
-            return this.DayService.updateDayInfo(stored, date, userId, 'stored', mealNo);
+            return this.DayService.updateDayInfo(stored, date, 'stored', mealNo);
         }
     };
 
     /**
      *
      * @param {Moment} date
-     * @param {string} userId
      * @return {Promise<void>}
      */
-    pasteDay(date, userId) {
+    pasteDay(date) {
         const stored = this.Local.getLocalStorageData("day");
         if (stored === null) {
             return this.showPasteError();
@@ -33,7 +31,7 @@ class PasteService {
             const fullDateName = date.format("YYYY-M-D");
             const dayNewContent = new Day(date);
             dayNewContent.meals = stored.slice();
-            return this.DayService.cleanAndSetDayMealsList(fullDateName, dayNewContent, userId);
+            return this.DayService.cleanAndSetDayMealsList(fullDateName, dayNewContent);
         }
     }
 

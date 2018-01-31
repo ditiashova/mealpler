@@ -8,17 +8,17 @@ class DishCtrl {
     }
 
     deleteDish(item, mealNo, day) {
-        const userId = this.MainCtrl.uid;
-        this.DishService.deleteDish(item, mealNo, day.date, userId)
-            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+        //const userId = this.MainCtrl.uid;
+        this.DishService.deleteDish(item, mealNo, day.date)
+            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.notify.show('Food has been deleted.', 'delete'))
             .catch(console.log);
     }
 
     deleteIngredient(ingredient, itemName, mealNo, day) {
-        const userId = this.MainCtrl.uid;
-        this.IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date, userId)
-            .then(() => this.MainCtrl.runDatabaseHandlers(userId))
+        //const userId = this.MainCtrl.uid;
+        this.IngredientService.deleteIngredient(ingredient, itemName, mealNo, day.date)
+            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .catch(console.log);
     };
 }

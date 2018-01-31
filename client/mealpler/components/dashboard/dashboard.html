@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="sidebar" ng-class="{'open': dashboardCtrl.isShopListOpened}">
-            <shop-list week="dashboardCtrl.currentWeek"></shop-list> <!--range-duration="dashboardCtrl.rangeDuration" start-date="dashboardCtrl.startDate"-->
+        <div class="sidebar" ng-class="{'open': $ctrl.isShopListOpened}">
+            <shop-list week="$ctrl.currentWeek"></shop-list> <!--range-duration="dashboardCtrl.rangeDuration" start-date="dashboardCtrl.startDate"-->
         </div>
 
         <div class="col pr-0 pl-0">

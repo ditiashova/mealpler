@@ -7,33 +7,32 @@ class DayService {
      *
      * @param {Object} mealContent
      * @param {string} date
-     * @param {string} userId
      * @param {string} mealType
      * @param {number} mealNo
      * @return {Promise<void>}
      */
-    updateDayInfo(mealContent, date, userId, mealType, mealNo) {
+    updateDayInfo(mealContent, date, mealType, mealNo) {
         const fullDateName = moment(date).format("YYYY-M-D"); //in case nonformatted date were passed
-        return this.StorageService.getSingleDateMealsList(fullDateName, userId).then((response) => {
+        return this.StorageService.getSingleDateMealsList(fullDateName).then((response) => {
             const newDayContent = this._resolveSingleDayData(response, date, mealContent, mealType, mealNo);
-            return this.cleanAndSetDayMealsList(fullDateName, newDayContent, userId);
+            return this.cleanAndSetDayMealsList(fullDateName, newDayContent);
         });
     }
 
-    deleteMealFromDay(mealNo, date, id) {
+    deleteMealFromDay(mealNo, date) {
         const fullDateName = moment(date).format("YYYY-M-D");
-        return this.StorageService.getSingleDateMealsList(fullDateName, id).then((response) => {
+        return this.StorageService.getSingleDateMealsList(fullDateName).then((response) => {
             const availableItem = response;
             let i = availableItem.meals.findIndex(b => b.type === mealNo);
             availableItem.meals.splice(i, 1);
-            return this.cleanAndSetDayMealsList(fullDateName, availableItem, id);
+            return this.cleanAndSetDayMealsList(fullDateName, availableItem);
         });
     };
 
     /** @return Promise<void> */
-    cleanAndSetDayMealsList(date, rawData, id) {
+    cleanAndSetDayMealsList(date, rawData) {
         const cleanData = this.MealService.cleanEmptyMeals(angular.copy(rawData));
-        return this.StorageService.setSingleDateMealsList(date, cleanData, id);
+        return this.StorageService.setSingleDateMealsList(date, cleanData);
     }
 
     _resolveSingleDayData(oldDayContent, date, mealContent, contentType, mealNo)  {

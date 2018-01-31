@@ -15,7 +15,7 @@ class ShoplistCtrl {
                 return Promise.resolve(this.componentsList = this.ShopListService.extractAndSortProducts(storedItems));
             });
         } else {
-            return this.WeekService.findDateRangeMealList(start, duration, userId).then((response) => {
+            return this.WeekService.findDateRangeMealList(start, duration).then((response) => {
                 const storedItems = angular.copy(response);
                 this.$timeout(() => {
                     this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);

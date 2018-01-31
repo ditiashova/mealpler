@@ -22,6 +22,9 @@ class DashboardController {
     $onInit() {
         this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
+        this.MainCtrl.addIsShopListOpenedHandler((state) =>
+            this.setIsShopListOpened(state)
+        );
     }
 
     _refreshDashboard(date) {
@@ -45,8 +48,7 @@ class DashboardController {
 
     switchWeek(trend) {
         this._setFirstDay(trend);
-        this._setWeekStartAndWeekLastDates();
-        this._setCurrentWeek();
+        this._refreshDashboard();
     }
 
     /*setRangeDuration(d) {

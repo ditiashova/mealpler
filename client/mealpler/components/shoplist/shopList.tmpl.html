@@ -10,10 +10,10 @@
         </label>
     </div>-->
     <div class="panel-body">
-        <div ng-if="$ctrl.componentsList.length === 0">
+        <div ng-if="$ctrl.shoplist.length === 0">
             You haven't planned any food for this range yet.
         </div>
-        <div ng-repeat="item in $ctrl.componentsList track by $index" ng-if="$ctrl.componentsList.length > 0" class="row shop-item">
+        <div ng-repeat="item in $ctrl.shoplist track by $index" ng-if="$ctrl.shoplist.length > 0" class="row shop-item">
             <div class="col-xs-12">
                 <span>{{ item.name }}</span>
                 <div class="badge badge-success">{{ item.quantity }}</div>
