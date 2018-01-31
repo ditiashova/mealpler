@@ -1,6 +1,6 @@
 class FirebaseData {
-    constructor (Local) {
-        Object.assign(this, {Local});
+    constructor (LocalStorageData) {
+        Object.assign(this, {LocalStorageData});
     }
 
     getUserProfile(id) {
@@ -33,12 +33,12 @@ class FirebaseData {
 
     createNewUserInDatabase(user, localData) {
         const newUser = new User(user.uid, user.email, user.displayName, user.photoURL);
-        //const localStoredData = this.Local.getLocalStorageData("Mealpler");
+        //const localStoredData = this.LocalStorageData.getLocalStorageData("Mealpler");
 
         if (localData) newUser.food = angular.copy(localData);
 
         return this._setNewFirebaseUserData(newUser, user.uid);
-            //.then(() => this.Local.removeLocalStorageData("Mealpler"))
+            //.then(() => this.LocalStorageData.removeLocalStorageData("Mealpler"))
             //.catch(console.log);
     }
 

@@ -1,6 +1,6 @@
 class CopyService {
-    constructor (StorageService, NotifyService, Local) {
-        Object.assign(this, {StorageService, NotifyService, Local});
+    constructor (StorageService, NotifyService, LocalStorageData) {
+        Object.assign(this, {StorageService, NotifyService, LocalStorageData});
     }
 
     /**
@@ -21,7 +21,7 @@ class CopyService {
     }
 
     proceedCopy(name, content) {
-        this.Local.setDataToLocalStorage(name, content);
+        this.LocalStorageData.setDataToLocalStorage(name, content);
         this.NotifyService.show('Food has been copied successfully.', 'copy');
     }
 

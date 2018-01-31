@@ -1,6 +1,6 @@
 class StorageService {
-    constructor ($rootScope, UserService, FirebaseData, Local) {
-        Object.assign(this, {$rootScope, UserService, FirebaseData, Local});
+    constructor ($rootScope, UserService, FirebaseData, LocalStorageData) {
+        Object.assign(this, {$rootScope, UserService, FirebaseData, LocalStorageData});
     }
 
     /** @return Promise<void> */
@@ -9,7 +9,7 @@ class StorageService {
             const id = this.UserService.getUserId();
             return this.FirebaseData.getAllMeals(id);
         } else {
-            return Promise.resolve(this.Local.getLocalStorageData("Mealpler"));
+            return Promise.resolve(this.LocalStorageData.getLocalStorageData("Mealpler"));
         }
     }
 
@@ -19,7 +19,7 @@ class StorageService {
             const id = this.UserService.getUserId();
             return this.FirebaseData.getSingleDateMeals(id, date);
         } else {
-            return Promise.resolve(this.Local.getSingleDateMeals("Mealpler", date));
+            return Promise.resolve(this.LocalStorageData.getSingleDateMeals("Mealpler", date));
         }
     }
 
@@ -31,12 +31,12 @@ class StorageService {
                 this.$rootScope.$broadcast('newMealsData');
             });
         } else {
-            let storedData = this.Local.getLocalStorageData("Mealpler");
+            let storedData = this.LocalStorageData.getLocalStorageData("Mealpler");
 
             if (!storedData) storedData = {};
             storedData[date] = data;
 
-            return this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
+            return this.LocalStorageData.setDataToLocalStorage("Mealpler", storedData).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         }
@@ -49,10 +49,10 @@ class StorageService {
                 this.$rootScope.$broadcast('newMealsData');
             });
         } else {
-            const storedData = this.Local.getLocalStorageData("Mealpler");
+            const storedData = this.LocalStorageData.getLocalStorageData("Mealpler");
             delete storedData[date];
 
-            return this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
+            return this.LocalStorageData.setDataToLocalStorage("Mealpler", storedData).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         }

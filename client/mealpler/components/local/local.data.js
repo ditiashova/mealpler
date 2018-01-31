@@ -27,4 +27,4 @@ class LocalStorageData {
 
 }
 
-Mealpler.service('Local', LocalStorageData);
+Mealpler.service('LocalStorageData', LocalStorageData);

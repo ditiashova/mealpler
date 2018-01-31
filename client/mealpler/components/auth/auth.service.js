@@ -1,6 +1,6 @@
 class AuthService {
-    constructor ($rootScope, FirebaseAuth, FirebaseData, Local) {
-        Object.assign(this, {$rootScope, FirebaseAuth, FirebaseData, Local});
+    constructor ($rootScope, FirebaseAuth, FirebaseData, LocalStorageData) {
+        Object.assign(this, {$rootScope, FirebaseAuth, FirebaseData, LocalStorageData});
         //window.addEventListener('load', () => this.init());
         this.init();
         this.handlers = [];
@@ -17,7 +17,7 @@ class AuthService {
                             this.registerNewUser(user);
                         } else {
                             //if user is logged and it's not a new user, it's better to keep localStorages clean
-                            this.Local.removeLocalStorageData('Mealpler');
+                            this.LocalStorageData.removeLocalStorageData('Mealpler');
                         }
                         this._setUserProfile(user);
                         //this._runHandlers();
@@ -33,9 +33,9 @@ class AuthService {
     }
 
     registerNewUser(user) {
-        const localData = this.Local.getLocalStorageData("Mealpler");
+        const localData = this.LocalStorageData.getLocalStorageData("Mealpler");
         this.FirebaseData.createNewUserInDatabase(user, localData)
-            .then(() => this.Local.removeLocalStorageData("Mealpler"))
+            .then(() => this.LocalStorageData.removeLocalStorageData("Mealpler"))
             .catch((e) => console.log('Failed to register new user due to: '+ e.message));
     }
 
