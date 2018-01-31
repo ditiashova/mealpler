@@ -11,7 +11,9 @@ class MainController {
 
         this.isShopListOpened = false;
 
-        this.UserService.addHandler(() => this.setUserProfileAndLoginStatus());
+        this.$scope.$on('userUpdated', () => this.setUserProfileAndLoginStatus());
+
+        //this.UserService.addHandler(() => this.setUserProfileAndLoginStatus());
 
     }
 

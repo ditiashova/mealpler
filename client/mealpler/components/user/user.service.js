@@ -1,14 +1,16 @@
 class UserService {
-    constructor(Auth) {
-        Object.assign(this, {Auth});
-        this.handlers = [];
-        this.Auth.addHandler(() => this.updateUser());
+    constructor($rootScope, Auth) {
+        Object.assign(this, {$rootScope, Auth});
+        //this.handlers = [];
+        //this.Auth.addHandler(() => this.updateUser());
+        this.$rootScope.$on('authUpdated', () => this.updateUser());
     }
 
     updateUser() {
         this._setIsLogged(this.Auth.getLoginStatus());
         this._setUserProfile(this.Auth.getUserProfile());
-        this._runHandlers();
+        this.$rootScope.$broadcast('userUpdated');
+        //this._runHandlers();
     }
 
     _setIsLogged(status) {
@@ -31,13 +33,13 @@ class UserService {
         return this.userProfile.id;
     }
 
-    addHandler(handler) {
+    /*addHandler(handler) {
         this.handlers.push(handler);
     };
 
     _runHandlers() {
         return this.handlers.forEach((handler) => handler());
-    };
+    };*/
 
 }
 Mealpler.service('UserService', UserService);

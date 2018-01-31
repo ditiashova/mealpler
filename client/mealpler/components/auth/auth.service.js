@@ -1,6 +1,6 @@
 class AuthService {
-    constructor (FirebaseAuth, Firebase, Local) {
-        Object.assign(this, {FirebaseAuth, Firebase, Local});
+    constructor ($rootScope, FirebaseAuth, Firebase, Local) {
+        Object.assign(this, {$rootScope, FirebaseAuth, Firebase, Local});
         //window.addEventListener('load', () => this.init());
         this.init();
         this.handlers = [];
@@ -20,11 +20,12 @@ class AuthService {
                             this.Local.removeLocalStorageData('Mealpler');
                         }
                         this._setUserProfile(user);
-                        this._runHandlers();
+                        //this._runHandlers();
                     });
                     //.then(() => this.Firebase.subscribeToUpdates(user.uid));
             } else {
-                this._runHandlers();
+
+                //this._runHandlers();
                 //remove listeners from firebase
             }
 
@@ -51,6 +52,8 @@ class AuthService {
             this.User = new User(user.uid, user.email, user.displayName, user.photoURL)
         }
         else this.User = new User();
+
+        this.$rootScope.$broadcast('authUpdated');
     }
     getLoginStatus() {
         return this.isLogged;

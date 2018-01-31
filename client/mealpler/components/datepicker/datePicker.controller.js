@@ -1,7 +1,7 @@
 class DatePickerController {
     constructor () {
         this.defaultWeekDuration = 7;
-        this.defaultWeekStartDate = moment().startOf('week');
+        //this.defaultWeekStartDate = moment().startOf('week');
     }
 
     getLocalization() {

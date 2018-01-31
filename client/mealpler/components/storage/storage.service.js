@@ -1,7 +1,6 @@
 class StorageService {
-    constructor (UserService, Firebase, Local) {
-        Object.assign(this, {UserService, Firebase, Local});
-        this.handlers = [];
+    constructor ($rootScope, UserService, Firebase, Local) {
+        Object.assign(this, {$rootScope, UserService, Firebase, Local});
     }
 
     /** @return Promise<void> */
@@ -14,11 +13,11 @@ class StorageService {
         }
     }
 
-    /** @return Promise<void> */
+    /** @return Promise{Meals} */
     getSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.getSingleDateMeals(date, id);
+            return this.Firebase.getSingleDateMeals(id, date);
         } else {
             return Promise.resolve(this.Local.getSingleDateMeals("Mealpler", date));
         }
@@ -28,40 +27,36 @@ class StorageService {
     setSingleDateMealsList(date, data) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            this.Firebase.setSingleDateMeals(id, date, data);
+            return this.Firebase.setSingleDateMeals(id, date, data).then(() => {
+                this.$rootScope.$broadcast('newMealsData');
+            });
         } else {
             let storedData = this.Local.getLocalStorageData("Mealpler");
 
             if (!storedData) storedData = {};
             storedData[date] = data;
 
-            this.Local.setDataToLocalStorage("Mealpler", storedData);
+            return this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
+                this.$rootScope.$broadcast('newMealsData');
+            });
         }
-
-        return this.runHandlers();
-
     }
 
     removeSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            this.Firebase.removeDate(id, date);
+            this.Firebase.removeDate(id, date).then(() => {
+                this.$rootScope.$broadcast('newMealsData');
+            });
         } else {
             const storedData = this.Local.getLocalStorageData("Mealpler");
             delete storedData[date];
 
-            this.Local.setDataToLocalStorage("Mealpler", storedData);
+            this.Local.setDataToLocalStorage("Mealpler", storedData).then(() => {
+                this.$rootScope.$broadcast('newMealsData');
+            });
         }
-        return this.runHandlers(date);
     }
-
-    addHandler(handler) {
-        this.handlers.push(handler);
-    };
-
-    runHandlers(startDate, endDate) {
-        return this.handlers.forEach((handler) => handler(startDate, endDate));
-    };
 }
 
 Mealpler.service('StorageService', StorageService);

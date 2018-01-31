@@ -14,7 +14,7 @@ class FirebaseData {
     }
 
     getSingleDateMeals(id, date) {
-        return firebase.database().ref(`users/${id}/food/${date}`).once('value').then((data) => data.val())
+        return firebase.database().ref(`users/${id}/food/${date}`).once('value').then((data) => data.val());
     }
 
     setSingleDateMeals(id, date, data) {

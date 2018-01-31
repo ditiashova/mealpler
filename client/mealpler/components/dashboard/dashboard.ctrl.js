@@ -1,32 +1,26 @@
 class DashboardController {
-    constructor ($scope, WeekService, StorageService, $timeout) {
-        Object.assign(this, {$scope, WeekService, StorageService, $timeout});
-
-        this.handlers = {
-            shopListLoadingDataHandlers: [],
-            weekMealsLoadingDataHandlers: [],
-            datePickerHandlers: []
-        };
-
+    constructor ($rootScope, $scope, WeekService, StorageService, $timeout) {
+        Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
         this.firstDate = this.WeekService.getWeekStart(moment());
+
+        this.$scope.$on('userUpdated', (e) => this.init());
+        this.$scope.$on('newMealsData', (e) => this.refresh());
+
         this.weekDuration = 7;
         this.currentWeek = [];
-
-        this.StorageService.addHandler((date) => this.refresh(date)
-        );
 
         this.refresh = this._refreshDashboard.bind(this);
     }
 
-    $onInit() {
+    init() {
         this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
         this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
     }
 
     _refreshDashboard(date) {
+        if (date) this.firstDate = this.WeekService.getWeekStart(moment(date));
         this._setWeekStartAndWeekLastDates(date);
-        this._runDatePickerHandlers(date);
         return this._setCurrentWeek(date);
     }
 
@@ -46,11 +40,8 @@ class DashboardController {
     switchWeek(trend) {
         this._setFirstDay(trend);
         this._refreshDashboard();
+        this.$scope.$broadcast('newFirstDate', this.firstDate);
     }
-
-    /*setRangeDuration(d) {
-        this.rangeDuration = d;
-    }*/
 
     _setFirstDay(trend, date) {
         if (trend) {
@@ -71,42 +62,6 @@ class DashboardController {
     setIsShopListOpened(state) {
         this.isShopListOpened = state;
     }
-
-    addDatePickerHandlers(handler) {
-        this.handlers.datePickerHandlers.push(handler);
-    };
-
-    /*addShopListHandlers(handler) {
-        this.handlers.shopListLoadingDataHandlers.push(handler);
-    };
-
-    addWeekMealDataHandlers(handler) {
-        this.handlers.weekMealsLoadingDataHandlers.push(handler);
-    };*/
-
-    _runDatePickerHandlers(start = this.firstDate, end) {
-        this.handlers.datePickerHandlers.forEach((handler) => handler(start, end));
-    };
-
-    /**
-     *
-     * @param {Moment} date
-     * @param {number} duration
-     */
-
-    /*runShopListHandlers(date, duration) {
-        this.handlers.shopListLoadingDataHandlers.forEach((handler) => handler(date, duration));
-    };*/
-
-    /**
-     *
-     * @param {null || {}} data
-     * @param {Moment} startDate
-     */
-    /*runWeekMealsHandlers(data, startDate) {
-        /!*in WeekCtrl.init we expect data, date and id. if we don't have any data, we expect null to be passed*!/
-        this.handlers.weekMealsLoadingDataHandlers.forEach((handler) => handler(data, startDate));
-    };*/
 }
 
 Mealpler.controller('DashboardCtrl', DashboardController);
