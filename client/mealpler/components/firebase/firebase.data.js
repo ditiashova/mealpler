@@ -54,4 +54,4 @@ class FirebaseData {
 
 }
 
-Mealpler.service('Firebase', FirebaseData);
+Mealpler.service('FirebaseData', FirebaseData);

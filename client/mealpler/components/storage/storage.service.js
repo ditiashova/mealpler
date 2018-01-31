@@ -1,13 +1,13 @@
 class StorageService {
-    constructor ($rootScope, UserService, Firebase, Local) {
-        Object.assign(this, {$rootScope, UserService, Firebase, Local});
+    constructor ($rootScope, UserService, FirebaseData, Local) {
+        Object.assign(this, {$rootScope, UserService, FirebaseData, Local});
     }
 
     /** @return Promise<void> */
     getAllMealsForUser() {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.getAllMeals(id);
+            return this.FirebaseData.getAllMeals(id);
         } else {
             return Promise.resolve(this.Local.getLocalStorageData("Mealpler"));
         }
@@ -17,7 +17,7 @@ class StorageService {
     getSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.getSingleDateMeals(id, date);
+            return this.FirebaseData.getSingleDateMeals(id, date);
         } else {
             return Promise.resolve(this.Local.getSingleDateMeals("Mealpler", date));
         }
@@ -27,7 +27,7 @@ class StorageService {
     setSingleDateMealsList(date, data) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.setSingleDateMeals(id, date, data).then(() => {
+            return this.FirebaseData.setSingleDateMeals(id, date, data).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         } else {
@@ -45,7 +45,7 @@ class StorageService {
     removeSingleDateMealsList(date) {
         if (this.UserService.getIsLogged()) {
             const id = this.UserService.getUserId();
-            return this.Firebase.removeDate(id, date).then(() => {
+            return this.FirebaseData.removeDate(id, date).then(() => {
                 this.$rootScope.$broadcast('newMealsData');
             });
         } else {
