@@ -28,7 +28,7 @@ class StorageService {
         if (this.AuthService.isLogged()) {
             const id = this.AuthService.getUserId();
             return this.FirebaseData.setSingleDateMeals(id, date, data).then(() => {
-                this.$rootScope.$broadcast('newMealsData');
+                this.$rootScope.$broadcast(EventType.MEALS);
             });
         } else {
             let storedData = this.LocalStorageData.getLocalStorageData("Mealpler");
@@ -37,7 +37,7 @@ class StorageService {
             storedData[date] = data;
 
             return this.LocalStorageData.setDataToLocalStorage("Mealpler", storedData).then(() => {
-                this.$rootScope.$broadcast('newMealsData');
+                this.$rootScope.$broadcast(EventType.MEALS);
             });
         }
     }
@@ -46,14 +46,14 @@ class StorageService {
         if (this.AuthService.isLogged()) {
             const id = this.AuthService.getUserId();
             return this.FirebaseData.removeDate(id, date).then(() => {
-                this.$rootScope.$broadcast('newMealsData');
+                this.$rootScope.$broadcast(EventType.MEALS);
             });
         } else {
             const storedData = this.LocalStorageData.getLocalStorageData("Mealpler");
             delete storedData[date];
 
             return this.LocalStorageData.setDataToLocalStorage("Mealpler", storedData).then(() => {
-                this.$rootScope.$broadcast('newMealsData');
+                this.$rootScope.$broadcast(EventType.MEALS);
             });
         }
     }

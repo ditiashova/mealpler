@@ -5,7 +5,7 @@ Mealpler.directive('datePicker', function () {
 
         refreshDatePicker(scope.startDate, attrs.single);
 
-        scope.$on('newFirstDate', (e, date) => {
+        scope.$on(EventType.WEEKSTART, (e, date) => {
             refreshDatePicker(date, attrs.single);
         });
 

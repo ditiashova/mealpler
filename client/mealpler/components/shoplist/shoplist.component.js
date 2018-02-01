@@ -14,7 +14,7 @@ Mealpler.component('shopList', {
 
             //this.init(this.startDate);
             this.closeShopList = () => {
-                $scope.$emit('shoplistIsClosed');
+                $scope.$emit(EventType.SHOPLIST_CLOSED);
                 //this.MainCtrl.toggleShopListState();
             }
         };

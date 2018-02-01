@@ -5,9 +5,9 @@ class DashboardController {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
         this.firstDate = this.WeekService.getWeekStart(moment());
 
-        this.$scope.$on('authUpdated', (e) => this.init());
-        this.$scope.$on('newMealsData', (e) => this.refresh());
-        this.$scope.$on('shoplistIsToggled', (e, state) => this.setIsShopListOpened(state));
+        this.$scope.$on(EventType.AUTH, (e) => this.init());
+        this.$scope.$on(EventType.MEALS, (e) => this.refresh());
+        this.$scope.$on(EventType.SHOPLIST_TOGGLED, (e, state) => this.setIsShopListOpened(state));
 
 
         this.weekDuration = 7;
@@ -49,7 +49,7 @@ class DashboardController {
     switchWeek(trend) {
         this._setFirstDay(trend);
         this._refreshDashboard();
-        //this.$scope.$broadcast('newFirstDate', this.firstDate);
+        this.$scope.$broadcast(EventType.WEEKSTART, this.firstDate);
     }
 
     _setFirstDay(trend, date) {

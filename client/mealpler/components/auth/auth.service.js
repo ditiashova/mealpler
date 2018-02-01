@@ -55,7 +55,7 @@ class AuthService {
         }
         else this.user = new User();
 
-        this.$rootScope.$broadcast('authUpdated');
+        this.$rootScope.$broadcast(EventType.AUTH);
     }
 
     _setIsLogged(status) {
