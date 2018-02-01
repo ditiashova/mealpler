@@ -1,6 +1,7 @@
-Mealpler.directive('datePicker', function () {
+/*
+Mealpler.directive('datePicker0', function () {
     const link = (scope, el, attrs, ctrl) => {
-        const datePickerCtrl = scope.datePickerCtrl;
+        //const datePickerCtrl = scope.datePickerCtrl;
         const targetInput = $('#' + attrs.name);
 
         refreshDatePicker(scope.startDate, attrs.single);
@@ -9,17 +10,11 @@ Mealpler.directive('datePicker', function () {
             refreshDatePicker(date, attrs.single);
         });
 
-        /*targetInput.daterangepicker(
-            datePickerCtrl.setDatePickerSettings(scope.startDate, attrs.single), datePickerCallback
-        );*/
-
-
-
-        /**
+        /!**
          *
          * @param {Moment} start
          * @param {Moment} end
-         */
+         *!/
         function datePickerCallback (start, end) {
             scope.onUpdate(start);
             //scope.$apply();
@@ -27,22 +22,23 @@ Mealpler.directive('datePicker', function () {
 
         function refreshDatePicker(date, isSingle) {
             targetInput.daterangepicker(
-                datePickerCtrl.setDatePickerSettings(date, isSingle), datePickerCallback
+                ctrl.setDatePickerSettings(date, isSingle), datePickerCallback
             );
         }
     };
 
     return {
-        restrict: 'C', //E
+        restrict: 'E', //E
         transclude: true,
         scope: {
             single: '=',
             name: '=',
             startDate: '=',
-            onUpdate: '='
+            onUpdate: '=',
+            endDate: '='
         },
         controller: 'DatePickerCtrl',
-        controllerAs: 'datePickerCtrl',
+        template: `'ddasdasd'`,
         link: link
     };
-});
+});*/

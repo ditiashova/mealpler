@@ -3,8 +3,7 @@
 class DashboardController {
     constructor ($rootScope, $scope, WeekService, StorageService, $timeout) {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
-        this.firstDate = this.WeekService.getWeekStart(moment());
-        this.lastDate = this.WeekService.getWeekEnd(moment(), this.weekDuration);
+
 
         this.$scope.$on(EventType.AUTH, (e) => this.init());
         this.$scope.$on(EventType.MEALS, (e) => this.refresh());
@@ -13,6 +12,10 @@ class DashboardController {
 
         this.weekDuration = 7;
         this.currentWeek = [];
+        this.targetDatePicker = 'datePicker';
+
+        this.firstDate = this.WeekService.getWeekStart(moment());
+        this.lastDate = this.WeekService.getWeekEnd(moment(), this.weekDuration);
 
         this.refresh = this._refreshDashboard.bind(this);
     }

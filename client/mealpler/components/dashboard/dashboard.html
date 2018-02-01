@@ -7,21 +7,13 @@
         <div class="col pr-0 pl-0">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="panel-title">
-                        Week Planner
-                        <span class="date-picker-box pull-right">
-                            <label>Choose a week:
-                                <input data-name="datePicker" id="datePicker" class="date-picker btn p-0" readonly
-                                       data-single="true" data-start-date="$ctrl.firstDate" data-on-update="$ctrl.refresh">
-                                <!-- <date-picker start-date="$ctrl.firstDate"> -->
-                            </label>
-                        </span>
-                    </div>
-                </div>
-                <div class="panel-subheading">
-                    <div class="week-switcher">
+                    <div class="week-switcher d-flex justify-content-center align-items-center">
                         <i class="fa fa-angle-double-left" ng-click="$ctrl.switchWeek('past')"></i>
-                        You are planning for: {{ $ctrl.weekStartDate | monthDay }} - {{ $ctrl.weekLastDate | monthDay }}
+
+                        <date-picker name="$ctrl.targetDatePicker" id="datePicker" class="badge badge-pill badge-switcher"
+                                     single="true" first-date="$ctrl.firstDate" last-date="$ctrl.lastDate" on-update="$ctrl.refresh">
+                        </date-picker>
+
                         <i class="fa fa-angle-double-right" ng-click="$ctrl.switchWeek('future')"></i>
                     </div>
                 </div>
