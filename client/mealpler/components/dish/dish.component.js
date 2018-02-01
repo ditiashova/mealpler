@@ -2,7 +2,7 @@ Mealpler.component('dishBlock', {
     bindings: {
         dish: '<',
         mealType: '<',
-        day: '<'
+        date: '<'
     },
     require: {},
     transclude: true,

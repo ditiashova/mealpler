@@ -5,7 +5,7 @@
 </div>
 
 <div ng-repeat="meal in $ctrl.day.meals | orderBy : 'type'">
-    <meal-manager meal="meal" day="$ctrl.day"  class="meal" ng-class="'meal-'+meal.type"></meal-manager>
+    <meal-manager meal="meal" date="$ctrl.day.date"  class="meal" ng-class="'meal-'+meal.type"></meal-manager>
 </div>
 
 <div class="day-control">

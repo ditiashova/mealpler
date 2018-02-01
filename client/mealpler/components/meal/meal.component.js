@@ -1,7 +1,7 @@
 Mealpler.component('mealManager', {
     bindings: {
         meal: '<',
-        day: '<'
+        date: '<'
     },
     require: {},
     transclude: true,

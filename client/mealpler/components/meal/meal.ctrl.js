@@ -24,11 +24,11 @@ class MealController {
         this.CopyService.copyFood('meal', content);
     }
 
-    openModalAddNewMeal(mealType, day) {
+    openModalAddNewMeal(mealType, date) {
         const templatePath = 'scripts/components/meal/add/add.tmpl.html';
 
         this.mealNo = +mealType;
-        this.date = day.date.format("YYYY-M-D");
+        this.date = date.format("YYYY-M-D");
         const newMealCtrl = ($scope, $uibModalInstance) => {
             this.modalInstance = $uibModalInstance;
         };
