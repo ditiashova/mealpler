@@ -4,6 +4,7 @@ class DashboardController {
     constructor ($rootScope, $scope, WeekService, StorageService, $timeout) {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
         this.firstDate = this.WeekService.getWeekStart(moment());
+        this.lastDate = this.WeekService.getWeekEnd(moment(), this.weekDuration);
 
         this.$scope.$on(EventType.AUTH, (e) => this.init());
         this.$scope.$on(EventType.MEALS, (e) => this.refresh());
@@ -13,30 +14,25 @@ class DashboardController {
         this.weekDuration = 7;
         this.currentWeek = [];
 
-        //this.refresh = this._refreshDashboard.bind(this);
+        this.refresh = this._refreshDashboard.bind(this);
     }
 
     init() {
-        this._setWeekStartAndWeekLastDates();
+        //this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
         //this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
     }
 
-    //todo does it work?
-    refresh() {
-        return this._refreshDashboard.bind(this);
-    }
-
     _refreshDashboard(date) {
         if (date) this.firstDate = this.WeekService.getWeekStart(moment(date));
-        this._setWeekStartAndWeekLastDates(date);
+        //this._setWeekStartAndWeekLastDates(date);
         return this._setCurrentWeek(date);
     }
 
-    _setWeekStartAndWeekLastDates(date = this.firstDate) {
+    /*_setWeekStartAndWeekLastDates(date = this.firstDate) {
         this.weekStartDate = this.WeekService.getWeekStart(date);
         this.weekLastDate = this.WeekService.getWeekEnd(date, this.weekDuration);
-    };
+    };*/
 
     _setCurrentWeek(start = this.firstDate) {
         return this.WeekService.findDateRangeMealList(start, this.weekDuration).then((response) => {
