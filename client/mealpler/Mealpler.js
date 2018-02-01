@@ -13,3 +13,18 @@ Mealpler
         PNotify.prototype.options.delay = 3000;
         PNotify.prototype.options.animate_speed = "slow";
     });
+
+Mealpler.config(function($stateProvider, $urlRouterProvider) {
+    const weekState = {
+        name: 'week',
+        url: '/',
+        templateUrl: 'scripts/components/main.tmpl.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
+    };
+
+    $stateProvider.state(weekState);
+    $urlRouterProvider.otherwise('/')
+
+    //$stateProvider.state(aboutState);
+});

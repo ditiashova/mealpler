@@ -7,6 +7,8 @@ class DashboardController {
 
         this.$scope.$on('userUpdated', (e) => this.init());
         this.$scope.$on('newMealsData', (e) => this.refresh());
+        this.$scope.$on('shoplistIsToggled', (e, state) => this.setIsShopListOpened(state));
+
 
         this.weekDuration = 7;
         this.currentWeek = [];
@@ -17,7 +19,7 @@ class DashboardController {
     init() {
         this._setWeekStartAndWeekLastDates();
         this._setCurrentWeek();
-        this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
+        //this.MainCtrl.addIsShopListOpenedHandler((state) => this.setIsShopListOpened(state));
     }
 
     //todo does it work?

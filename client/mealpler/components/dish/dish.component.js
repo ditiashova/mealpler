@@ -4,9 +4,7 @@ Mealpler.component('dishBlock', {
         mealType: '<',
         day: '<'
     },
-    require: {
-        MainCtrl: '^^mainBlock'
-    },
+    require: {},
     transclude: true,
     controller: 'DishCtrl',
     templateUrl: 'scripts/components/dish/dish.tmpl.html',

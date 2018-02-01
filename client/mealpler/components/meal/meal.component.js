@@ -3,9 +3,7 @@ Mealpler.component('mealManager', {
         meal: '<',
         day: '<'
     },
-    require: {
-        MainCtrl: '^^mainBlock'
-    },
+    require: {},
     transclude: true,
     controller: 'MealCtrl',
     templateUrl: 'scripts/components/meal/meal.tmpl.html',

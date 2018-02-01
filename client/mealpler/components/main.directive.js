@@ -1,3 +1,4 @@
+/*
 Mealpler.directive( 'mainBlock', function () {
     return {
         restrict: 'E',
@@ -6,4 +7,4 @@ Mealpler.directive( 'mainBlock', function () {
         controller: 'MainCtrl',
         controllerAs: 'main'
     };
-});
+});*/

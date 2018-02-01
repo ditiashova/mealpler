@@ -12,22 +12,16 @@ class MainController {
         this.isShopListOpened = false;
 
         this.$scope.$on('userUpdated', () => this.setUserProfileAndLoginStatus());
-
-        //this.UserService.addHandler(() => this.setUserProfileAndLoginStatus());
-
-    }
-
-    $onInit() {
+        this.$scope.$on('shoplistIsClosed', () => this.toggleShopListState());
 
     }
-
     setUserProfileAndLoginStatus() {
         this.userIsLogged = this.AuthService.isLogged();
         this.user = this.AuthService.getUser();
         this.$scope.$apply();
     }
 
-    addDatabaseHandlers(handler) {
+    /*addDatabaseHandlers(handler) {
         this.handlers.databaseHandlers.push(handler);
     }
 
@@ -36,7 +30,7 @@ class MainController {
         //!undefined -> true
         //if (!id)
             this.handlers.databaseHandlers.forEach((handler) => handler(response, date));
-    };
+    };*/
 
     /*createNewUserInDatabase(userData) {
         const newUser = {
@@ -55,18 +49,19 @@ class MainController {
 
     signOut() {
         this.AuthService.signOut().then(() => {
-            this.setUserProfileAndLoginStatus();
+            //this.setUserProfileAndLoginStatus();
         //this.userName = null;
         //this.userPhoto = null;
         //this.uid = false;
-            this.runDatabaseHandlers();
+            //this.runDatabaseHandlers();
         }).catch((e) => console.log('Sign out failed due to: ' + e.message));
 
     }
 
     toggleShopListState() {
         this.isShopListOpened = !this.isShopListOpened;
-        this.runIsShopListOpenedHandlers(this.isShopListOpened);
+        //this.runIsShopListOpenedHandlers(this.isShopListOpened);
+        this.$scope.$broadcast('shoplistIsToggled', this.isShopListOpened)
     }
 
     /**

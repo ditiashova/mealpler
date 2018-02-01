@@ -1,8 +1,6 @@
 Mealpler.component('dashboard', {
     bindings: {},
-    require: {
-        MainCtrl: '^^mainBlock'
-    },
+    require: {},
     transclude: true,
     controller: 'DashboardCtrl',
     templateUrl: 'scripts/components/dashboard/dashboard.html',

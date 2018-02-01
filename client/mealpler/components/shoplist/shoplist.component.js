@@ -2,12 +2,9 @@ Mealpler.component('shopList', {
     bindings: {
         week: '<'
     },
-    require: {
-        MainCtrl: '^^mainBlock',
-        //Dashboard: '^^dashboard'
-    },
+    require: {},
     transclude: true,
-    controller: function (WeekService, ShopListService, $timeout) {
+    controller: function ($scope, WeekService, ShopListService, $timeout) {
         this.title = Mealpler.titles.shopList;
         this.$onInit = () => {
             this.shoplist = ShopListService.extractAndSortProducts(this.week);
@@ -16,6 +13,10 @@ Mealpler.component('shopList', {
             //this.Dashboard.addShopListHandlers((date, duration) => this.init(date, duration));
 
             //this.init(this.startDate);
+            this.closeShopList = () => {
+                $scope.$emit('shoplistIsClosed');
+                //this.MainCtrl.toggleShopListState();
+            }
         };
 
         /*this.init = (start = this.startDate, duration = this.rangeDuration, data) => {
@@ -35,9 +36,7 @@ Mealpler.component('shopList', {
             }
         };*/
 
-        this.closeShopList = () => {
-            this.MainCtrl.toggleShopListState();
-        }
+
     },
     templateUrl: 'scripts/components/shoplist/shopList.tmpl.html',
 });

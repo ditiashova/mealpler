@@ -2,10 +2,7 @@ Mealpler.component('weekManager', {
     bindings: {
         week: '<'
     },
-    require: {
-        MainCtrl: '^^mainBlock',
-        Dashboard: '^^dashboard'
-    },
+    require: {},
     transclude: true,
     controller: function ($scope, MealService, WeekService, $timeout) {
         this.today = moment();

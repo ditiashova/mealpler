@@ -4,9 +4,7 @@ Mealpler.component('addFood', {
         mealNo: '<',
         modalInst: '<'
     },
-    require: {
-      MainCtrl: '^^mainBlock'
-    },
+    require: {},
     transclude: true,
     controller: 'AddMealCtrl',
     templateUrl: 'scripts/components/meal/add/add.modal.html',
