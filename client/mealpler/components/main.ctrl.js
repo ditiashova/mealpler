@@ -11,7 +11,7 @@ class MainController {
 
         this.isShopListOpened = false;
 
-        this.$scope.$on('userUpdated', () => this.setUserProfileAndLoginStatus());
+        this.$scope.$on('authUpdated', () => this.setUserProfileAndLoginStatus());
         this.$scope.$on('shoplistIsClosed', () => this.toggleShopListState());
 
     }

@@ -5,7 +5,7 @@ class DashboardController {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
         this.firstDate = this.WeekService.getWeekStart(moment());
 
-        this.$scope.$on('userUpdated', (e) => this.init());
+        this.$scope.$on('authUpdated', (e) => this.init());
         this.$scope.$on('newMealsData', (e) => this.refresh());
         this.$scope.$on('shoplistIsToggled', (e, state) => this.setIsShopListOpened(state));
 
