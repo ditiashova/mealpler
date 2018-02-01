@@ -7,7 +7,7 @@ class AuthService {
 
     init() {
         this.FirebaseAuth.$onAuthStateChanged((user) => {
-            this._setIsLogged(!!user);
+            this._setUserIsLogged(!!user);
             if (user) {
                 // User is signed in.
                 this.FirebaseData.getUserProfile(user.uid)
@@ -34,7 +34,7 @@ class AuthService {
     }
 
     isLogged() {
-        return this.isLogged;
+        return this.userIsLogged;
     }
 
     getUser() {
@@ -58,8 +58,8 @@ class AuthService {
         this.$rootScope.$broadcast(EventType.AUTH);
     }
 
-    _setIsLogged(status) {
-        this.isLogged = status;
+    _setUserIsLogged(status) {
+        this.userIsLogged = status;
     }
 }
 
