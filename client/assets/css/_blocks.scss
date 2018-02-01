@@ -232,13 +232,20 @@ div[class*="notify-"] {
   background-color: $light-gray;
 }
 
-.user-photo {
-  height: 32px;
-  width: 32px;
-  background-size: 32px;
-  background-position: center;
-  border-radius: 50%;
+.navbar {
+  .user-photo {
+    height: 32px;
+    width: 32px;
+    background-size: 32px;
+    background-position: center;
+    border-radius: 50%;
+  }
+  .motto {
+    font-family: 'Dancing Script', cursive;
+    font-size: 16px;
+  }
 }
+
 
 .week-switcher {
   i {
