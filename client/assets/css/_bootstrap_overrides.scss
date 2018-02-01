@@ -8,17 +8,26 @@
 
 .navbar {
   min-height: 32px !important;
+  background-color: $nephritis;
+  border-radius: 0 !important;
   .navbar-brand {
     height: auto !important;
-    color: #333333 !important;
+    color: #FFFFFF !important;
     font-size: 14px;
     padding: 5px;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 10px;
+      border-radius: 50%;
+    }
   }
 }
 
 .navbar-nav > li > a {
-  padding: 5px 10px !important;
+  padding: 7px 10px !important;
   height: auto !important;
+  color: #FFFFFF !important;
 }
 
 .panel-default > .panel-heading .badge {
@@ -65,9 +74,8 @@ i.fa-plus {
   box-shadow: none;
   .panel-heading {
     border-radius: 0;
-    background-color: $nephritis;
+    background-color: $light-gray;
     padding: 15px;
-    color: white;
     border: none;
   }
   .panel-body {
