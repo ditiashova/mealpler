@@ -230,10 +230,22 @@ div[class*="notify-"] {
   padding: 8px;
   font-size: 12px;
   background-color: $light-gray;
-  .week-switcher {
-    i {
-      padding: 0 5px;
-    }
+}
+
+.user-photo {
+  height: 32px;
+  width: 32px;
+  background-size: 32px;
+  background-position: center;
+  border-radius: 50%;
+}
+
+.week-switcher {
+  i {
+    padding: 0 5px;
+  }
+  .badge-switcher {
+    padding: 6px 10px;
   }
 }
 

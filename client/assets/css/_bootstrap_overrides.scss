@@ -6,6 +6,27 @@
   background-color: #1E824C !important;
 }
 
+.navbar {
+  min-height: 32px !important;
+  .navbar-brand {
+    height: auto !important;
+    color: #333333 !important;
+    font-size: 14px;
+    padding: 5px;
+  }
+}
+
+.navbar-nav > li > a {
+  padding: 5px 10px !important;
+  height: auto !important;
+}
+
+.panel-default > .panel-heading .badge {
+  font-weight: 300;
+  color: $switcher-color;
+  background-color: $switcher-background;
+}
+
 small {
   font-size: 70%;
   color: grey;
