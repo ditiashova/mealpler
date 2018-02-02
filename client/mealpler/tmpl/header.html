@@ -11,14 +11,14 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto pull-right">
-            <li class="nav-item" id="login-link" ng-if="!main.userIsLogged">
-                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#authModal">
-                    Login
-                </a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link shoplist-icon" href="javascript:void(0);" ng-click="main.toggleShopList(true)">
                     <i class="fa fa-shopping-cart" style="font-size: 14px;"></i>
+                </a>
+            </li>
+            <li class="nav-item" id="login-link" ng-if="!main.userIsLogged">
+                <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#authModal">
+                    Login
                 </a>
             </li>
             <li class="nav-item" ng-if="main.userIsLogged">
