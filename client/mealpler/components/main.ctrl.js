@@ -38,12 +38,12 @@ class MainController {
     }
 
     switchWeek(trend) {
-        this._setFirstDay(trend);
+        this._setFirstAndLastDays(trend);
         this._refreshDashboard();
         this.$scope.$broadcast(EventType.WEEKSTART, this.firstDate);
     }
 
-    _setFirstDay(trend, date) {
+    _setFirstAndLastDays(trend, date) {
         if (trend) {
             if (trend === 'past') {
                 this.firstDate = moment(this.firstDate).subtract(1, 'day').startOf('week');
@@ -53,6 +53,7 @@ class MainController {
         } else if (date) {
             this.firstDate = moment(date);
         }
+        this.lastDate = this.WeekService.getWeekEnd(this.firstDate, WEEK_DURATION);
     }
 
     setUserProfileAndLoginStatus() {
