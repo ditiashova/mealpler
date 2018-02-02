@@ -1,14 +1,14 @@
 .sidebar {
-  display: none;
-  height: 100%;
-  width: 25%;
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  background-color: white;
-  overflow-x: hidden;
-  padding: 0;
+  .modal-dialog {
+    position: fixed;
+    margin: 0;
+    height: 100%;
+    left: 0;
+    top: 0;
+    .modal-content {
+      height: 100%;
+    }
+  }
   .panel-heading {
     border-bottom: 0;
     display: flex;
@@ -25,11 +25,6 @@
 .daterangepicker.dropdown-menu {
   z-index: 9999;
 }
-
-.sidebar.open {
-  display: block;
-}
-
 
 .date-picker-box {
   color: white;
@@ -244,6 +239,20 @@ div[class*="notify-"] {
     font-family: 'Dancing Script', cursive;
     font-size: 16px;
   }
+  li.nav-item {
+    margin-right: 15px;
+  }
+  .shoplist-icon {
+    background-color: white;
+    border-radius: 50%;
+    width: 100%;
+    i {
+      color: #333;
+    }
+  }
+  .shoplist-icon, .user-photo, .logo-image {
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  }
 }
 
 
@@ -252,7 +261,10 @@ div[class*="notify-"] {
     padding: 0 5px;
   }
   .badge-switcher {
+    border-radius: 15px;
     padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
