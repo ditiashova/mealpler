@@ -1,7 +1,7 @@
 Mealpler.
     filter('monthDay', () => {
         return date => {
-            if (date) return date.format("MMMM Do");
+            if (date) return date.format("MMM Do");
         }
     }).
     filter('fullDate', () => {
