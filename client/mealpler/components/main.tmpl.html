@@ -1,4 +1,35 @@
 <header ng-include="'scripts/tmpl/header.html'"></header>
-<dashboard></dashboard>
-<footer ng-include="'scripts/tmpl/footer.html'"></footer>
+<div class="container-fluid">
+    <div class="row">
+        <div class="sidebar">
+            <shop-list week="main.currentWeek" on-close-shoplist="main.toggleShopList" opened="main.isShopListOpened"></shop-list>
+            <div class="modal-parent2"></div>
+        </div>
 
+        <div class="col pr-0 pl-0">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="week-switcher d-flex justify-content-between align-items-center">
+                        <i class="fa fa-arrow-circle-left" ng-click="main.switchWeek('past')"></i>
+                        <div>
+                            You are planning for:
+                            <date-picker name="main.targetDatePicker" id="datePicker" class="badge badge-switcher"
+                                         single="true" first-date="main.firstDate" last-date="main.lastDate" on-update="main.refresh">
+                            </date-picker>
+                        </div>
+                        <i class="fa fa-arrow-circle-right" ng-click="main.switchWeek('future')"></i>
+
+                    </div>
+                </div>
+                <div class="panel-body" ng-if="main.currentWeek">
+                    <week-manager class="row week-planner" week="main.currentWeek"></week-manager>
+                </div>
+            </div>
+            <div ng-if="!main.currentWeek">
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
+<footer ng-include="'scripts/tmpl/footer.html'"></footer>

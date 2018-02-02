@@ -1,13 +1,11 @@
-//const WEEK_DURATION
-
 class DashboardController {
     constructor ($rootScope, $scope, WeekService, StorageService, $timeout) {
         Object.assign(this, {$rootScope, $scope, WeekService, StorageService, $timeout});
 
 
-        this.$scope.$on(EventType.AUTH, (e) => this.init());
-        this.$scope.$on(EventType.MEALS, (e) => this.refresh());
-        this.$scope.$on(EventType.SHOPLIST_TOGGLED, (e, state) => this.setIsShopListOpened(state));
+        //this.$scope.$on(EventType.AUTH, (e) => this.init());
+        //this.$scope.$on(EventType.MEALS, (e) => this.refresh());
+        //this.$scope.$on(EventType.SHOPLIST_TOGGLED, (e, state) => this.setIsShopListOpened(state));
 
 
         this.weekDuration = 7;
@@ -17,7 +15,7 @@ class DashboardController {
         this.firstDate = this.WeekService.getWeekStart(moment());
         this.lastDate = this.WeekService.getWeekEnd(moment(), this.weekDuration);
 
-        this.refresh = this._refreshDashboard.bind(this);
+        //this.refresh = this._refreshDashboard.bind(this);
     }
 
     init() {
