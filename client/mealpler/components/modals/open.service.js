@@ -3,8 +3,8 @@ class OpenModalService {
         Object.assign(this, {$uibModal});
     }
 
-    open(template, appendTo, scope, controller) {
-        this.$uibModal.open({
+    open(template, appendTo, scope, controller, passBack) {
+        return this.$uibModal.open({
             appendTo: appendTo,
             templateUrl: template,
             scope: scope,
@@ -15,6 +15,9 @@ class OpenModalService {
         }, function(e) {
             //Error
             if (!(e === 'cancel' || e === 'escape key press' || e === 'backdrop click' || e === '$uibUnscheduledDestruction')) {
+                throw e;
+            }
+            if (passBack) {
                 throw e;
             }
         });

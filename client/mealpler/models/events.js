@@ -3,5 +3,6 @@ const EventType = {
     MEALS: 'newMealsData',
     SHOPLIST_TOGGLED: 'shoplistIsToggled',
     SHOPLIST_CLOSED: 'shoplistIsClosed',
-    WEEKSTART: 'newFirstDate'
+    WEEKSTART: 'newFirstDate',
+    SHOPLIST_OPENED: 'shoplistOpened'
 };

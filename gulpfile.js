@@ -52,6 +52,7 @@ gulp.task('concatVendorCss', () => {
     'node_modules/firebaseui/dist/firebaseui.css',
     'node_modules/bootstrap/dist/css/bootstrap.css',
     'node_modules/bootstrap-daterangepicker/daterangepicker.css',
+    'node_modules/angular-material/angular-material.css',
     'node_modules/pnotify/dist/pnotify.css'
   ])
     .pipe(concat('vendor.css'))
