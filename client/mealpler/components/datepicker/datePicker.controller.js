@@ -12,7 +12,7 @@ class DatePickerController {
         this.refreshDatePicker(this.startDate, this.single);
 
         this.$scope.$on(EventType.WEEKSTART, (e, date) => {
-            this.refreshDatePicker(date, attrs.single);
+            this.refreshDatePicker(date, this.single);
         });
 
         /**
