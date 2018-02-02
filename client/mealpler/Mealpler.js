@@ -24,7 +24,5 @@ Mealpler.config(function($stateProvider, $urlRouterProvider) {
     };
 
     $stateProvider.state(weekState);
-    $urlRouterProvider.otherwise('/')
-
-    //$stateProvider.state(aboutState);
+    $urlRouterProvider.otherwise('/');
 });
