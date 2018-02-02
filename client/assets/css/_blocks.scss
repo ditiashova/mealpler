@@ -240,7 +240,7 @@ div[class*="notify-"] {
     font-size: 16px;
   }
   li.nav-item {
-    margin-right: 15px;
+    margin-left: 15px;
   }
   .shoplist-icon {
     background-color: white;
@@ -251,20 +251,27 @@ div[class*="notify-"] {
     }
   }
   .shoplist-icon, .user-photo, .logo-image {
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    //box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
 
 .week-switcher {
+  font-size: 12px;
   i {
-    padding: 0 5px;
+    //padding: 0 5px;
+    color: #888;
+    font-size: 20px;
+    line-height: 12px;
+  }
+  i.fa-calendar {
+    font-size: 12px;
   }
   .badge-switcher {
     border-radius: 15px;
-    padding: 6px 10px;
+    padding: 4px 10px;
     cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    //box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
