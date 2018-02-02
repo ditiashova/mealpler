@@ -12,7 +12,7 @@ class MainController {
         this.isShopListOpened = false;
 
         this.$scope.$on(EventType.AUTH, () => this.setUserProfileAndLoginStatus());
-        this.$scope.$on(EventType.SHOPLIST_CLOSED, () => this.toggleShopListState());
+        this.$scope.$on(EventType.SHOPLIST_CLOSED, () => this.isShopListOpened = false);
 
     }
     setUserProfileAndLoginStatus() {
@@ -62,6 +62,11 @@ class MainController {
         this.isShopListOpened = !this.isShopListOpened;
         //this.runIsShopListOpenedHandlers(this.isShopListOpened);
         this.$scope.$broadcast(EventType.SHOPLIST_TOGGLED, this.isShopListOpened)
+    }
+
+    openShopList() {
+        this.isShopListOpened = true;
+        this.$scope.$broadcast(EventType.SHOPLIST_TOGGLED, true);
     }
 
     /**

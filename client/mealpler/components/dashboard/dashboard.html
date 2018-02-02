@@ -1,20 +1,23 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="sidebar" ng-class="{'open': $ctrl.isShopListOpened}">
-            <shop-list week="$ctrl.currentWeek"></shop-list> <!--range-duration="dashboardCtrl.rangeDuration" start-date="dashboardCtrl.startDate"-->
+        <div class="sidebar">
+            <shop-list week="$ctrl.currentWeek"></shop-list>
+            <div class="modal-parent2"></div><!--range-duration="dashboardCtrl.rangeDuration" start-date="dashboardCtrl.startDate"-->
         </div>
 
         <div class="col pr-0 pl-0">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="week-switcher d-flex justify-content-center align-items-center">
-                        <i class="fa fa-angle-double-left" ng-click="$ctrl.switchWeek('past')"></i>
+                        <div class="badge badge-switcher">
+                        <i class="fa fa-chevron-left" ng-click="$ctrl.switchWeek('past')"></i>
 
-                        <date-picker name="$ctrl.targetDatePicker" id="datePicker" class="badge badge-pill badge-switcher"
+                        <date-picker name="$ctrl.targetDatePicker" id="datePicker"
                                      single="true" first-date="$ctrl.firstDate" last-date="$ctrl.lastDate" on-update="$ctrl.refresh">
                         </date-picker>
 
-                        <i class="fa fa-angle-double-right" ng-click="$ctrl.switchWeek('future')"></i>
+                        <i class="fa fa-chevron-right" ng-click="$ctrl.switchWeek('future')"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body" ng-if="$ctrl.currentWeek">
