@@ -6,7 +6,7 @@ class PasteService {
     /**
      *
      * @param {number} mealNo
-     * @param {Moment} date
+     * @param {string} date
      * @return {Promise<void>}
      */
     pasteMeal(mealNo, date) {
