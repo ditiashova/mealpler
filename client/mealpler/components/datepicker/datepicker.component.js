@@ -9,5 +9,5 @@ Mealpler.component('datePicker', {
     require: {},
     transclude: true,
     controller: 'DatePickerCtrl',
-    template: `{{ctrl}} {{ $ctrl.firstDate | monthDay }} - {{ $ctrl.lastDate | monthDay }}`
+    template: `<i class="fa fa-calendar"></i>{{ctrl}} {{ $ctrl.firstDate | monthDay }}th - {{ $ctrl.lastDate | monthDay }}th`
 });
