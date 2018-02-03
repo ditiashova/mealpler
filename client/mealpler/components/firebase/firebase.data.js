@@ -1,56 +1,46 @@
 class FirebaseData {
-    constructor (LocalStorageData) {
-        Object.assign(this, {LocalStorageData});
-    }
+    constructor () {}
 
+    /** @return Promise<void> */
     getUserProfile(id) {
         return firebase.database().ref(`users/${id}`).once("value", (snapshot) => snapshot, (errorObject) => {
             console.log("The read failed: " + errorObject.code);
         });
     }
 
+    /** @return Promise<void> */
     getAllMeals(id) {
         return firebase.database().ref(`users/${id}/food`).once('value').then(data => data.val());
     }
 
+    /** @return Promise<void> */
     getSingleDateMeals(id, date) {
         return firebase.database().ref(`users/${id}/food/${date}`).once('value').then((data) => data.val());
     }
 
+    /** @return Promise<void> */
     setSingleDateMeals(id, date, data) {
         return firebase.database().ref(`users/${id}/food/${date}`).set(data);
     }
 
+    /** @return Promise<void> */
     removeDate(id, date) {
         return firebase.database().ref(`users/${id}/food/${date}`).remove();
     }
 
-    /*subscribeToUpdates(id) {
-        return firebase.database().ref(`users/${id}/food`).on("value", (data) => data.val(), (errorObject) => {
-            console.log("The read failed: " + errorObject.code);
-        })
-    }*/
-
+    /** @return Promise<void> */
     registerNewUserInDatabase(user, localData) {
         const newUser = new User(user.uid, user.email, user.displayName, user.photoURL);
-        //const localStoredData = this.LocalStorageData.getLocalStorageData("Mealpler");
 
         if (localData) newUser.food = angular.copy(localData);
 
         return this._setNewFirebaseUserData(newUser, user.uid);
-            //.then(() => this.LocalStorageData.removeLocalStorageData("Mealpler"))
-            //.catch(console.log);
     }
 
     /** @return Promise<void> */
     _setNewFirebaseUserData(data, id) {
         return firebase.database().ref(`users/${id}`).set(data);
     }
-
-    removeFirebaseEvents(id) {
-        return firebase.database().ref(`users/${id}/food`).off("value");
-    }
-
 
 }
 
