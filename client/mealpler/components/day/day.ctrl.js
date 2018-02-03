@@ -8,17 +8,13 @@ class DayCtrl {
     }
 
     pasteDay(date) {
-        //const userId = this.MainCtrl.uid;
         this.PasteService.pasteDay(date)
-            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('Menu has been pasted successfully.', 'add'))
             .catch((e) => console.log('Pasting menu failed due to: ' + e.message));
     }
 
     deleteDay(date) {
-        //const userId = this.MainCtrl.uid;
         this.StorageService.removeSingleDateMealsList(date)
-            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('Day has been cleaned.', 'delete'))
             .catch((e) => console.log('Deleting day failed due to: ' + e.message));
     }

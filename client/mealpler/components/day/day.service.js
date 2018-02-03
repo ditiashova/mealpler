@@ -19,6 +19,7 @@ class DayService {
         });
     }
 
+    /** @return Promise<void> */
     deleteMealFromDay(mealNo, date) {
         const fullDateName = moment(date).format("YYYY-M-D");
         return this.StorageService.getSingleDateMealsList(fullDateName).then((response) => {
