@@ -2,10 +2,10 @@ class ShopListService {
     constructor() {}
 
     extractAndSortProducts(list) {
-        return this.sortProducts(this.extractProducts(list));
+        return this._sortProducts(this._extractProducts(list));
     }
 
-    extractProducts(list) {
+    _extractProducts(list) {
         const extracted = [];
 
         list.map(ingestion => ingestion.meals.map(meal => {
@@ -27,7 +27,7 @@ class ShopListService {
         return extracted;
     }
 
-    sortProducts(list) {
+    _sortProducts(list) {
         const sorted = [];
 
         list.forEach((a) => {
