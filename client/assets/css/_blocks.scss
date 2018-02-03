@@ -1,5 +1,6 @@
 .sidebar {
   .modal-dialog {
+    width: 300px;
     position: fixed;
     margin: 0;
     height: 100%;
@@ -13,6 +14,7 @@
     border-bottom: 0;
     display: flex;
     justify-content: space-between;
+    padding: 15px;
   }
   .shop-item {
     margin-bottom: 5px;
