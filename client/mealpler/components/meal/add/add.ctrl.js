@@ -18,10 +18,8 @@ class AddMealController  {
     };
 
     saveNew(type, newItems) {
-        //const userId = this.MainCtrl.uid;
         this.DayService.updateDayInfo(newItems, this.date, type, this.mealNo)
             .then(() => this.modalInst.close())
-            //.then(() => this.MainCtrl.runDatabaseHandlers(userId))
             .then(() => this.NotifyService.show('New food has been added.', 'add'))
             .catch((e) => console.log('Saving new meal failed due to: '+ e.message));
     };
