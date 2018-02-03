@@ -8,9 +8,9 @@ class IngredientService {
         const fullDateName = moment(date).format("YYYY-M-D");
 
         return this.StorageService.getSingleDateMealsList(fullDateName).then((response) => {
-            const currentRecipe = response.meals
-                .find(meal => meal.type === mealNo).dishes
-                .find(dish => dish.name === recipeName && dish.components && dish.components.length > 0);
+            const currentRecipe = response
+                .meals.find(meal => meal.type === mealNo)
+                .dishes.find(dish => dish.name === recipeName && dish.components && dish.components.length > 0);
             const i = _.findIndex(currentRecipe.components, ingredient => ingredient.name === item.name);
             currentRecipe.components.splice(i, 1);
 
