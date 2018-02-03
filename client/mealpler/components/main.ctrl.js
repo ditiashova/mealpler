@@ -5,6 +5,7 @@ class MainController {
         Object.assign(this, {$scope, AuthService, WeekService, StorageService, $timeout});
         this.title = Mealpler.titles;
         this.isShopListOpened = false;
+        this.isNewItemsAdded = false;
 
         this.$scope.$on(EventType.AUTH, (e) => this.init());
         this.$scope.$on(EventType.MEALS, (e) => this.refresh());
@@ -34,6 +35,7 @@ class MainController {
 
     _refreshDashboard(date) {
         if (date) this.firstDate = this.WeekService.getWeekStart(moment(date));
+        this._setIsNewItemsAdded(true);
         return this._setCurrentWeek(date);
     }
 
@@ -70,14 +72,20 @@ class MainController {
 
     _toggleShopList(state) {
         if (typeof state != undefined) {
-            this.setIsShopListOpened(state);
+            this._setIsShopListOpened(state);
+            this._setIsNewItemsAdded(state);
         } else {
-            this.setIsShopListOpened(!this.isShoplistOpened);
+            this._setIsShopListOpened(!this.isShoplistOpened);
+            this._setIsNewItemsAdded(!this.isNewItemsAdded);
         }
     }
 
-    setIsShopListOpened(state) {
+    _setIsShopListOpened(state) {
         this.isShopListOpened = state;
+    }
+
+    _setIsNewItemsAdded(state) {
+        this.isNewItemsAdded = state;
     }
 }
 
