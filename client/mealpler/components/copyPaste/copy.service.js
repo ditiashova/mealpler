@@ -1,6 +1,6 @@
 class CopyService {
-    constructor (StorageService, NotifyService, LocalStorageData) {
-        Object.assign(this, {StorageService, NotifyService, LocalStorageData});
+    constructor (NotifyService, LocalStorageData) {
+        Object.assign(this, {NotifyService, LocalStorageData});
     }
 
     /**
@@ -10,22 +10,22 @@ class CopyService {
      */
     copyFood(name, content) {
         if (name === 'day') {
-            if (this.checkIfEmptyContent(content)) {
-                this.proceedCopy(name, content);
+            if (this._checkIfEmptyContent(content)) {
+                this._proceedCopy(name, content);
             } else {
                 this.NotifyService.show('Nothing to copy.', 'error');
             }
         } else {
-            this.proceedCopy(name, content);
+            this._proceedCopy(name, content);
         }
     }
 
-    proceedCopy(name, content) {
+    _proceedCopy(name, content) {
         this.LocalStorageData.setDataToLocalStorage(name, content);
         this.NotifyService.show('Food has been copied successfully.', 'copy');
     }
 
-    checkIfEmptyContent(content) {
+    _checkIfEmptyContent(content) {
         let i = 0;
         content.forEach(meal => {
             if (meal.dishes && meal.dishes.length > 0) i++
