@@ -1,27 +1,34 @@
 class ShoplistCtrl {
-    constructor(ShopListService, $timeout, WeekService) {
-        Object.assign(this, {ShopListService, $timeout, WeekService});
-
+    constructor($scope, WeekService, ShopListService, openModal, $document) {
+        Object.assign(this, {$scope, WeekService, ShopListService, openModal, $document});
         this.title = Mealpler.titles.shopList;
-        this.rangeStart = moment().startOf('week');
-        this.rangeLength = 7;
+        this.parentDivForMealModals = angular.element($document[0].querySelector('.modal-parent2'));
     }
 
-    init(start = this.rangeStart, duration = this.rangeLength, userId, data) {
-        if ((data || data === null) && !userId) {
-            //data could be null if there is no data for user, but undefined data means no data from database
-            const storedItems = this.WeekService.organizeDataForWeek(start, duration, data);
-            this.$timeout(() => {
-                return Promise.resolve(this.componentsList = this.ShopListService.extractAndSortProducts(storedItems));
-            });
-        } else {
-            return this.WeekService.findDateRangeMealList(start, duration).then((response) => {
-                const storedItems = angular.copy(response);
-                this.$timeout(() => {
-                    this.componentsList = this.ShopListService.extractAndSortProducts(storedItems);
-                })
-            });
+    $onChanges() {
+        this.shoplist = this.ShopListService.extractAndSortProducts(this.week);
+        if (this.opened) {
+            this.openSidebar();
         }
+    }
+
+    openSidebar() {
+        const templatePath = 'scripts/components/shoplist/shopList.tmpl.html';
+        const sidebarCtrl = ($scope, $uibModalInstance) => {
+            this.modalInstance = $uibModalInstance;
+        };
+
+        this.openModal.open(templatePath, this.parentDivForMealModals, this.$scope, sidebarCtrl, true)
+            .catch((e) => {
+                if (e === 'cancel' || e === 'escape key press' || e === 'backdrop click' || e === '$uibUnscheduledDestruction') {
+                    this.onCloseShoplist(false);
+                } else console.log(e);
+            });
+    }
+
+    closeShopList() {
+        this.modalInstance.dismiss('cancel');
+        this.onCloseShoplist(false);
     }
 }
 
