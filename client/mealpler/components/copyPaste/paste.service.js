@@ -1,6 +1,6 @@
 class PasteService {
-    constructor (DayService, StorageService, NotifyService, LocalStorageData) {
-        Object.assign(this, {DayService, StorageService, NotifyService, LocalStorageData});
+    constructor (DayService, NotifyService, LocalStorageData) {
+        Object.assign(this, {DayService, NotifyService, LocalStorageData});
     }
 
     /**
@@ -12,7 +12,7 @@ class PasteService {
     pasteMeal(mealNo, date) {
         const stored = this.LocalStorageData.getLocalStorageData('meal');
         if (stored === null) {
-            return this.showPasteError();
+            return this._showPasteError();
         } else {
             return this.DayService.updateDayInfo(stored, date, 'stored', mealNo);
         }
@@ -26,7 +26,7 @@ class PasteService {
     pasteDay(date) {
         const stored = this.LocalStorageData.getLocalStorageData("day");
         if (stored === null) {
-            return this.showPasteError();
+            return this._showPasteError();
         } else {
             const fullDateName = date.format("YYYY-M-D");
             const dayNewContent = new Day(date);
@@ -39,7 +39,7 @@ class PasteService {
      *
      * @return {Promise<void>}
      */
-    showPasteError() {
+    _showPasteError() {
         this.NotifyService.show('Nothing to paste. Copy something.', 'error');
         return Promise.reject(new Error('PasteError: Nothing to paste!'));
     }
